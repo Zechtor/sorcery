@@ -1,4 +1,7 @@
-import React from 'react';
-import App from './App';
+window.React = require('react');
+var App = require('./components/app');
 
-React.render(<App />, document.getElementById('root'));
+// this is the application entry point for our react components
+React.render(
+    <App />, document.getElementById('root')
+);
