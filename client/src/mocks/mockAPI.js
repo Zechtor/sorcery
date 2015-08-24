@@ -9,6 +9,6 @@ var testData = require('./data/test');
 
 module.exports = {
     getTestData: function() {
-        return JSON.parse(testData);
+        return testData;
     }
 }
