@@ -1,6 +1,5 @@
 var React = require('react');
 var Counter = require('./counter');
-var DataTest = require('./dataTest');
 
 var App = React.createClass({
     render : function() {
@@ -8,7 +7,6 @@ var App = React.createClass({
             <div>
                 This is Sorcery.
                 <Counter />
-                <DataTest />
             </div>
         );
     }

@@ -5,10 +5,10 @@
  * Currently, the mock API only supports API happy paths
  */
 
-var testData = require('./data/test');
+var counterData = require('./data/counter');
 
 module.exports = {
-    getTestData: function() {
-        return testData;
+    getCounter: function() {
+        return counterData;
     }
 }
