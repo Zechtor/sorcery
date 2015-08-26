@@ -1,13 +1,12 @@
-var React = require('react');
+var CounterService = require('../services/counterService');
 
 // component class
 var Counter = React.createClass({
     
     // setting the state of a component
     getInitialState: function() {
-        return {
-            count: 0
-        }
+        CounterService.get();
+        return CounterService;
     },
 
     // setting methods of a component
