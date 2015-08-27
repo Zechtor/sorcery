@@ -1,6 +1,10 @@
 var path = require('path');
 var webpack = require('webpack');
 
+// stylus
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var stylusLoader = ExtractTextPlugin.extract("style-loader", "css-loader!stylus-loader");
+
 module.exports = {
   devtool: 'eval',
   entry: [
@@ -10,21 +14,26 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'sorcery.js',
     publicPath: '/static/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin("sorcery.css")
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.styl']
   },
   module: {
     loaders: [{
       test: /\.jsx?$/,
       loaders: ['react-hot', 'babel'],
       include: path.join(__dirname, 'src')
+    },
+    { 
+      test: /\.styl$/, 
+      loader: stylusLoader
     }]
   }
 };
