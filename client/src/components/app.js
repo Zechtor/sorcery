@@ -1,13 +1,12 @@
 var React = require('react');
 var Counter = require('./counter');
+var Tweets = require('./tweets');
+var Layout = require('./layout');
 
 var App = React.createClass({
     render : function() {
         return (
-            <div>
-                This is Sorcery.
-                <Counter />
-            </div>
+        	<Layout />
         );
     }
 });
