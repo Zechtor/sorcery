@@ -14,8 +14,8 @@ var Layout = React.createClass({
                     <Schedule />
                 </section>
                 <section className="center">
-                    <News />
                     <LastGame />
+                    <News />
                 </section>
                 <section className="right">
                     <Tweets />

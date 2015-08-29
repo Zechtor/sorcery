@@ -1,5 +1,6 @@
 $navHeight = 50px;
 $colWidth = 300px;
+$borderStyle = 1px solid black;
 
 .layout {
     height: 100%;
@@ -7,7 +8,7 @@ $colWidth = 300px;
 
     // layout sections
     section.nav {
-        border-bottom: 1px solid black;
+        border-bottom: $borderStyle;
         height: $navHeight;
         position: absolute;
         top: 0px;
@@ -19,18 +20,18 @@ $colWidth = 300px;
         padding-top: $navHeight;
         margin: 0px $colWidth;
 
-        section.news {
-            border-bottom: 1px solid black;
+        section.lastgame {
+            border-bottom: $borderStyle;
         }
     }
 
     section.left {
-        border-right: 1px solid black;
+        border-right: $borderStyle;
         left: 0px;
     }
 
     section.right {
-        border-left: 1px solid black;
+        border-left: $borderStyle;
         right: 0px;
     }
 
