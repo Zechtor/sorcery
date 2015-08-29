@@ -1,0 +1,63 @@
+$navHeight = 50px;
+$colWidth = 300px;
+
+.layout {
+    height: 100%;
+    width: 100%;
+
+    // layout sections
+    section.nav {
+        border-bottom: 1px solid black;
+        height: $navHeight;
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        z-index: 2;
+    }
+
+    section.center {
+        padding-top: $navHeight;
+        margin: 0px $colWidth;
+
+        section.news {
+            border-bottom: 1px solid black;
+        }
+    }
+
+    section.left {
+        border-right: 1px solid black;
+        left: 0px;
+    }
+
+    section.right {
+        border-left: 1px solid black;
+        right: 0px;
+    }
+
+    section.left, section.right {
+        position: absolute;
+        top: $navHeight;
+        width: $colWidth;
+    }
+
+    section.left, section.right, section.center {
+        height: calc(100% - 50px);
+    }
+
+    // content sections
+    section.lastGame {
+        height: calc(50% - 1px);
+    }
+
+    section.news {
+        height: 50%;
+    }
+
+    section.schedule {
+        height: 100%;
+    }
+
+    section.tweets {
+        height: 100%;
+    }
+}
