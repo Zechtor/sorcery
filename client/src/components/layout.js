@@ -1,20 +1,28 @@
-var Tweets = require('./tweets');
+var LastGame = require('./lastgame');
 var Nav = require('./nav');
+var News = require('./news');
+var Schedule = require('./schedule');
+var Tweets = require('./tweets');
 
-// component class
 var Layout = React.createClass({
     
-    // render what the component looks like
     render : function() {
         return (
-            <div>
+            <div className="layout">
                 <Nav />
-                This is Sorcery
-                <Tweets />
+                <section className="left">
+                    <Schedule />
+                </section>
+                <section className="center">
+                    <LastGame />
+                    <News />
+                </section>
+                <section className="right">
+                    <Tweets />
+                </section>
             </div>
         );
     }
 });
 
-// returns the component so other components can use it via require()
 module.exports = Layout;
