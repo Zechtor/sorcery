@@ -3,4 +3,15 @@ Might
 
 A flask server for Sorcery
 
-Currently this part of the project is empty
+This server runs on `localhost:5000`
+
+To Install:
+
+```
+sudo pip install -r requirements.txt
+```
+
+
+To Run:
+
+`python server.py`
