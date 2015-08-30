@@ -6,13 +6,11 @@ Might provides an API to power the Sorcery project. Some data sources, like twit
 
 #### Schedule Resources
 
-- **[<code>GET</code> schedule](#get:-schedule)**
+- **[<code>GET</code> schedule](#get-schedule)**
 
 ## Definitions
 
-### GET: Schedule
-
-    GET schedule
+### GET Schedule
 
 #### Description
 Returns the entire schedule for the current season
