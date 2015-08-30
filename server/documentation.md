@@ -6,7 +6,7 @@ Might provides an API to power the Sorcery project. Some data sources, like twit
 
 #### Schedule Resources
 
-- **[<code>GET</code>] schedule](#getSchedule)
+- **[<code>GET</code>] schedule](#get:-schedule)**
 
 ## Definitions
 
