@@ -2,7 +2,7 @@
  * Roughly based on the clutch python library: request
  */
 
- var $ = require('jquery');
+var $ = require('jquery');
 
 var Request = {
     baseUri = 'api.sorcery.com',

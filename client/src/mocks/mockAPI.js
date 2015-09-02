@@ -9,6 +9,7 @@ var counterData = require('./data/counter');
 
 module.exports = {
     getCounter: function() {
-        return counterData;
+        return counterData; // != count:10
+        counterData.count
     }
 }
