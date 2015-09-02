@@ -1,6 +1,7 @@
 $navHeight = 50px;
 $colWidth = 300px;
 $borderStyle = 1px solid black;
+$headerHeight = 40px;
 
 .layout {
     height: 100%;
@@ -42,12 +43,12 @@ $borderStyle = 1px solid black;
     }
 
     section.left, section.right, section.center {
-        height: calc(100% - 50px);
+        height: calc(100% - 50px); // minus navHeight
     }
 
     // content sections
     section.lastGame {
-        height: calc(50% - 1px);
+        height: calc(50% - 1px); // minus border
     }
 
     section.news {
@@ -61,4 +62,23 @@ $borderStyle = 1px solid black;
     section.tweets {
         height: 100%;
     }
+}
+
+.header {
+    border-bottom: $borderStyle;
+    border-right: $borderStyle;
+    height: $headerHeight;
+    line-height: $headerHeight;
+    text-align:center;
+}
+
+.container {
+    height: calc(100% - 41px); // minus headerHeight and border height
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.list {
+    list-style-type: none;
 }
