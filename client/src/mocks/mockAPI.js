@@ -6,10 +6,15 @@
  */
 
 var counterData = require('./data/counter');
+var scheduleData = require('./data/schedule');
 
 module.exports = {
     getCounter: function() {
         return counterData; // != count:10
         counterData.count
+    },
+
+ 	getSchedule: function() {
+    	return scheduleData;
     }
 }
