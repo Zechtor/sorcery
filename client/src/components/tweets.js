@@ -5,17 +5,24 @@ var Container = require('./container');
 var Header = require('./header');
 var List = require('./list');
 
+var TweetsService = require('../services/tweetsService')
+
 var Tweets = React.createClass({
     
     getInitialState: function() {
         return {
-            tweets: [
-             {},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
-             {},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
-             {},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
-             {},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}
-            ]
-        }
+            tweets: TweetsService.tweets
+        };
+    },
+
+    componentDidMount: function() {
+        // initial data load
+        var that = this; // TODO: remove this dependency
+        TweetsService.get(function() {
+            that.setState({
+                tweets: TweetsService.tweets
+            })
+        });
     },
 
     render: function() {
