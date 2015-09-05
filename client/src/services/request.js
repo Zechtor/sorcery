@@ -11,14 +11,14 @@ var Request = {
     
     get: function(path, params, callback) {
         $.get(this.baseUri + path, params, function(data){
-            console.log(data);
+            console.log('GET ' + path, data);
             callback(data);
         });
     },
 
     post: function(path, data, callback) {
         $.post(this.baseUri + path, data, function(data) {
-            console.log(data);
+            console.log('POST' + path, data);
             callback(data);
         });
     }
