@@ -11,4 +11,3 @@ var ScheduleService = {
 }
 
 module.exports = ScheduleService;
-
