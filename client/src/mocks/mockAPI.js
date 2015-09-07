@@ -14,7 +14,7 @@ module.exports = {
         counterData.count
     },
 
- 	getSchedule: function() {
-    	return scheduleData;
+    getSchedule: function() {
+        return scheduleData;
     }
 }

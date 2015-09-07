@@ -2,16 +2,15 @@ var ScheduleService = require('../services/scheduleService');
 var Container = require('./container');
 var Header = require('./header');
 var List = require('./list');
+var Util = require('./util');
 
+// Main schedule component
 var Schedule = React.createClass({
-
-	// setting the state of a component
     getInitialState: function() {
         ScheduleService.get();
         return ScheduleService;
     },
 
-     
     render: function() {
         return (
             <section className="schedule">
@@ -30,135 +29,79 @@ var Schedule = React.createClass({
     }
 });
 
+// Individual Game component
 var Game = React.createClass({
     render: function() {
         return (
             <li className="game">
-                <div className="gameListing">
-                    <div className="gameInfo">
-                        <GameInfo data={this.props.data} />
-                    </div>
-                    <div className="gameState">
-                        <GameState data={this.props.data} />
-                    </div>
-                </div>
+                <GameInfo data={this.props.data} />
+                <GameState data={this.props.data} />
             </li>
         );
     }
 });
 
+// GameInfo component displays date and opponent 
 var GameInfo = React.createClass({
     render: function() {
-        var gameType;
-        if (this.props.data.isHome) {
-            gameType = <HomeGameOpponent data={this.props.data} />;
-        } else {
-            gameType = <AwayGameOpponent data={this.props.data} />;
-        }
         return (
-            <div>
+            <div className="gameInfo">
                 <GameDate data={this.props.data} />
-                {gameType}
+                <GameOpponent data={this.props.data} />
             </div>
         );
     }
 });
 
+// Displays results of finished game or broadcast info of upcoming game
 var GameState = React.createClass({
     render: function() {
         var gameStatus;
-        if (this.props.data.results.score != null) {
-            gameStatus = <GameResults data={this.props.data} />;
-        } else {
-            gameStatus = <GameBroadcast data={this.props.data} />;
-        }
+        gameStatus = (this.props.data.results.score != null) ?
+            <GameResults data={this.props.data} /> : 
+            <GameBroadcast data={this.props.data} />;
         return (
-            <div>
+            <div className="gameState">
                 {gameStatus}
             </div>
         );
     }
-
 });
 
-var HomeGameOpponent = React.createClass({
+// Displays opponent info with ternary for away or home designation
+var GameOpponent = React.createClass({
     render: function() {
+        var gameType;
+        gameType =  (this.props.data.isHome) ? 'vs' : '@';
         return (
             <div>
-                vs <img src={this.props.data.opponent.icon} /> {this.props.data.opponent.name}
-            </div>
-            );
-    }
-});
-
-var AwayGameOpponent = React.createClass({
-    render: function() {
-        return (
-            <div>
-                @ <img src={this.props.data.opponent.icon} /> {this.props.data.opponent.name}
+                {gameType} <img src={this.props.data.opponent.icon} /> {this.props.data.opponent.name}
             </div>
         );
     }
 });
 
+// Displays date of game nicely formatted - Day Month Date - eg Tues Sept 8
 var GameDate = React.createClass({
-    // gets date of scheduled game
-    convertDate: function () {
-    var d = new Date(this.props.data.startTime * 1000);
-
-    // sets day of week
-    var dayArray = new Array(7);
-    dayArray[0]=  "Sun";
-    dayArray[1] = "Mon";
-    dayArray[2] = "Tues";
-    dayArray[3] = "Wed";
-    dayArray[4] = "Thurs";
-    dayArray[5] = "Fri";
-    dayArray[6] = "Sat";
-    var day = dayArray[d.getDay()];  
-
-    // sets month 
-    var monthArray = new Array(12);
-    monthArray[0]=  "Jan";
-    monthArray[1] = "Feb";
-    monthArray[2] = "March";
-    monthArray[3] = "April";
-    monthArray[4] = "May";
-    monthArray[5] = "June";
-    monthArray[6] = "July";
-    monthArray[7] = "Aug";
-    monthArray[8] = "Sept";
-    monthArray[9] = "Oct";
-    monthArray[10] = "Nov";
-    monthArray[11] = "Dec";
-    var month = monthArray[d.getMonth()];
-
-    // sets date
-    var date = d.getDate().toString();
-
-    return day + " " + month + " " + date;
-  },
-
     render: function () {
+        // Correctly formats date of scheduled game
+        var formattedDate = Util.DateTools.convertDate(this.props.data.startTime);
         return (
             <div>
-                {this.convertDate()}
+                {formattedDate}
             </div>
         );
     }
 });
 
+// Diplays broadcast info for game
 var GameBroadcast = React.createClass({
-    // gets time of scheduled game
-    convertTime: function () {
-    var date = new Date(this.props.data.startTime * 1000);
-    return date.toLocaleTimeString();
-  },
-
-    render: function () {
+     render: function () {
+        // Correctly formats time of scheduled game
+        var formattedTime = Util.DateTools.convertTime(this.props.data.startTime);
         return (
             <div>
-                {this.convertTime()} 
+                {formattedTime}
                 <br />
                  on <img src={this.props.data.localBroadcaster} />
             </div>
@@ -166,7 +109,9 @@ var GameBroadcast = React.createClass({
     }
 });
 
+// Displays result of completed game
 var GameResults = React.createClass({
+    // TODO: Refactor DOM
     render: function () {
         return (
             <div>
