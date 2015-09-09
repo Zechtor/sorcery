@@ -1,14 +1,30 @@
-var ScheduleService = require('../services/scheduleService');
+/* Schedule Component
+ */
+
 var Container = require('./container');
 var Header = require('./header');
 var List = require('./list');
 var Util = require('./util');
 
+var ScheduleService = require('../services/scheduleService');
+
 // Main schedule component
 var Schedule = React.createClass({
+
     getInitialState: function() {
-        ScheduleService.get();
-        return ScheduleService;
+        return {
+            schedule: ScheduleService.schedule
+        };
+    },
+
+    componentDidMount: function() {
+        // initial data load
+        var that = this; // TODO: remove this dependency
+        ScheduleService.get(function() {
+            that.setState({
+                schedule: ScheduleService.schedule
+            })
+        });
     },
 
     render: function() {
@@ -17,11 +33,9 @@ var Schedule = React.createClass({
                 <Header title="Schedule" />
                 <Container>
                     <List>
-                        {this.state.games.map(function(game){ 
-                            return ( 
-                                <Game data={game} />
-                            );
-                        })}                   
+                        {this.state.schedule.map(function(game){ 
+                            return <Game data={game} />
+                        })}
                     </List>
                 </Container>
             </section>

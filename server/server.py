@@ -56,17 +56,200 @@ def crossdomain(origin=None, methods=None, headers=None,
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
+
 @app.route('/')
 def api_root():
     return 'This is Might, the API for Sorcery'
 
+
 @app.route('/tweets')
 @crossdomain(origin='*')
 def tweets():
-    data = [{},{},{},{},{},{},{},{},
-            {},{},{},{},{},{},{},{}]
+    data = [{}, {}, {}, {}, {}, {}, {}, {}, {},
+            {}, {}, {}, {}, {}, {}, {}]
 
     return jsonify(tweets=data)
+
+
+@app.route('/schedule')
+@crossdomain(origin='*')
+def schedule():
+    data = [{"opponent": {
+            "location": "Chicago",
+            "name": "Bulls",
+            "icon": "http://www.unitedcenter.com/cms/images/topnav/bulls_icon.png"
+            },
+        "startTime": 1446087598,
+        "isHome": True,
+        "localBroadcaster": "https://pbs.twimg.com/profile_images/464067276266696704/SND28fzh_normal.jpeg",
+        "nationalBroadcaster": "Fox",
+        "results": {
+            "score": "100 - 0",
+            "overtime":  0,
+            "winner": {
+                "location": "Chicago",
+                "name": "Bulls",
+                "icon": "http://www.unitedcenter.com/cms/images/topnav/bulls_icon.png"
+                }
+            }
+        },
+        {"opponent": {
+            "location": "Golden State",
+            "name": "Warriors",
+            "icon": "https://pbs.twimg.com/profile_images/1154397156/new-warriors-logo_normal.jpg"
+            },
+            "startTime": 1446247951,
+            "isHome": False,
+            "localBroadcaster": "https://pbs.twimg.com/profile_images/464067276266696704/SND28fzh_normal.jpeg",
+            "nationalBroadcaster": "Fox",
+            "results": {
+                "score": "100 - 0",
+                "overtime":  0,
+                "winner": {
+                    "location": "Orlando",
+                    "name": "Magic",
+                    "icon": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png"
+                    }
+                }
+         },
+        {"opponent": {
+            "location": "Chicago",
+            "name": "Bulls",
+            "icon": "http://www.unitedcenter.com/cms/images/topnav/bulls_icon.png"
+            },
+            "startTime": 1446087598,
+            "isHome": True,
+            "localBroadcaster": "https://pbs.twimg.com/profile_images/464067276266696704/SND28fzh_normal.jpeg",
+            "nationalBroadcaster": "Fox",
+            "results": {
+                }
+
+         },
+        {"opponent": {
+            "location": "Chicago",
+            "name": "Bulls",
+            "icon": "http://www.unitedcenter.com/cms/images/topnav/bulls_icon.png"
+            },
+            "startTime": 1446087598,
+            "isHome": True,
+            "localBroadcaster": "https://pbs.twimg.com/profile_images/464067276266696704/SND28fzh_normal.jpeg",
+            "nationalBroadcaster": "Fox",
+            "results": {
+                "score": "100 - 0",
+                "overtime":  0,
+                "winner": {
+                    "location": "Chicago",
+                    "name": "Bulls",
+                    "icon": "http://www.unitedcenter.com/cms/images/topnav/bulls_icon.png"
+                }
+            }
+         },
+        {"opponent": {
+            "location": "Golden State",
+            "name": "Warriors",
+            "icon": "https://pbs.twimg.com/profile_images/1154397156/new-warriors-logo_normal.jpg"
+            },
+            "startTime": 1446247951,
+            "isHome": False,
+            "localBroadcaster": "https://pbs.twimg.com/profile_images/464067276266696704/SND28fzh_normal.jpeg",
+            "nationalBroadcaster": "Fox",
+            "results": {
+                "score": "100 - 0",
+                "overtime":  0,
+                "winner": {
+                    "location": "Orlando",
+                    "name": "Magic",
+                    "icon": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png"
+                    }
+                }
+         },
+        {"opponent": {
+            "location": "Chicago",
+            "name": "Bulls",
+            "icon": "http://www.unitedcenter.com/cms/images/topnav/bulls_icon.png"
+            },
+            "startTime": 1446087598,
+            "isHome": True,
+            "localBroadcaster": "https://pbs.twimg.com/profile_images/464067276266696704/SND28fzh_normal.jpeg",
+            "nationalBroadcaster": "Fox",
+            "results": {
+                }
+
+         },
+        {"opponent": {
+            "location": "Chicago",
+            "name": "Bulls",
+            "icon": "http://www.unitedcenter.com/cms/images/topnav/bulls_icon.png"
+            },
+            "startTime": 1446087598,
+            "isHome": True,
+            "localBroadcaster": "https://pbs.twimg.com/profile_images/464067276266696704/SND28fzh_normal.jpeg",
+            "nationalBroadcaster": "Fox",
+            "results": {
+                }
+
+         },
+        {"opponent": {
+            "location": "Chicago",
+            "name": "Bulls",
+            "icon": "http://www.unitedcenter.com/cms/images/topnav/bulls_icon.png"
+            },
+            "startTime": 1446087598,
+            "isHome": True,
+            "localBroadcaster": "https://pbs.twimg.com/profile_images/464067276266696704/SND28fzh_normal.jpeg",
+            "nationalBroadcaster": "Fox",
+            "results": {
+                "score": "100 - 0",
+                "overtime":  0,
+                "winner": {
+                    "location": "Chicago",
+                    "name": "Bulls",
+                    "icon": "http://www.unitedcenter.com/cms/images/topnav/bulls_icon.png"
+                }
+            }
+         },
+        {"opponent": {
+            "location": "Golden State",
+            "name": "Warriors",
+            "icon": "https://pbs.twimg.com/profile_images/1154397156/new-warriors-logo_normal.jpg"
+            },
+            "startTime": 1446247951,
+            "isHome": False,
+            "localBroadcaster": "https://pbs.twimg.com/profile_images/464067276266696704/SND28fzh_normal.jpeg",
+            "nationalBroadcaster": "Fox",
+            "results": {
+                "score": "100 - 0",
+                "overtime":  0,
+                "winner": {
+                    "location": "Orlando",
+                    "name": "Magic",
+                    "icon": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png"
+                    }
+                }
+         },
+        {"opponent": {
+            "location": "Chicago",
+            "name": "Bulls",
+            "icon": "http://www.unitedcenter.com/cms/images/topnav/bulls_icon.png"
+            },
+            "startTime": 1446087598,
+            "isHome": True,
+            "localBroadcaster": "https://pbs.twimg.com/profile_images/464067276266696704/SND28fzh_normal.jpeg",
+            "nationalBroadcaster": "Fox",
+            "results": {
+                }
+         }]
+
+    return jsonify(schedule=data)
+
+
+@app.route('/news')
+@crossdomain(origin='*')
+def news():
+    data = [{}, {}, {}, {}, {}, {}, {}, {}, {},
+            {}, {}, {}, {}, {}, {}, {}]
+
+    return jsonify(news=data)
 
 if __name__ == '__main__':
     # server starts with live reload
