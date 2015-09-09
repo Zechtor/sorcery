@@ -1,11 +1,11 @@
 var Request = require('./request');
 
 var Service = {
-    schedule: [],
+    news: [],
 
     get: function(callback) {
-        Request.get('/schedule', {}, function(data){
-            Service.schedule = data.schedule;
+        Request.get('/news', {}, function(data){
+            Service.news = data.news;
             callback();
         });
     }

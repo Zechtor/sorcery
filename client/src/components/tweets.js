@@ -5,7 +5,7 @@ var Container = require('./container');
 var Header = require('./header');
 var List = require('./list');
 
-var TweetsService = require('../services/tweetsService')
+var TweetsService = require('../services/tweetsService');
 
 var Tweets = React.createClass({
     
