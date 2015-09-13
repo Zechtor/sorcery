@@ -80,7 +80,7 @@ def tweets():
             "user": {
                 "username": "ConspiratorFan",
                 "imageUrl": "https://pbs.twimg.com/profile_images/3502828375/c391c8e9eafa7500c9c01f948bf47f11.jpeg",
-                "profileUrl": "https://twitter.com/Jumpman23"
+                "profileUrl": "https://twitter.com/limbaugh"
             }
         },
         {
@@ -96,7 +96,7 @@ def tweets():
             "user": {
                 "username": "VengefulJoe",
                 "imageUrl": "https://pbs.twimg.com/profile_images/635206073087995904/E-BUs5Ot.png",
-                "profileUrl": "https://twitter.com/Jumpman23"
+                "profileUrl": "https://twitter.com/disturbed"
             }
         }
     ]
