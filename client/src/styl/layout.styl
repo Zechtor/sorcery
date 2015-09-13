@@ -1,7 +1,8 @@
-$navHeight = 50px;
-$colWidth = 300px;
-$borderStyle = 1px solid black;
-$headerHeight = 40px;
+$navHeight = 50;
+$colWidth = 300;
+$borderHeight = 1;
+$borderStyle = ($borderHeight)px solid black;
+$headerHeight = 40;
 
 .layout {
     height: 100%;
@@ -10,7 +11,7 @@ $headerHeight = 40px;
     // layout sections
     section.nav {
         border-bottom: $borderStyle;
-        height: $navHeight;
+        height: ($navHeight)px;
         position: absolute;
         top: 0px;
         width: 100%;
@@ -18,8 +19,8 @@ $headerHeight = 40px;
     }
 
     section.center {
-        padding-top: $navHeight;
-        margin: 0px $colWidth;
+        padding-top: ($navHeight)px;
+        margin: 0px ($colWidth)px;
 
         section.lastgame {
             border-bottom: $borderStyle;
@@ -38,17 +39,17 @@ $headerHeight = 40px;
 
     section.left, section.right {
         position: absolute;
-        top: $navHeight;
-        width: $colWidth;
+        top: ($navHeight)px;
+        width: ($colWidth)px;
     }
 
     section.left, section.right, section.center {
-        height: calc(100% - 50px); // minus navHeight
+        height: "calc(100% - %spx)" % ($navHeight);
     }
 
     // content sections
     section.lastGame {
-        height: calc(50% - 1px); // minus border
+        height: "calc(50% - %spx)" % ($borderHeight);
     }
 
     section.news {
@@ -65,15 +66,17 @@ $headerHeight = 40px;
 }
 
 .header {
+    background-color: $backgroundColor;
     border-bottom: $borderStyle;
     border-right: $borderStyle;
-    height: $headerHeight;
-    line-height: $headerHeight;
+    height: ($headerHeight)px;
+    line-height: ($headerHeight)px;
     text-align:center;
 }
 
 .container {
-    height: calc(100% - 41px); // minus headerHeight and border height
+    background-color: $backgroundColor;
+    height: "calc(100% - %spx)" % ($headerHeight - $borderHeight);
     overflow-x: hidden;
     overflow-y: auto;
     width: 100%;
