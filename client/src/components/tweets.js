@@ -32,7 +32,7 @@ var Tweets = React.createClass({
                 <Container>
                     <List>
                         {this.state.tweets.map(function(tweet) {
-                            return <Tweet></Tweet>
+                            return <Tweet data={tweet}></Tweet>
                         })}
                     </List>
                 </Container>
@@ -49,7 +49,16 @@ var Tweet = React.createClass({
     render: function() {
         return (
             <li className="tweet">
-                Tweet
+                { this.props.data.imageUrl &&
+                    <img src={this.props.data.imageUrl} />
+                }
+                <h3>{this.props.data.message}</h3>
+                <div>
+                    <img src={this.props.data.user.imageUrl} />
+                    <a href={this.props.data.user.profileUrl} target="_blank">
+                        @{this.props.data.user.username}
+                    </a>
+                </div>
             </li>
         );
     }
