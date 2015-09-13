@@ -1,9 +1,25 @@
+$backgroundColor = #FFFFFF;
+$linkColor = #00AAFF;
+
 * {
     margin: 0px;
     padding: 0px;
 }
 
 html, body {
-  height: 100%;
-  overflow: hidden;
+    height: 100%;
+    overflow: hidden;
+}
+
+a {
+    color: $linkColor;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    &:visited {
+        color: $linkColor;
+    }   
 }

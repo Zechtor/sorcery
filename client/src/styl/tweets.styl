@@ -1,5 +1,39 @@
+$tweetPadding = 20;
+$tweetProfileImageSize = 26;
+$tweetImageSize = 200;
+$tweetVerticalSpacer = 14;
+$tweetFontSize = 18;
+
 .tweet {
     border-bottom: $borderStyle;
     border-right: $borderStyle;
-    padding: 30 20px; 
+    padding: ($tweetPadding)px;
+
+    h3 {
+        font-size: ($tweetFontSize)px;
+        font-weight: 600;
+    }
+
+    img {
+        margin-bottom: ($tweetVerticalSpacer)px;
+        width: 100%
+    }
+
+    div {
+        margin-top: ($tweetVerticalSpacer)px;
+
+        img {
+            border-radius: ($tweetProfileImageSize/2)px;
+            height: ($tweetProfileImageSize)px;
+            margin-bottom: 0px;
+            margin-right: 4px;
+            vertical-align: top;
+            width: ($tweetProfileImageSize)px;
+        }
+
+        a {
+            font-size: ($tweetFontSize)px;
+            line-height: ($tweetProfileImageSize)px;
+        }
+    }
 }
