@@ -99,8 +99,6 @@ def tweets():
         }
     }
 
-
-
     data = [
         tweet1,
         tweet2,
