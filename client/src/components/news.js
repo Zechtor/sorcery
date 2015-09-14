@@ -40,7 +40,18 @@ var News = React.createClass({
 
 var NewsArticle = React.createClass({
     render : function() {
-        return this.props.data
+        return (
+            <li className="news">
+                    <div>
+                        <img src={this.props.data.imageURL} />
+                    </div>
+                    <div>
+                        <a href={this.props.data.articleURL} target="_blank">
+                            <h3>{this.props.data.title}</h3>
+                       </a>
+                    </div>
+            </li>
+        );
     }
 });
 
