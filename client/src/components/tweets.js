@@ -1,11 +1,11 @@
 /* Tweets Component
  */
 
-var Container = require('./container');
-var Header = require('./header');
-var List = require('./list');
+var Container = require("./container");
+var Header = require("./header");
+var List = require("./list");
 
-var TweetsService = require('../services/tweetsService');
+var TweetsService = require("../services/tweetsService");
 
 var Tweets = React.createClass({
     
@@ -21,7 +21,7 @@ var Tweets = React.createClass({
         TweetsService.get(function() {
             that.setState({
                 tweets: TweetsService.tweets
-            })
+            });
         });
     },
 
@@ -32,7 +32,7 @@ var Tweets = React.createClass({
                 <Container>
                     <List>
                         {this.state.tweets.map(function(tweet) {
-                            return <Tweet data={tweet}></Tweet>
+                            return <Tweet data={tweet}></Tweet>;
                         })}
                     </List>
                 </Container>

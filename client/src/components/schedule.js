@@ -1,12 +1,12 @@
 /* Schedule Component
  */
 
-var Container = require('./container');
-var Header = require('./header');
-var List = require('./list');
-var Util = require('./util');
+var Container = require("./container");
+var Header = require("./header");
+var List = require("./list");
+var Util = require("./util");
 
-var ScheduleService = require('../services/scheduleService');
+var ScheduleService = require("../services/scheduleService");
 
 // Main schedule component
 var Schedule = React.createClass({
@@ -23,7 +23,7 @@ var Schedule = React.createClass({
         ScheduleService.get(function() {
             that.setState({
                 schedule: ScheduleService.schedule
-            })
+            });
         });
     },
 
@@ -34,7 +34,7 @@ var Schedule = React.createClass({
                 <Container>
                     <List>
                         {this.state.schedule.map(function(game){ 
-                            return <Game data={game} />
+                            return <Game data={game} />;
                         })}
                     </List>
                 </Container>
@@ -86,7 +86,7 @@ var GameState = React.createClass({
 var GameOpponent = React.createClass({
     render: function() {
         var gameType;
-        gameType =  (this.props.data.isHome) ? 'vs' : '@';
+        gameType =  (this.props.data.isHome) ? "vs" : "@";
         return (
             <div>
                 {gameType} <img src={this.props.data.opponent.icon} /> {this.props.data.opponent.name}
@@ -110,7 +110,7 @@ var GameDate = React.createClass({
 
 // Diplays broadcast info for game
 var GameBroadcast = React.createClass({
-     render: function () {
+    render: function () {
         // Correctly formats time of scheduled game
         var formattedTime = Util.DateTools.convertTime(this.props.data.startTime);
         return (
