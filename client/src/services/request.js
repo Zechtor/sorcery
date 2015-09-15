@@ -6,18 +6,35 @@
 
 var $ = require('jquery');
 
+// to help us with testing
+var delay = 1000;
+$.fn.extend( {
+
+    delayedGet: function(path, params, callback) {
+        setTimeout (function() {
+            $.get(path, params, callback);
+        }, delay);
+    },
+
+    delayedPost: function(path, params, callback) {
+        setTimeout (function() {
+            $.post(path, params, callback)
+        }, delay);
+    }
+});
+
 var Request = {
     baseUri: 'http://localhost:5000',
     
     get: function(path, params, callback) {
-        $.get(this.baseUri + path, params, function(data){
+        $.fn.delayedGet(this.baseUri + path, params, function(data){
             console.log('GET ' + path, data);
             callback(data);
         });
     },
 
     post: function(path, data, callback) {
-        $.post(this.baseUri + path, data, function(data) {
+        $.fn.delayedPost(this.baseUri + path, data, function(data) {
             console.log('POST' + path, data);
             callback(data);
         });
