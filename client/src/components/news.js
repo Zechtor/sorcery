@@ -1,6 +1,7 @@
 var Container = require('./container');
 var Header = require('./header');
 var List = require('./list');
+var Util = require('./util');
 
 var NewsService = require('../services/newsService');
 
@@ -40,16 +41,20 @@ var News = React.createClass({
 
 var NewsArticle = React.createClass({
     render : function() {
+        var formattedTime = Util.DateTools.convertDate(this.props.data.postDate);
+
         return (
             <li className="news">
-                    <div>
-                        <img src={this.props.data.imageURL} />
-                    </div>
-                    <div>
-                        <a href={this.props.data.articleURL} target="_blank">
-                            <h3>{this.props.data.title}</h3>
-                       </a>
-                    </div>
+                <div>
+                    <img src={this.props.data.imageUrl} />
+                </div>
+                <div>
+                    <a href={this.props.data.articleUrl} target="_blank">
+                        <h3>{this.props.data.title}</h3>
+                    </a>
+                    <br />
+                    {formattedTime}
+                </div>
             </li>
         );
     }

@@ -296,49 +296,29 @@ def schedule():
 @app.route('/news')
 @crossdomain(origin='*')
 def news():
+
+    news1 = {
+        "title": "Magic set to win lots of games",
+        "articleUrl": "http://google.com",
+        "imageUrl": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png",
+        "postDate": 1446087598
+    }
+
     data = [
-        {
-            "title": "Magic set to win lots of games",
-            "articleURL": "http://google.com",
-            "imageURL": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png",
-            "articleDate": "10/2/15"
-        },
-        {
-            "title": "Magic set to win lots of games",
-            "articleURL": "http://google.com",
-            "imageURL": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png",
-            "articleDate": "10/2/15"
-        },
-        {
-            "title": "Magic set to win lots of games",
-            "articleURL": "http://google.com",
-            "imageURL": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png",
-            "articleDate": "10/2/15"
-        },
-        {
-            "title": "Magic set to win lots of games",
-            "articleURL": "http://google.com",
-            "imageURL": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png",
-            "articleDate": "10/2/15"
-        },
-        {
-            "title": "Magic set to win lots of games",
-            "articleURL": "http://google.com",
-            "imageURL": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png",
-            "articleDate": "10/2/15"
-        },
-        {
-            "title": "Magic set to win lots of games",
-            "articleURL": "http://google.com",
-            "imageURL": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png",
-            "articleDate": "10/2/15"
-        },
-        {
-            "title": "Magic set to win lots of games",
-            "articleURL": "http://google.com",
-            "imageURL": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png",
-            "articleDate": "10/2/15"
-        }
+        news1,
+        news1,
+        news1,
+        news1,
+        news1,
+        news1,
+        news1,
+        news1,
+        news1,
+        news1,
+        news1,
+        news1,
+        news1,
+        news1
     ]
 
     return jsonify(news=data)
