@@ -3,7 +3,7 @@ var Header = require('./header');
 var List = require('./list');
 var Util = require('./util');
 
-var NewsService = require('../services/newsService');
+var NewsService = require("../services/newsService");
 
 var News = React.createClass({
 
@@ -19,7 +19,7 @@ var News = React.createClass({
         NewsService.get(function() {
             that.setState({
                 news: NewsService.news
-            })
+            });
         });
     },
     
@@ -30,7 +30,7 @@ var News = React.createClass({
                 <Container>
                     <List>
                         {this.state.news.map(function(article){ 
-                            return <NewsArticle data={article} />
+                            return <NewsArticle data={article} />;
                         })}
                     </List>
                 </Container>
