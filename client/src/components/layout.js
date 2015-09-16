@@ -1,8 +1,8 @@
-var LastGame = require('./lastgame');
-var Nav = require('./nav');
-var News = require('./news');
-var Schedule = require('./schedule');
-var Tweets = require('./tweets');
+var LastGame = require("./lastgame");
+var Nav = require("./nav");
+var News = require("./news");
+var Schedule = require("./schedule");
+var Tweets = require("./tweets");
 
 var Layout = React.createClass({
     
