@@ -10,49 +10,47 @@ var News = React.createClass({
     getInitialState: function() {
         return {
             news: NewsService.news,
-            isLoading: false
+            isLoading: true
         };
     },
 
     componentDidMount: function() {
         // initial data load
-        var self = this; // TODO: remove this dependency
-        NewsService.get(function() {
-            self.setState({
-                news: NewsService.news,
-                isLoading: true
-            });
-            console.log('pants', self.state);
-        });
-    },
-
-    refresh: function(event) {
-        this.setState({isLoading: true});
-        console.log('holy shit', this.state.isLoading);
-        var self = this; // TODO: remove this dependency
+        var self = this;
         NewsService.get(function() {
             self.setState({
                 news: NewsService.news,
                 isLoading: false
             });
-            console.log('holy crap', self.state.isLoading);
+        });
+    },
+
+    refresh: function(event) {
+        this.setState({isLoading: true});
+
+        var self = this;
+        NewsService.get(function() {
+            self.setState({
+                news: NewsService.news,
+                isLoading: false
+            });
         });
     },
     
     render : function() {
         return (
             <section className="news">
-                <Header title="News"/> 
+                <Header title="News"/>
+                <input type="button" onClick={this.refresh} value="Refresh" /> 
                 <Container>
                     <List>
-                    <input type="button" onClick={this.refresh} value="Refresh" />
                         {this.state.news.map(function(article){ 
                             return <NewsArticle data={article} />;
                         })}
                     </List>
-                        { this.state.isLoading &&
-                            <Loader />
-                        }
+                    { this.state.isLoading &&
+                        <Loader />
+                    }
                 </Container>
             </section>
         );
