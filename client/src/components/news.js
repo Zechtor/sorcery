@@ -1,7 +1,7 @@
-var Container = require('./container');
-var Header = require('./header');
-var List = require('./list');
-var Util = require('./util');
+var Container = require("./container");
+var Header = require("./header");
+var List = require("./list");
+var Util = require("./util");
 
 var NewsService = require("../services/newsService");
 
@@ -14,8 +14,9 @@ var News = React.createClass({
         };
     },
 
-    componentDidMount: function() {
-        // initial data load
+    load: function() {
+        // Helper function to load data
+        this.setState({isLoading: true});
         var self = this;
         NewsService.get(function() {
             self.setState({
@@ -25,16 +26,12 @@ var News = React.createClass({
         });
     },
 
-    refresh: function(event) {
-        this.setState({isLoading: true});
+    componentDidMount: function() {
+        this.load();
+    },
 
-        var self = this;
-        NewsService.get(function() {
-            self.setState({
-                news: NewsService.news,
-                isLoading: false
-            });
-        });
+    refresh: function() {
+        this.load();
     },
     
     render : function() {
