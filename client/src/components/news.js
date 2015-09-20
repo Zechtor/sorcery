@@ -1,38 +1,69 @@
-var Container = require('./container');
-var Header = require('./header');
-var List = require('./list');
-var Util = require('./util');
+var Container = require("./container");
+var Header = require("./header");
+var List = require("./list");
+var Util = require("./util");
+var Loader = require("./loader");
 
 var NewsService = require("../services/newsService");
 
 var News = React.createClass({
 
     getInitialState: function() {
+        window.addEventListener("scroll", this.handleScroll);
         return {
-            news: NewsService.news
+            news: NewsService.news,
+            isLoading: true
         };
     },
 
     componentDidMount: function() {
-        // initial data load
-        var that = this; // TODO: remove this dependency
+        this.load();
+    },
+
+    handleScroll: function() {
+    },
+
+    load: function() {
+        // Helper function to load data
+        var self = this;
+        self.setState({isLoading: true});
         NewsService.get(function() {
-            that.setState({
-                news: NewsService.news
+            self.setState({
+                news: NewsService.news,
+                isLoading: false
             });
         });
+    },
+
+    loadMore: function() {
+        var self = this;
+        self.setState({isLoading: true});
+        NewsService.get(function() {
+            self.setState({
+                news: self.state.news.concat(NewsService.news),
+                isLoading: false
+            });
+        });
+    },
+
+    refresh: function() {
+        this.loadMore();
     },
     
     render : function() {
         return (
             <section className="news">
-                <Header title="News" />
+                <Header title="News"/>
+                <input type="button" onClick={this.refresh} value="Refresh" /> 
                 <Container>
                     <List>
                         {this.state.news.map(function(article){ 
                             return <NewsArticle data={article} />;
                         })}
                     </List>
+                    { this.state.isLoading &&
+                        <Loader />
+                    }
                 </Container>
             </section>
         );
