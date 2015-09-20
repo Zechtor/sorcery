@@ -2,8 +2,6 @@ from flask import Blueprint, make_response, request, current_app
 from datetime import timedelta
 from functools import update_wrapper
 
-from models.test import Test
-
 def crossdomain(origin=None, methods=None, headers=None,
                 max_age=21600, attach_to_all=True,
                 automatic_options=True):
@@ -51,5 +49,4 @@ sorceryAPI = Blueprint('sorceryAPI', __name__)
 
 @sorceryAPI.route('/')
 def api_root():
-    testObject = Test.query.first()
-    return testObject.data
+    return "This is might, the API for Sorcery"
