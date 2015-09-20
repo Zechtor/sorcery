@@ -2,22 +2,31 @@ var Container = require("./container");
 var Header = require("./header");
 var List = require("./list");
 var Util = require("./util");
+var Loader = require("./loader");
 
 var NewsService = require("../services/newsService");
 
 var News = React.createClass({
 
     getInitialState: function() {
+        window.addEventListener("scroll", this.handleScroll);
         return {
             news: NewsService.news,
             isLoading: true
         };
     },
 
+    componentDidMount: function() {
+        this.load();
+    },
+
+    handleScroll: function() {
+    },
+
     load: function() {
         // Helper function to load data
-        this.setState({isLoading: true});
         var self = this;
+        self.setState({isLoading: true});
         NewsService.get(function() {
             self.setState({
                 news: NewsService.news,
@@ -26,12 +35,19 @@ var News = React.createClass({
         });
     },
 
-    componentDidMount: function() {
-        this.load();
+    loadMore: function() {
+        var self = this;
+        self.setState({isLoading: true});
+        NewsService.get(function() {
+            self.setState({
+                news: self.state.news.concat(NewsService.news),
+                isLoading: false
+            });
+        });
     },
 
     refresh: function() {
-        this.load();
+        this.loadMore();
     },
     
     render : function() {
@@ -72,16 +88,6 @@ var NewsArticle = React.createClass({
                 </div>
             </li>
         );
-    }
-});
-
-var Loader = React.createClass({
-    render : function() {
-        return (
-            <div className ="Loader">
-            LOADING MAGIC
-            </div>
-            );
     }
 });
 
