@@ -9,6 +9,7 @@ var Header = React.createClass({
         return (
             <div className="header">
                 {this.props.title}
+                {this.props.children}
             </div>
         );
     }
