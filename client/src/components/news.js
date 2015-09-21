@@ -3,6 +3,7 @@ var Header = require("./header");
 var List = require("./list");
 var Util = require("./util");
 var Loader = require("./loader");
+var $ = require("jquery");
 
 var NewsService = require("../services/newsService");
 
@@ -12,7 +13,8 @@ var News = React.createClass({
         window.addEventListener("scroll", this.handleScroll);
         return {
             news: NewsService.news,
-            isLoading: true
+            isLoading: false,
+            page: 0
         };
     },
 
@@ -20,7 +22,23 @@ var News = React.createClass({
         this.load();
     },
 
-    handleScroll: function() {
+    handleScroll: function(event) {
+        var windowHeight = $(window).height();
+        var inHeight = window.innerHeight;
+        var scrollT = this.getDOMNode().scrollTop;
+        var scrollHeight = this.getDOMNode().scrollHeight;
+        console.log("scrollT", scrollT);
+        console.log("inHeight", inHeight);
+        console.log("windowHeight", windowHeight);
+        console.log("scrollHeight", scrollHeight);
+        if(scrollT + 500 > scrollHeight){  //user reached at bottom
+            if(!this.state.isLoading){  //to avoid multiple request 
+                this.setState({
+                    isLoading:true,  
+                });
+                this.loadMore();
+            }   
+        }
     },
 
     load: function() {
@@ -36,25 +54,37 @@ var News = React.createClass({
     },
 
     loadMore: function() {
+        // Pagination
         var self = this;
+        var nextPage = this.state.page+1;
+
         self.setState({isLoading: true});
         NewsService.get(function() {
             self.setState({
                 news: self.state.news.concat(NewsService.news),
-                isLoading: false
+                isLoading: false,
+                page: nextPage
             });
         });
     },
 
     refresh: function() {
-        this.loadMore();
+        var windowHeight = $(window).height();
+        var inHeight = window.innerHeight;
+        var scrollT = $(window).scrollTop();
+        console.log("scrollT", scrollT);
+        console.log("inHeight", inHeight);
+        console.log("windowHeight", windowHeight);
+        this.load();
     },
     
     render : function() {
         return (
             <section className="news">
-                <Header title="News"/>
-                <input type="button" onClick={this.refresh} value="Refresh" /> 
+                <Header title="News">                
+                    <input type="button" onClick={this.refresh} value="Refresh" /> 
+                    <input type="button" onClick={this.handleScroll} value="Load More" /> 
+                </Header>
                 <Container>
                     <List>
                         {this.state.news.map(function(article){ 
