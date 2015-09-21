@@ -3,79 +3,63 @@ var Header = require("./header");
 var List = require("./list");
 var Util = require("./util");
 var Loader = require("./loader");
-var $ = require("jquery");
 
 var NewsService = require("../services/newsService");
 
 var News = React.createClass({
 
     getInitialState: function() {
-        window.addEventListener("scroll", this.handleScroll);
         return {
             news: NewsService.news,
             isLoading: false,
-            page: 0
+            page: 1
         };
     },
 
     componentDidMount: function() {
-        this.load();
+        var self = this;
+        self.load(1);
+
+        // Attach scroll listener
+        $(".news .container").scroll(function(){
+            self.scroll();
+        })
     },
 
-    handleScroll: function(event) {
-        var windowHeight = $(window).height();
-        var inHeight = window.innerHeight;
-        var scrollT = this.getDOMNode().scrollTop;
-        var scrollHeight = this.getDOMNode().scrollHeight;
-        console.log("scrollT", scrollT);
-        console.log("inHeight", inHeight);
-        console.log("windowHeight", windowHeight);
-        console.log("scrollHeight", scrollHeight);
-        if(scrollT + 500 > scrollHeight){  //user reached at bottom
-            if(!this.state.isLoading){  //to avoid multiple request 
+    scroll: function() {
+        // TODO: Clean-up
+        if ($(".news .container").scrollTop() + 100 > $(".news .list").height() - $(".news .container").height()) { 
+            if (!this.state.isLoading) {  
                 this.setState({
                     isLoading:true,  
                 });
-                this.loadMore();
+                this.load(this.state.page + 1);
             }   
         }
     },
 
-    load: function() {
+    load: function(page) {
         // Helper function to load data
         var self = this;
+        self.state.page = page;
         self.setState({isLoading: true});
-        NewsService.get(function() {
-            self.setState({
-                news: NewsService.news,
-                isLoading: false
-            });
-        });
-    },
 
-    loadMore: function() {
-        // Pagination
-        var self = this;
-        var nextPage = this.state.page+1;
-
-        self.setState({isLoading: true});
         NewsService.get(function() {
+            var articles;
+            if (page == 1) {
+                articles = NewsService.news;
+            } else {
+                articles = self.state.news.concat(NewsService.news);
+            }
             self.setState({
-                news: self.state.news.concat(NewsService.news),
+                news: articles,
                 isLoading: false,
-                page: nextPage
             });
         });
     },
 
     refresh: function() {
-        var windowHeight = $(window).height();
-        var inHeight = window.innerHeight;
-        var scrollT = $(window).scrollTop();
-        console.log("scrollT", scrollT);
-        console.log("inHeight", inHeight);
-        console.log("windowHeight", windowHeight);
-        this.load();
+        this.load(1);
     },
     
     render : function() {
@@ -83,7 +67,6 @@ var News = React.createClass({
             <section className="news">
                 <Header title="News">                
                     <input type="button" onClick={this.refresh} value="Refresh" /> 
-                    <input type="button" onClick={this.handleScroll} value="Load More" /> 
                 </Header>
                 <Container>
                     <List>

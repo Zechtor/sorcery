@@ -1,4 +1,5 @@
 window.React = require("react");
+window.$ = require("jquery");
 var App = require("./components/app");
 
 require("./index.styl");
