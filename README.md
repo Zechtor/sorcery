@@ -8,3 +8,5 @@ This repo contains two subprojects: A client and a server
 Sorcery: The client application
 
 Might: The server (api) application
+
+Additional documentation can be found in the `client` and `server` directories.
