@@ -1,8 +1,8 @@
 var Container = require("./container");
 var Header = require("./header");
 var List = require("./list");
-var Util = require("./util");
 var Loader = require("./loader");
+var Util = require("./util");
 
 var NewsService = require("../services/newsService");
 
