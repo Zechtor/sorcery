@@ -1,9 +1,10 @@
-/* Tweets Component
+/* Tweets Components
  */
 
 var Container = require("./container");
 var Header = require("./header");
 var List = require("./list");
+var Loader = require("./loader");
 
 var TweetsService = require("../services/tweetsService");
 
@@ -16,19 +17,49 @@ var Tweets = React.createClass({
     },
 
     componentDidMount: function() {
-        // initial data load
-        var that = this; // TODO: remove this dependency
-        TweetsService.get(function() {
-            that.setState({
-                tweets: TweetsService.tweets
+        var self = this;
+        self.load(1);
+
+        // Attach scroll listener
+        $(".tweets .container").scroll(function(){
+            self.scroll();
+        })
+    },
+
+    scroll: function() {
+        // TODO: Clean-up
+        if ($(".tweets .container").scrollTop() >= $(".tweets .list").height() - $(".tweets .container").height()) { 
+            if (!this.state.isLoading) {  
+                this.setState({isLoading:true});
+                this.load(TweetsService.page + 1);
+            }   
+        }
+    },
+
+    load: function(page) {
+        // Helper function to load data
+        var self = this;
+        self.setState({isLoading: true});
+
+        TweetsService.get(page, function() {
+            self.setState({
+                tweets: TweetsService.tweets,
+                isLoading: false,
             });
         });
+    },
+
+    refresh: function() {
+        this.load(1);
+        $(".tweets .container").scrollTop(0)
     },
 
     render: function() {
         return (
             <section className="tweets">
-                <Header title="Tweets" />
+                <Header title="Tweets">
+                    <input type="button" onClick={this.refresh} value="Refresh" />
+                </Header>
                 <Container>
                     <List>
                         {this.state.tweets.map(function(tweet) {
@@ -36,6 +67,9 @@ var Tweets = React.createClass({
                         })}
                     </List>
                 </Container>
+                { this.state.isLoading &&
+                    <Loader />
+                }
 			</section>
         );
     }
