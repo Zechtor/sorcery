@@ -1,3 +1,6 @@
+/* News Components
+ */
+
 var Container = require("./container");
 var Header = require("./header");
 var List = require("./list");
@@ -66,7 +69,7 @@ var News = React.createClass({
         return (
             <section className="news">
                 <Header title="News">                
-                    <input type="button" onClick={this.refresh} value="Refresh" /> 
+                    <input type="button" onClick={this.refresh} value="Refresh" />
                 </Header>
                 <Container>
                     <List>

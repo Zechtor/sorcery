@@ -1,8 +1,15 @@
 .loader {
-    width: 100%;
-    height: 100%;
-    background-color: blue;
+    background-color: #FFF;
+    display: table;
+    height: "calc(100% - %spx)" % ($headerHeight - $borderHeight);
     position:absolute;
     right: 0px;
-    top: 0px;
+    top: ($headerHeight + $borderHeight)px;
+    width: 100%;
+
+    span {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
 }
