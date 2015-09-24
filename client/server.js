@@ -1,3 +1,5 @@
+/* eslint no-console:0 */
+
 var webpack = require("webpack");
 var WebpackDevServer = require("webpack-dev-server");
 var config = require("./webpack.config");
@@ -11,5 +13,5 @@ new WebpackDevServer(webpack(config), {
         console.log(err);
     }
 
-    onsole.log("Listening at localhost:3000");
+    console.log("Listening at localhost:3000");
 });
