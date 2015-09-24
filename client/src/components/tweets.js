@@ -23,7 +23,7 @@ var Tweets = React.createClass({
         // Attach scroll listener
         $(".tweets .container").scroll(function(){
             self.scroll();
-        })
+        });
     },
 
     scroll: function() {
@@ -44,14 +44,14 @@ var Tweets = React.createClass({
         TweetsService.get(page, function() {
             self.setState({
                 tweets: TweetsService.tweets,
-                isLoading: false,
+                isLoading: false
             });
         });
     },
 
     refresh: function() {
         this.load(1);
-        $(".tweets .container").scrollTop(0)
+        $(".tweets .container").scrollTop(0);
     },
 
     render: function() {

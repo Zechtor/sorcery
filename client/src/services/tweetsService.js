@@ -18,8 +18,6 @@ var Service = {
                 Service.tweets = Service.tweets.concat(data.tweets);
             }
 
-            console.log(Service.tweets);
-
             callback();
         });
     }
