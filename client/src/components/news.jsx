@@ -61,7 +61,7 @@ var News = React.createClass({
                 </Header>
                 <Container>
                     <List>
-                        {this.state.news.map(function(article) { 
+                        { this.state.news.map(function(article) { 
                             return <NewsArticle data={article}></NewsArticle>;
                         })}
                     </List>
