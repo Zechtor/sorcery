@@ -7,7 +7,7 @@ from models.league import League
 class Team(Base):
     __tablename__ = 'team'
     id = Column(Integer, primary_key=True)
-    name = Column(String(200), unique=True, nullable=False)
+    name = Column(String(100), unique=True, nullable=False)
     city = Column(String(200), nullable=False)
     createDate = Column(DateTime, nullable=False)
     leagueId = Column(Integer, ForeignKey('league.id'))

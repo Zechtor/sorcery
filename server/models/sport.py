@@ -6,7 +6,7 @@ from models import Base, session
 class Sport(Base):
     __tablename__ = 'sport'
     id = Column(Integer, primary_key=True)
-    name = Column(String(200), unique=True, nullable=False)
+    name = Column(String(100), unique=True, nullable=False)
     createDate = Column(DateTime, nullable=False)
     leagues = relationship("League", backref="Sport")
 

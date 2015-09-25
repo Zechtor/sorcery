@@ -8,12 +8,46 @@ class TweetIndexer():
     @classmethod
     def index(class_):
         accessToken = class_.requestBearerToken()
+
+
         tweetData = class_.search(accessToken)
         class_.process(tweetData)
 
     @classmethod
     def search(class_, accessToken):
-        url = 'https://api.twitter.com/1.1/search/tweets.json?q=%40orlandomagic'
+        hashtags = ['orlandomagic', 'magicbasketball']
+        users = [
+            'JoshuaBRobbins',
+            'd_dedmon3',
+            'EvanFourmizz',
+            'nicholaf44',
+            'tobias31',
+            'VicOladipo',
+            'OrlandoMagic',
+            'Double0AG',
+            'elfrid',
+            'FOXSportsMagic',
+            'DevMarble',
+            'Quietstorm_32',
+            'ShabazzNapier'
+        ]
+
+        url = 'https://api.twitter.com/1.1/search/tweets.json?&lang=en&count=100&q='
+        #for hashtag in hashtags:
+        #    url += '%23' + hashtag + '+'
+        #url = url[:-1]
+
+        if len(users) > 0:
+            url += "from"
+
+        for user in users:
+            url += '@' + user + '+OR+'
+
+        if len(users) > 0:
+            url = url[:-4]
+
+        print url
+
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
             'Authorization': 'Bearer ' + accessToken
@@ -21,6 +55,7 @@ class TweetIndexer():
 
         response = requests.get(url, headers=headers)
         results = response.json()
+        print results
 
         return results['statuses']
 
@@ -55,5 +90,3 @@ class TweetIndexer():
         results = response.json()
 
         return results['access_token']
-
-TweetIndexer().index()
