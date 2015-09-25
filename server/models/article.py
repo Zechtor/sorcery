@@ -8,7 +8,7 @@ class Article(Base):
     createDate = Column(DateTime, nullable=False)
     postDate = Column(DateTime, nullable=False)
     title = Column(String(200), nullable=False)
-    articleUrl = Column(String(200))
+    articleUrl = Column(String(200), nullabe=False)
     imageUrl = Column(String(200))
 
     @classmethod
