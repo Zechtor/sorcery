@@ -3,7 +3,9 @@ var Nav = React.createClass({
     render : function() {
         return (
             <section className="nav">
-                Nav
+                <button id="scheduleToggle">Schedule</button>
+                <span>Nav</span>
+                <button id="tweetToggle">Twitter</button>
             </section>
         );
     }

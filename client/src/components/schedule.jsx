@@ -71,7 +71,7 @@ var GameInfo = React.createClass({
 var GameState = React.createClass({
     render: function() {
         var gameStatus;
-        gameStatus = (this.props.data.results.score != null) ?
+        gameStatus = (this.props.data.results && this.props.data.results.score != null) ?
             <GameResults data={this.props.data} /> : 
             <GameBroadcast data={this.props.data} />;
         return (

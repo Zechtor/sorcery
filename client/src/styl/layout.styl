@@ -4,6 +4,8 @@ $borderHeight = 1;
 $borderStyle = ($borderHeight)px solid black;
 $headerHeight = 40;
 
+$tabletWidth = 800px
+
 .layout {
     height: 100%;
     width: 100%;
@@ -12,10 +14,37 @@ $headerHeight = 40;
     section.nav {
         border-bottom: $borderStyle;
         height: ($navHeight)px;
+        line-height: ($navHeight)px;
         position: absolute;
         top: 0px;
         width: 100%;
         z-index: 2;
+
+        button {
+            display: none;
+            padding: 0px 10px;
+            position: absolute;
+
+            @media screen and (max-width: $tabletWidth) {
+                display:inline-block;
+            }
+        }
+
+        span {
+            display:inline-block;
+            text-align: center;
+            width:100%;
+        }
+
+        #scheduleToggle {
+            height: ($navHeight)px;
+            left: 0px;
+        }
+
+        #tweetToggle {
+            height: ($navHeight)px;
+            right: 0px;
+        }
     }
 
     section.center {
@@ -25,16 +54,28 @@ $headerHeight = 40;
         section.lastgame {
             border-bottom: $borderStyle;
         }
+
+        @media screen and (max-width: $tabletWidth) {
+            margin: 0px;
+        }
     }
 
     section.left {
         border-right: $borderStyle;
         left: 0px;
+
+        @media screen and (max-width: $tabletWidth) {
+            transform: translateX(($colWidth * -1)px);
+        }
     }
 
     section.right {
         border-left: $borderStyle;
         right: 0px;
+
+        @media screen and (max-width: $tabletWidth) {
+            transform: translateX(($colWidth)px);
+        }
     }
 
     section.left, section.right {
