@@ -13,9 +13,7 @@ var News = React.createClass({
 
     getInitialState: function() {
         return {
-            news: NewsService.news,
-            isLoading: false,
-            page: 1
+            news: NewsService.articles
         };
     },
 
@@ -26,17 +24,15 @@ var News = React.createClass({
         // Attach scroll listener
         $(".news .container").scroll(function(){
             self.scroll();
-        })
+        });
     },
 
     scroll: function() {
         // TODO: Clean-up
-        if ($(".news .container").scrollTop() + 100 > $(".news .list").height() - $(".news .container").height()) { 
+        if ($(".news .container").scrollTop() >= $(".news .list").height() - $(".news .container").height()) { 
             if (!this.state.isLoading) {  
-                this.setState({
-                    isLoading:true,  
-                });
-                this.load(this.state.page + 1);
+                this.setState({isLoading: true});
+                this.load(NewsService.page + 1);
             }   
         }
     },
@@ -44,25 +40,19 @@ var News = React.createClass({
     load: function(page) {
         // Helper function to load data
         var self = this;
-        self.state.page = page;
         self.setState({isLoading: true});
-
-        NewsService.get(function() {
-            var articles;
-            if (page == 1) {
-                articles = NewsService.news;
-            } else {
-                articles = self.state.news.concat(NewsService.news);
-            }
+        console.log("are we there yet?")
+        NewsService.get(page, function() {
             self.setState({
-                news: articles,
-                isLoading: false,
+                news: NewsService.articles,
+                isLoading: false
             });
         });
     },
 
     refresh: function() {
         this.load(1);
+        $(".news .container").scrollTop(0);
     },
     
     render : function() {
@@ -73,14 +63,14 @@ var News = React.createClass({
                 </Header>
                 <Container>
                     <List>
-                        {this.state.news.map(function(article){ 
-                            return <NewsArticle data={article} />;
+                        {this.state.news.map(function(article) { 
+                            return <NewsArticle data={article}></NewsArticle>;
                         })}
                     </List>
-                    { this.state.isLoading &&
-                        <Loader />
-                    }
                 </Container>
+                { this.state.isLoading &&
+                    <Loader />
+                }
             </section>
         );
     }
@@ -100,7 +90,7 @@ var NewsArticle = React.createClass({
                         <h3>{this.props.data.title}</h3>
                     </a>
                     <br />
-                    {formattedTime}
+                    {this.props.data.postDate}
                 </div>
             </li>
         );

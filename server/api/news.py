@@ -1,33 +1,17 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from api import crossdomain
+from models.article import Article
 
 newsAPI = Blueprint('newsAPI', __name__)
 
 @newsAPI.route('/news')
 @crossdomain(origin='*')
 def news():
-    news1 = {
-        "title": "Magic set to win lots of games",
-        "articleUrl": "http://google.com",
-        "imageUrl": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png",
-        "postDate": 1446087598
-    }
+    page = int(request.args.get('page'))
+    pageSize = 10
+    start = pageSize * (page - 1)
 
-    data = [
-        news1,
-        news1,
-        news1,
-        news1,
-        news1,
-        news1,
-        news1,
-        news1,
-        news1,
-        news1,
-        news1,
-        news1,
-        news1,
-        news1
-    ]
+    articleList = Article.getList(start, pageSize)
+    serializedList = [a.serialize() for a in articleList]
 
-    return jsonify(news=data)
+    return jsonify(articles=serializedList)
