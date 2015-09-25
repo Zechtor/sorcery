@@ -41,7 +41,6 @@ var News = React.createClass({
         // Helper function to load data
         var self = this;
         self.setState({isLoading: true});
-        console.log("are we there yet?")
         NewsService.get(page, function() {
             self.setState({
                 news: NewsService.articles,
@@ -77,9 +76,8 @@ var News = React.createClass({
 });
 
 var NewsArticle = React.createClass({
+    
     render : function() {
-        var formattedTime = Util.DateTools.convertDate(this.props.data.postDate);
-
         return (
             <li className="news">
                 <div>
