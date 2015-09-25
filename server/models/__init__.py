@@ -4,10 +4,10 @@ from sqlalchemy.ext.declarative import declarative_base
 
 # move this to a config at some point
 engine = create_engine('mysql://root@localhost:3306/might')
-db_session = scoped_session(sessionmaker(autocommit=False, autoflush=True, bind=engine))
+session = scoped_session(sessionmaker(autocommit=False, autoflush=True, bind=engine))
 
 Base = declarative_base()
-Base.query = db_session.query_property()
+Base.query = session.query_property()
 
 def init_db():
     # import models

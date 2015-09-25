@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship, backref
-from models import Base, db_session
+
+from models import Base, session
+from models.sport import Sport
 
 class League(Base):
     __tablename__ = 'league'
@@ -12,7 +14,7 @@ class League(Base):
 
     @classmethod
     def getAll(class_):
-        return db_session.query(class_).all()
+        return session.query(class_).all()
 
     # serialize
     def serialize(self):
