@@ -1,3 +1,4 @@
+import sys
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import backref
@@ -38,7 +39,7 @@ class Tweet(Base):
         try:
             session.commit() 
         except:
-            print 'there was an error'
+            print sys.exc_info()[0]
 
     @classmethod
     def getList(class_, teamId, start, count):

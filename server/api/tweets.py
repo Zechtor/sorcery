@@ -9,7 +9,7 @@ tweetsAPI = Blueprint('tweetsAPI', __name__)
 def tweets():
     teamId = 1
     page = int(request.args.get('page'))
-    pageSize = 10
+    pageSize = 20
     start = pageSize * (page - 1)
 
     tweetList = Tweet.getList(teamId, start, pageSize)
