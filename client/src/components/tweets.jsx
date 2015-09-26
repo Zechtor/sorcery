@@ -81,12 +81,19 @@ var Tweets = React.createClass({
 var Tweet = React.createClass({
     
     render: function() {
+
+        // extract and format urls in tweets
+        var re = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+        var formattedText = this.props.data.message.replace(re, "<a href='$1' target='_blank'>$1</a>");
+
+        function createMarkup() { return {__html: formattedText}; };
+
         return (
             <li className="tweet">
                 { this.props.data.imageUrl &&
                     <img src={this.props.data.imageUrl} />
                 }
-                <h3>{this.props.data.message}</h3>
+                <h3 dangerouslySetInnerHTML={createMarkup()} />
                 <div>
                     <img src={this.props.data.user.imageUrl} />
                     <a href={this.props.data.user.profileUrl} target="_blank">
