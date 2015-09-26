@@ -2,24 +2,24 @@ $newsFontSize = 18;
 $newsPadding = 10;
 
 .news {
-    border-bottom: $borderStyle;
 
-    li {
+    .article {
+        border-bottom: $borderStyle;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-    }
 
-    div {
-        margin: ($newsPadding)px 0px ($newsPadding)px 0px;
-    }
+        div {
+            margin: ($newsPadding)px 0px ($newsPadding)px 0px;
+        }
 
-    h3 {
-        font-size: ($newsFontSize)px;
-        font-weight: 600;
-    }
+        h3 {
+            font-size: ($newsFontSize)px;
+            font-weight: 600;
+        }
 
-    img {
-        padding: 0px ($newsPadding)px 0px ($newsPadding)px;
+        img {
+            padding: 0px ($newsPadding)px 0px ($newsPadding)px;
+        }
     }
 }

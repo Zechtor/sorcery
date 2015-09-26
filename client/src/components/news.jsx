@@ -78,7 +78,7 @@ var NewsArticle = React.createClass({
 
     render : function() {
         return (
-            <li className="news">
+            <li className="article">
                 <div>
                     <img src={this.props.data.imageUrl} />
                 </div>
