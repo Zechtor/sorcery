@@ -8,10 +8,17 @@ scheduleAPI = Blueprint('scheduleAPI', __name__)
 def schedule():
     data = [
         {
+            "team": {
+                "location": "Orlando",
+                "name": "Magic",
+                "icon": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png",
+                "score": 100
+            },
             "opponent": {
                 "location": "Chicago",
                 "name": "Bulls",
-                "icon": "http://www.unitedcenter.com/cms/images/topnav/bulls_icon.png"
+                "icon": "http://www.unitedcenter.com/cms/images/topnav/bulls_icon.png",
+                "score": 90
             },
             "startTime": 1446087598,
             "isHome": True,
@@ -28,6 +35,11 @@ def schedule():
             }
         },
         {
+            "team": {
+                "location": "Orlando",
+                "name": "Magic",
+                "icon": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png"
+            },
             "opponent": {
                 "location": "Golden State",
                 "name": "Warriors",
@@ -48,6 +60,11 @@ def schedule():
             }
         },
         {
+            "team": {
+                "location": "Orlando",
+                "name": "Magic",
+                "icon": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png"
+            },
             "opponent": {
                 "location": "Chicago",
                 "name": "Bulls",
@@ -59,6 +76,11 @@ def schedule():
             "nationalBroadcaster": "Fox"
         },
         {
+            "team": {
+                "location": "Orlando",
+                "name": "Magic",
+                "icon": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png"
+            },
             "opponent": {
                 "location": "Chicago",
                 "name": "Bulls",
@@ -79,6 +101,11 @@ def schedule():
             }
         },
         {
+            "team": {
+                "location": "Orlando",
+                "name": "Magic",
+                "icon": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png"
+            },
             "opponent": {
                 "location": "Golden State",
                 "name": "Warriors",
@@ -99,6 +126,11 @@ def schedule():
             }
         },
         {
+            "team": {
+                "location": "Orlando",
+                "name": "Magic",
+                "icon": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png"
+            },
             "opponent": {
                 "location": "Chicago",
                 "name": "Bulls",
@@ -110,6 +142,11 @@ def schedule():
             "nationalBroadcaster": "Fox"
         },
         {
+            "team": {
+                "location": "Orlando",
+                "name": "Magic",
+                "icon": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png"
+            },
             "opponent": {
                 "location": "Chicago",
                 "name": "Bulls",
@@ -121,6 +158,11 @@ def schedule():
             "nationalBroadcaster": "Fox"
         },
         {
+            "team": {
+                "location": "Orlando",
+                "name": "Magic",
+                "icon": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png"
+            },
             "opponent": {
                 "location": "Chicago",
                 "name": "Bulls",
@@ -141,6 +183,11 @@ def schedule():
             }
         },
         {
+            "team": {
+                "location": "Orlando",
+                "name": "Magic",
+                "icon": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png"
+            },
             "opponent": {
                 "location": "Golden State",
                 "name": "Warriors",
@@ -161,6 +208,11 @@ def schedule():
             }
         },
         {
+            "team": {
+                "location": "Orlando",
+                "name": "Magic",
+                "icon": "http://uniformcritics.com/unis/logos/teams/orlando-magic.png"
+            },
             "opponent": {
                 "location": "Chicago",
                 "name": "Bulls",
