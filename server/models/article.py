@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, String, DateTime
-from models import Base, db_session
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from models import Base, session
 
 class Article(Base):
     __tablename__ = 'article'
@@ -10,10 +10,11 @@ class Article(Base):
     title = Column(String(200), nullable=False)
     articleUrl = Column(String(200), nullable=False)
     imageUrl = Column(String(200))
+    teamId = Column(Integer, ForeignKey('team.id'))
 
     @classmethod
-    def getList(class_, start, count):
-        return db_session.query(class_).offset(start).limit(count).all()
+    def getList(class_, teamId, start, count):
+        return session.query(class_).filter(class_.teamId == teamId).offset(start).limit(count).all()
 
     # serialize
     def serialize(self):
