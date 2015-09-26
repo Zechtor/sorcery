@@ -12,7 +12,7 @@ class Tweet(Base):
     tweetId = Column(String(50), unique=True, nullable=False)
     createDate = Column(DateTime, nullable=False)
     postDate = Column(DateTime, nullable=False)
-    text = Column(String(200), nullable=False)
+    text = Column(String(300), nullable=False)
     imageUrl = Column(String(200))
     username = Column(String(30), nullable=False)
     userImageUrl = Column(String(200), nullable=False)

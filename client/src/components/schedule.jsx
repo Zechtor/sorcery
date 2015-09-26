@@ -71,7 +71,7 @@ var GameInfo = React.createClass({
 var GameState = React.createClass({
     render: function() {
         var gameStatus;
-        gameStatus = (this.props.data.results && this.props.data.results.score != null) ?
+        gameStatus = this.props.data.results ?
             <GameResults data={this.props.data} /> : 
             <GameBroadcast data={this.props.data} />;
         return (
@@ -86,7 +86,7 @@ var GameState = React.createClass({
 var GameOpponent = React.createClass({
     render: function() {
         var gameType;
-        gameType =  (this.props.data.isHome) ? "vs" : "@";
+        gameType =  this.props.data.isHome ? "vs" : "@";
         return (
             <div>
                 {gameType} <img src={this.props.data.opponent.icon} /> {this.props.data.opponent.name}

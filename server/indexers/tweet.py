@@ -5,16 +5,8 @@ from models.tweet import Tweet
 
 class TweetIndexer():
 
-    @classmethod
-    def index(class_):
-        accessToken = class_.requestBearerToken()
-
-
-        tweetData = class_.search(accessToken)
-        class_.process(tweetData)
-
-    @classmethod
-    def search(class_, accessToken):
+    @property
+    def initialQueryString(self):
         hashtags = ['orlandomagic', 'magicbasketball']
         users = [
             'JoshuaBRobbins',
@@ -32,22 +24,35 @@ class TweetIndexer():
             'ShabazzNapier'
         ]
 
-        url = 'https://api.twitter.com/1.1/search/tweets.json?&lang=en&count=100&q='
+        query = '?lang=en&count=100&q='
         #for hashtag in hashtags:
         #    url += '%23' + hashtag + '+'
         #url = url[:-1]
 
         if len(users) > 0:
-            url += "from"
+            query += "from"
 
         for user in users:
-            url += '@' + user + '+OR+'
+            query += '@' + user + '+OR+'
 
         if len(users) > 0:
-            url = url[:-4]
+            query = query[:-4]
 
-        print url
+        return query
 
+    def index(self):
+        accessToken = self.requestBearerToken()
+
+        # to begin get up to 5 pages worth
+        page = 1
+        query = self.initialQueryString
+        while page <= 20:
+            tweetData, query = self.search(accessToken, query)
+            self.process(tweetData)
+            page += 1
+
+    def search(self, accessToken, query):
+        url = 'https://api.twitter.com/1.1/search/tweets.json' + query
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
             'Authorization': 'Bearer ' + accessToken
@@ -55,19 +60,19 @@ class TweetIndexer():
 
         response = requests.get(url, headers=headers)
         results = response.json()
-        print results
 
-        return results['statuses']
+        return results['statuses'], results['search_metadata']['next_results']
 
-    @classmethod
-    def process(class_, tweetData):
+    def process(self, tweetData):
         for data in tweetData:
+            if 'retweeted_status' in data:
+                continue
+
             tweet = Tweet(data)
             Tweet.save(tweet)
 
     # Oauth
-    @classmethod
-    def requestBearerToken(class_):
+    def requestBearerToken(self):
         # create token credentials using the consumer key and secret
         consumerKey = 'rUh9w3a3Id4Hv0yPkjGCqgFXl'
         consumerSecret = 'm8lxatiid7toWXclpskkfGT4Xk9buTv4ONdMK0z6jlFyTJ49Zi'
