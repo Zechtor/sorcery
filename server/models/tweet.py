@@ -37,9 +37,10 @@ class Tweet(Base):
     def save(class_, tweet):
         session.add(tweet)
         try:
-            session.commit() 
+            session.commit()
+            return True 
         except:
-            print sys.exc_info()[0]
+            return False
 
     @classmethod
     def getList(class_, teamId, start, count):
