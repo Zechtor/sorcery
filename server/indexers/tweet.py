@@ -24,7 +24,7 @@ class TweetIndexer():
             'ShabazzNapier'
         ]
 
-        query = '?lang=en&count=20&q='
+        query = '?lang=en&count=100&q='
         #for hashtag in hashtags:
         #    url += '%23' + hashtag + '+'
         #url = url[:-1]
@@ -38,7 +38,6 @@ class TweetIndexer():
         if len(users) > 0:
             query = query[:-4]
 
-        print query
         return query
 
     def index(self):
@@ -49,8 +48,6 @@ class TweetIndexer():
         query = self.initialQueryString
         while page <= 20:
             tweetData, query = self.search(accessToken, query)
-            print tweetData
-            print query
             self.process(tweetData)
             page += 1
 
@@ -63,8 +60,6 @@ class TweetIndexer():
 
         response = requests.get(url, headers=headers)
         results = response.json()
-
-        print results['search_metadata']['next_results']
 
         return results['statuses'], results['search_metadata']['next_results']
 
