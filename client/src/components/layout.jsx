@@ -1,4 +1,4 @@
-var LastGame = require("./lastgame");
+var Showcase = require("./showcase");
 var Nav = require("./nav");
 var News = require("./news");
 var Schedule = require("./schedule");
@@ -14,7 +14,7 @@ var Layout = React.createClass({
                     <Schedule />
                 </section>
                 <section className="center">
-                    <LastGame />
+                    <Showcase />
                     <News />
                 </section>
                 <section className="right">
