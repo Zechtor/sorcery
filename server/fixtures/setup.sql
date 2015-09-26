@@ -1,4 +1,5 @@
 # drop the tables
+drop table article;
 drop table tweet;
 drop table team;
 drop table league;
@@ -18,3 +19,30 @@ insert into team (name, city, createDate, leagueId) values ("Magic", "Orlando", 
 select * from team;
 
 delete from tweet;
+
+delete from article;
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+insert into article (articleId, createDate, postDate, title, articleUrl, imageUrl) values ('123145', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Magic set to win lots of games', 'https://www.google.com/', 'http://uniformcritics.com/unis/logos/teams/orlando-magic.png');
+select * from article;
