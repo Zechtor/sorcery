@@ -6,7 +6,7 @@ var Header = require("./header");
 var Loader = require("./loader");
 var Util = require("./util");
 
-var ShowcaseService = require("../services/scheduleService");
+var ScheduleService = require("../services/scheduleService");
 
 var Showcase = React.createClass({
 
@@ -20,9 +20,9 @@ var Showcase = React.createClass({
     componentDidMount : function() {
         // initial data load
         var that = this; // TODO: remove this dependency
-        ShowcaseService.get(function() {
+        ScheduleService.get(function() {
             that.setState({
-                showcase: ShowcaseService.getShowcase(),
+                showcase: ScheduleService.getShowcase(),
                 isLoading: false
             });
         });
@@ -30,7 +30,7 @@ var Showcase = React.createClass({
 
     render : function() {
         var showcaseStatus;
-        showcaseStatus = (this.state.showcase) ?
+        showcaseStatus = this.state.showcase ?
         <ShowcaseDisplay data={this.state.showcase} /> : 
         <BlankDisplay />;
         return (
@@ -54,7 +54,7 @@ var ShowcaseDisplay = React.createClass({
 
         return (
             <section>
-                <div className="showcaseGame">
+                <div className="game">
                     <div>
                         {this.props.data.team.location} {this.props.data.team.name} <br />
                         <img src={this.props.data.team.icon} /> <br />
@@ -67,7 +67,7 @@ var ShowcaseDisplay = React.createClass({
                         {this.props.data.opponent.score} 
                     </div>
                 </div>
-                <div className="showcaseDate">
+                <div className="date">
                     {formattedDate}
                 </div>
             </section>
