@@ -5,6 +5,7 @@ var Container = require("./container");
 var Header = require("./header");
 var List = require("./list");
 var Loader = require("./loader");
+var PartialLoader = require("./partialLoader");
 
 var NewsService = require("../services/newsService");
 
@@ -30,20 +31,26 @@ var News = React.createClass({
         // TODO: Clean-up
         if ($("#news .container").scrollTop() >= $("#news .list").height() - $("#news .container").height()) { 
             if (!this.state.isLoading) {  
-                this.setState({isLoading: true});
-                this.load(NewsService.page + 1);
-            }   
+                this.load(NewsService.page + 1, true);
+            }
         }
     },
 
-    load: function(page) {
+    load: function(page, partialLoad) {
         // Helper function to load data
         var self = this;
-        self.setState({isLoading: true});
+
+        if (partialLoad) {
+            self.setState({ isPartialLoading: true });
+        } else {
+            self.setState({ isLoading: true });
+        }
+
         NewsService.get(page, function() {
             self.setState({
                 news: NewsService.articles,
-                isLoading: false
+                isLoading: false,
+                isPartialLoading: false
             });
         });
     },
@@ -64,6 +71,9 @@ var News = React.createClass({
                         { this.state.news.map(function(article) { 
                             return <NewsArticle data={article}></NewsArticle>;
                         })}
+                        { this.state.isPartialLoading &&
+                            <PartialLoader />
+                        }
                     </List>
                 </Container>
                 { this.state.isLoading &&

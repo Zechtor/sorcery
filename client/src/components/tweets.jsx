@@ -97,12 +97,11 @@ var Tweet = React.createClass({
             var formattedText = message.replace(linkRegex, "<a href='$1' target='_blank'>$1</a>");
 
             // extract and format profile mentions
-            var profileRegex = /(@[A-Z0-9]+)/gim;
+            var profileRegex = /(@[A-Z0-9_]+)/gim;
             formattedText = formattedText.replace(profileRegex, "<a href='http://twitter.com/$1' target='_blank'>$1</a>");
 
             // find and replace new lines
-            var newLineRegex = /\r/gim;
-            formattedText = formattedText.replace(newLineRegex, "<br />");
+            formattedText = formattedText.replace("\n", "<br>");
 
             return { __html: formattedText };
         }
