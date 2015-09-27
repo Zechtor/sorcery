@@ -1,6 +1,6 @@
 import sys
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, desc
 from sqlalchemy.orm import backref
 
 from models import Base, session
@@ -44,7 +44,11 @@ class Tweet(Base):
 
     @classmethod
     def getList(class_, teamId, start, count):
-        return session.query(class_).filter(class_.teamId == teamId).offset(start).limit(count).all()
+        return session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.createDate)).offset(start).limit(count).all()
+
+    @classmethod
+    def getMostRecent(class_, teamId):
+        return session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.createDate)).first()
 
     # serialize
     def serialize(self):

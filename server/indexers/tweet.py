@@ -19,6 +19,7 @@ class TweetIndexer():
 
     @property
     def initialQueryString(self):
+        lastIndexed = Tweet.getMostRecent(1).tweetId
         hashtags = ['orlandomagic', 'magicbasketball']
         users = [
             'JoshuaBRobbins',
@@ -36,7 +37,7 @@ class TweetIndexer():
             'ShabazzNapier'
         ]
 
-        query = '?lang=en&count=100&q='
+        query = '?lang=en&count=100&since_id=' + lastIndexed + '&q='
         #for hashtag in hashtags:
         #    url += '%23' + hashtag + '+'
         #url = url[:-1]
@@ -66,6 +67,9 @@ class TweetIndexer():
             tweetData += data
             page += 1
 
+            if query is None:
+                break
+
         return tweetData
 
     def getTweets(self, accessToken, query):
@@ -78,7 +82,12 @@ class TweetIndexer():
         response = requests.get(url, headers=headers)
         results = response.json()
 
-        return results['statuses'], results['search_metadata']['next_results']
+        tweetData = results['statuses']
+        nextQuery = None
+        if 'next_results' in results['search_metadata']:
+            nextQuery = results['search_metadata']['next_results']
+
+        return tweetData, nextQuery
 
     def process(self, tweetData):
         print 'tweets found: ' + str(len(tweetData)) + '\n'
