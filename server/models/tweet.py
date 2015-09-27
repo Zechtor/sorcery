@@ -21,8 +21,8 @@ class Tweet(Base):
     def __init__(self, data):
         self.tweetId = data['id']
         self.createDate = datetime.now()
-        self.postDate = datetime.now()
-        self.text = data['text']
+        self.postDate= datetime.strptime(data['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
+        self.text = data['text'].strip()
         if 'entities' in data and 'media' in data['entities'] and data['entities']['media'][0] != None and 'media_url' in data['entities']['media'][0]:
             self.imageUrl = data['entities']['media'][0]['media_url']
         self.username = data['user']['screen_name']
@@ -44,11 +44,11 @@ class Tweet(Base):
 
     @classmethod
     def getList(class_, teamId, start, count):
-        return session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.createDate)).offset(start).limit(count).all()
+        return session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.postDate)).offset(start).limit(count).all()
 
     @classmethod
     def getMostRecent(class_, teamId):
-        return session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.createDate)).first()
+        return session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.postDate)).first()
 
     # serialize
     def serialize(self):

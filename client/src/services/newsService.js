@@ -1,6 +1,7 @@
 var Request = require("./request");
 
 var Service = {
+    eof: false,
     page: 1,
     articles: [],
 
@@ -9,6 +10,9 @@ var Service = {
             // page doesn't update if the next page was empty 
             if (data.articles.length > 0) {
                 Service.page = page;
+                Service.eof = false;
+            } else {
+                Service.eof = true;
             }
 
             // service supports infinite scrolling
