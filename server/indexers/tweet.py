@@ -19,7 +19,6 @@ class TweetIndexer():
 
     @property
     def initialQueryString(self):
-        lastIndexed = Tweet.getMostRecent(1).tweetId
         hashtags = ['orlandomagic', 'magicbasketball']
         users = [
             'JoshuaBRobbins',
@@ -37,7 +36,10 @@ class TweetIndexer():
             'ShabazzNapier'
         ]
 
-        query = '?lang=en&count=100&since_id=' + lastIndexed + '&q='
+        query = '?lang=en&count=100'
+        if Tweet.getMostRecent(1) is not None:
+            query += '&since_id=' + Tweet.getMostRecent(1).tweetId 
+        query += '&q='
         #for hashtag in hashtags:
         #    url += '%23' + hashtag + '+'
         #url = url[:-1]
