@@ -1,4 +1,4 @@
-import requests
+import requests, md5
 from base64 import b64encode
 
 from models.article import Article
@@ -21,27 +21,48 @@ class NewsIndexer():
         # userAgent = 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; FDM; .NET CLR 2.0.50727; InfoPath.2; .NET CLR 1.1.4322)'
         encodedCredentials = (':%s' % accountKey).encode('base64')[:-1]
         # query
-        url = 'https://api.datamarket.azure.com/Bing/Search/News?Query=%27%22Orlando+Magic%22%27&$skip=' + str(skip) + '&$format=json'
+        url = 'https://api.datamarket.azure.com/Bing/Search/News?Query=\'\"Orlando+Magic\"\'&$skip=' + str(skip) + '&$format=json&NewsSortBy=\'Date\''
         # create credential for authentication
         headers = {
             'Authorization': 'Basic ' + encodedCredentials
         }
         response = requests.get(url, headers=headers)
+
         results = response.json()
 
         return results['d']['results']
 
     def search(self):
-        articlesData = []
+        lastIndexed = None    
+        if Article.getMostRecent(1):
+            lastIndexed = Article.getMostRecent(1).articleId
+
+        articleData = []
 
         # pagination
         currentPage = 1
-        maxPage = 4
+        maxPage = 5
         while currentPage <= maxPage:
-            articlesData += self.getArticles(currentPage)
+            data = self.getArticles(currentPage)
+            articleData += data
+
+            # there is a known bug when bing has duplicate entires
+            # a false positive causes us to terminate the search early
+
+            # determine if we have hit the last article in our index
+            # this is the point where we will begin to get duplicates
+            hasMatch = False
+            for d in data:
+                if lastIndexed == md5.new(d['Url']).hexdigest():
+                    hasMatch = True
+                    break
+
+            if hasMatch:
+                break
+
             currentPage += 1
 
-        return articlesData
+        return articleData
 
     def process(self, articleList):
         articleCount = len(articleList)
