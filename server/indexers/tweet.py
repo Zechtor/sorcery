@@ -5,8 +5,21 @@ from models.tweet import Tweet
 
 class TweetIndexer():
 
+    # base method, entry point for the indexer
+    def index(self):
+        print '\nbegin indexing\n'
+
+        tweetData = []
+        accessToken = self.requestBearerToken()
+
+        tweetData = self.search(accessToken)
+        self.process(tweetData)
+
+        print 'end indexing\n'
+
     @property
     def initialQueryString(self):
+        lastIndexed = Tweet.getMostRecent(1).tweetId
         hashtags = ['orlandomagic', 'magicbasketball']
         users = [
             'JoshuaBRobbins',
@@ -24,7 +37,7 @@ class TweetIndexer():
             'ShabazzNapier'
         ]
 
-        query = '?lang=en&count=100&q='
+        query = '?lang=en&count=100&since_id=' + lastIndexed + '&q='
         #for hashtag in hashtags:
         #    url += '%23' + hashtag + '+'
         #url = url[:-1]
@@ -40,18 +53,26 @@ class TweetIndexer():
 
         return query
 
-    def index(self):
-        accessToken = self.requestBearerToken()
+    def search(self, accessToken):
+        print 'searching...\n'
 
-        # to begin get up to 5 pages worth
         page = 1
+        maxPage = 20
+        tweetData = []
         query = self.initialQueryString
-        while page <= 20:
-            tweetData, query = self.search(accessToken, query)
-            self.process(tweetData)
+
+        # accumulate a list of tweet data from the twitter's search api
+        while page <= maxPage:
+            data, query = self.getTweets(accessToken, query)
+            tweetData += data
             page += 1
 
-    def search(self, accessToken, query):
+            if query is None:
+                break
+
+        return tweetData
+
+    def getTweets(self, accessToken, query):
         url = 'https://api.twitter.com/1.1/search/tweets.json' + query
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -61,15 +82,34 @@ class TweetIndexer():
         response = requests.get(url, headers=headers)
         results = response.json()
 
-        return results['statuses'], results['search_metadata']['next_results']
+        tweetData = results['statuses']
+        nextQuery = None
+        if 'next_results' in results['search_metadata']:
+            nextQuery = results['search_metadata']['next_results']
+
+        return tweetData, nextQuery
 
     def process(self, tweetData):
+        print 'tweets found: ' + str(len(tweetData)) + '\n'
+
+        successCount = 0
+        errorCount = 0
+        retweetCount = 0
+
         for data in tweetData:
             if 'retweeted_status' in data:
+                retweetCount += 1
                 continue
 
             tweet = Tweet(data)
-            Tweet.save(tweet)
+            result = Tweet.save(tweet)
+
+            if result == True:
+                successCount +=1
+            else:
+                errorCount += 1
+
+        print 'Results:\n  tweets added: %d\n  retweets: %d\n  errors: %d\n' % (successCount, retweetCount, errorCount)
 
     # Oauth
     def requestBearerToken(self):
