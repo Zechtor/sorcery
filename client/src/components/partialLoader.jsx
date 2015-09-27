@@ -1,7 +1,7 @@
-var Loader = React.createClass({
+var PartialLoader = React.createClass({
     render : function() {
         return (
-            <div className="loader">
+            <div className="partialLoader">
                 <span>
                     Loading..
                 </span>
@@ -10,4 +10,4 @@ var Loader = React.createClass({
     }
 });
 
-module.exports = Loader;
+module.exports = PartialLoader;
