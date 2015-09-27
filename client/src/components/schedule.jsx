@@ -29,7 +29,7 @@ var Schedule = React.createClass({
 
     render: function() {
         return (
-            <section className="schedule">
+            <section id="schedule">
                 <Header title="Schedule" />
                 <Container>
                     <List>
