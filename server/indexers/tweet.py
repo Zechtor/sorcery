@@ -1,4 +1,4 @@
-import requests
+import requests, md5
 from base64 import b64encode
 
 from models.tweet import Tweet
@@ -7,15 +7,13 @@ class TweetIndexer():
 
     # base method, entry point for the indexer
     def index(self):
-        print '\nbegin indexing\n'
+        print '\nIndexing: Tweets\n'
 
         tweetData = []
         accessToken = self.requestBearerToken()
 
         tweetData = self.search(accessToken)
         self.process(tweetData)
-
-        print 'end indexing\n'
 
     @property
     def initialQueryString(self):
@@ -56,8 +54,6 @@ class TweetIndexer():
         return query
 
     def search(self, accessToken):
-        print 'searching...\n'
-
         page = 1
         maxPage = 20
         tweetData = []

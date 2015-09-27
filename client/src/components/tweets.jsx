@@ -5,6 +5,7 @@ var Container = require("./container");
 var Header = require("./header");
 var List = require("./list");
 var Loader = require("./loader");
+var PartialLoader = require("./partialLoader");
 
 var TweetsService = require("../services/tweetsService");
 
@@ -21,37 +22,42 @@ var Tweets = React.createClass({
         self.load(1);
 
         // Attach scroll listener
-        $(".tweets .container").scroll(function(){
+        $("#tweets .container").scroll(function() {
             self.scroll();
         });
     },
 
     scroll: function() {
         // TODO: Clean-up
-        if ($(".tweets .container").scrollTop() >= $(".tweets .list").height() - $(".tweets .container").height()) { 
+        if ($("#tweets .container").scrollTop() >= $("#tweets .list").height() - $("#tweets .container").height()) { 
             if (!this.state.isLoading) {  
-                this.setState({isLoading:true});
-                this.load(TweetsService.page + 1);
+                this.load(TweetsService.page + 1, true);
             }   
         }
     },
 
-    load: function(page) {
+    load: function(page, partialLoad) {
         // Helper function to load data
         var self = this;
-        self.setState({isLoading: true});
+        
+        if (partialLoad) {
+            self.setState({isPartialLoading: true});
+        } else {
+            self.setState({isLoading: true});
+        }
 
         TweetsService.get(page, function() {
             self.setState({
                 tweets: TweetsService.tweets,
-                isLoading: false
+                isLoading: false,
+                partialLoading: false
             });
         });
     },
 
     refresh: function() {
         this.load(1);
-        $(".tweets .container").scrollTop(0);
+        $("#tweets .container").scrollTop(0);
     },
 
     render: function() {
@@ -65,6 +71,9 @@ var Tweets = React.createClass({
                         {this.state.tweets.map(function(tweet) {
                             return <Tweet data={tweet}></Tweet>;
                         })}
+                        { this.state.isPartialLoading &&
+                            <PartialLoader />
+                        }
                     </List>
                 </Container>
                 { this.state.isLoading &&
@@ -82,18 +91,28 @@ var Tweet = React.createClass({
     
     render: function() {
 
-        // extract and format urls in tweets
-        var re = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-        var formattedText = this.props.data.message.replace(re, "<a href='$1' target='_blank'>$1</a>");
+        function formatTweet(message) {
+            // extract and format urls in tweets
+            var linkRegex = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+            var formattedText = message.replace(linkRegex, "<a href='$1' target='_blank'>$1</a>");
 
-        function createMarkup() { return {__html: formattedText}; };
+            // extract and format profile mentions
+            var profileRegex = /(@[A-Z0-9]+)/gim;
+            formattedText = formattedText.replace(profileRegex, "<a href='http://twitter.com/$1' target='_blank'>$1</a>");
+
+            // find and replace new lines
+            var newLineRegex = /\r/gim;
+            formattedText = formattedText.replace(newLineRegex, "<br />");
+
+            return { __html: formattedText };
+        }
 
         return (
             <li className="tweet">
                 { this.props.data.imageUrl &&
                     <img src={this.props.data.imageUrl} />
                 }
-                <h3 dangerouslySetInnerHTML={createMarkup()} />
+                <h3 dangerouslySetInnerHTML={formatTweet(this.props.data.message)} />
                 <div>
                     <img src={this.props.data.user.imageUrl} />
                     <a href={this.props.data.user.profileUrl} target="_blank">

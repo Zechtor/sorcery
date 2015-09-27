@@ -21,14 +21,14 @@ var News = React.createClass({
         self.load(1);
 
         // Attach scroll listener
-        $(".news .container").scroll(function(){
+        $("#news .container").scroll(function() {
             self.scroll();
         });
     },
 
     scroll: function() {
         // TODO: Clean-up
-        if ($(".news .container").scrollTop() >= $(".news .list").height() - $(".news .container").height()) { 
+        if ($("#news .container").scrollTop() >= $("#news .list").height() - $("#news .container").height()) { 
             if (!this.state.isLoading) {  
                 this.setState({isLoading: true});
                 this.load(NewsService.page + 1);
@@ -50,7 +50,7 @@ var News = React.createClass({
 
     refresh: function() {
         this.load(1);
-        $(".news .container").scrollTop(0);
+        $("#news .container").scrollTop(0);
     },
     
     render : function() {
