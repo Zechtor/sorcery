@@ -8,16 +8,16 @@ var Layout = React.createClass({
     
     render : function() {
         return (
-            <div className="layout">
+            <div id="layout">
                 <Nav />
-                <section className="left">
+                <section id="left">
                     <Schedule />
                 </section>
-                <section className="center">
+                <section id="center">
                     <Showcase />
                     <News />
                 </section>
-                <section className="right">
+                <section id="right">
                     <Tweets />
                 </section>
             </div>

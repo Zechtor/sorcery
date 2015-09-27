@@ -56,9 +56,9 @@ var Tweets = React.createClass({
 
     render: function() {
         return (
-            <section className="tweets">
+            <section id="tweets">
                 <Header title="Tweets">
-                    <input type="button" onClick={this.refresh} value="Refresh" />
+                    <button className="refresh" onClick={this.refresh}>Refresh</button>
                 </Header>
                 <Container>
                     <List>

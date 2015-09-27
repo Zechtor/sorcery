@@ -55,9 +55,9 @@ var News = React.createClass({
     
     render : function() {
         return (
-            <section className="news">
+            <section id="news">
                 <Header title="News">                
-                    <input type="button" onClick={this.refresh} value="Refresh" />
+                    <button className="refresh" onClick={this.refresh}>Refresh</button>
                 </Header>
                 <Container>
                     <List>
@@ -78,7 +78,7 @@ var NewsArticle = React.createClass({
 
     render : function() {
         return (
-            <li className="news">
+            <li className="article">
                 <div>
                     <img src={this.props.data.imageUrl} />
                 </div>

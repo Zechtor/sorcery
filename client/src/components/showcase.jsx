@@ -34,7 +34,7 @@ var Showcase = React.createClass({
         <ShowcaseDisplay data={this.state.showcase} /> : 
         <BlankDisplay />;
         return (
-            <section className="showcase">
+            <section id="showcase">
                 <Header title="Showcase"></Header>
                 <Container>
                     {showcaseStatus}
