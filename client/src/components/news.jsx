@@ -28,24 +28,38 @@ var News = React.createClass({
     },
 
     scroll: function() {
-        // TODO: Clean-up
-        if ($("#news .container").scrollTop() >= $("#news .list").height() - $("#news .container").height()) { 
-            if (!this.state.isLoading) {  
-                this.load(NewsService.page + 1, true);
-            }
+        // determine the height of 10 articles, this will become our scroll buffer
+        var heightBuffer = 0;
+        $("#news .article:lt(10)").each(function() {
+            heightBuffer += $(this).height();
+        });
+
+        if ($("#news .container").scrollTop() >= $("#news .list").height() - $("#news .container").height() - heightBuffer) { 
+            this.load(NewsService.page + 1, true);
         }
     },
 
     load: function(page, partialLoad) {
-        // Helper function to load data
         var self = this;
 
-        if (partialLoad) {
-            self.setState({ isPartialLoading: true });
-        } else {
-            self.setState({ isLoading: true });
+        // do not trigger a load if one is already occuring or if you have reached the end
+        if (self.state.isLoading || self.state.isPartialLoading) {
+            return;
         }
 
+        // do not continue to infinite scroll after reaching the end
+        if (partialLoad && NewsService.eof) {
+            return;
+        }
+        
+        // set loading state
+        if (partialLoad) {
+            self.setState({isPartialLoading: true});
+        } else {
+            self.setState({isLoading: true});
+        }
+
+        // get data
         NewsService.get(page, function() {
             self.setState({
                 news: NewsService.articles,

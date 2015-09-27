@@ -28,29 +28,45 @@ var Tweets = React.createClass({
     },
 
     scroll: function() {
-        // TODO: Clean-up
-        if ($("#tweets .container").scrollTop() >= $("#tweets .list").height() - $("#tweets .container").height()) { 
-            if (!this.state.isLoading) {  
-                this.load(TweetsService.page + 1, true);
-            }   
+        // determine the height of 10 tweets, this will become our scroll buffer
+        var heightBuffer = 0;
+        $("#tweets .tweet:lt(10)").each(function() {
+            heightBuffer += $(this).height();
+        });
+
+        if ($("#tweets .container").scrollTop() >= $("#tweets .list").height() - $("#tweets .container").height() - heightBuffer) { 
+            this.load(TweetsService.page + 1, true);
         }
     },
 
     load: function(page, partialLoad) {
-        // Helper function to load data
         var self = this;
+
+        // do not trigger a load if one is already occuring or if you have reached the end
+        if (self.state.isLoading || self.state.isPartialLoading) {
+            return;
+        }
+
+        // do not continue to infinite scroll after reaching the end
+        if (partialLoad && TweetsService.eof) {
+            return;
+        }
         
+        // set loading state
         if (partialLoad) {
             self.setState({isPartialLoading: true});
         } else {
             self.setState({isLoading: true});
         }
 
+        // get data
         TweetsService.get(page, function() {
+
+
             self.setState({
                 tweets: TweetsService.tweets,
                 isLoading: false,
-                partialLoading: false
+                isPartialLoading: false
             });
         });
     },

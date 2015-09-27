@@ -9,7 +9,7 @@ newsAPI = Blueprint('newsAPI', __name__)
 def news():
     teamId = 1
     page = int(request.args.get('page'))
-    pageSize = 10
+    pageSize = 20
     start = pageSize * (page - 1)
 
     articleList = Article.getList(1, start, pageSize)
