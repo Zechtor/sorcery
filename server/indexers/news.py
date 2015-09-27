@@ -5,6 +5,7 @@ from models.article import Article
 
 class NewsIndexer():
 
+    # base method, entry point for the indexer
     def index(self):
         print '\n===== begin news indexing =====\n'
 
@@ -14,15 +15,14 @@ class NewsIndexer():
         print '===== end news indexing\n ====='
 
     def getArticles(self, page):
-        pageSize = 15
         # search parameters
+        pageSize = 15
         skip = pageSize * (page - 1)
+        # create credential for authentication
         accountKey= 'VVex3zUPUy8nPJXTH66ZrTbebM36TANIPYMPGhxkD9U'
-        # userAgent = 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; FDM; .NET CLR 2.0.50727; InfoPath.2; .NET CLR 1.1.4322)'
         encodedCredentials = (':%s' % accountKey).encode('base64')[:-1]
         # query
         url = 'https://api.datamarket.azure.com/Bing/Search/News?Query=\'\"Orlando+Magic\"\'&$skip=' + str(skip) + '&$format=json&NewsSortBy=\'Date\''
-        # create credential for authentication
         headers = {
             'Authorization': 'Basic ' + encodedCredentials
         }
