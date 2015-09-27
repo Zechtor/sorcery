@@ -42,7 +42,7 @@ var Tweets = React.createClass({
     load: function(page, partialLoad) {
         var self = this;
 
-        // do not trigger a load if one is already occuring or if you have reached the end
+        // do not trigger a load if one is already occuring
         if (self.state.isLoading || self.state.isPartialLoading) {
             return;
         }
