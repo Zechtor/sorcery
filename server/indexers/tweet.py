@@ -33,7 +33,6 @@ class TweetIndexer():
             'DevMarble',
             'Quietstorm_32',
             'ShabazzNapier',
-            'MagicSupporters',
             'Channing_Frye',
             'JasonSmith014',
             'YoungTRaaw',
@@ -60,7 +59,7 @@ class TweetIndexer():
 
         if len(users) > 0:
             query = query[:-4]
-        print query
+        print query + '\n'
         return query
 
     def search(self, accessToken):

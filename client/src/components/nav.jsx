@@ -1,8 +1,20 @@
 var Nav = React.createClass({
 
     toggleShelf: function(event) {
-        var id = $(event.currentTarget).attr("id");
+        var toggle = $(event.currentTarget);
+        var id = toggle.attr("id");
+
+        // toggle the element
+        var currentlySelected = toggle.hasClass("isSelected");
+
+        $(".navToggle").removeClass("isSelected");
+        if (currentlySelected) {
+            toggle.removeClass("isSelected");   
+        } else {
+            toggle.addClass("isSelected");
+        }
         
+        // apply toggle to the layout
         var section;
         var other;
         if (id == "scheduleToggle") {
@@ -24,9 +36,9 @@ var Nav = React.createClass({
     render: function() {
         return (
             <section id="nav">
-                <button id="scheduleToggle" onClick={this.toggleShelf}>Schedule</button>
+                <button id="scheduleToggle" className="navToggle" onClick={this.toggleShelf} />
                 <span>Sorcery</span>
-                <button id="tweetToggle" onClick={this.toggleShelf}>Tweets</button>
+                <button id="tweetToggle" className="navToggle" onClick={this.toggleShelf} />
             </section>
         );
     }

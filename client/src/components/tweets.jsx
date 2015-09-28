@@ -80,7 +80,7 @@ var Tweets = React.createClass({
         return (
             <section id="tweets">
                 <Header title="Tweets">
-                    <button className="refresh" onClick={this.refresh}>Refresh</button>
+                    <button className="refresh" onClick={this.refresh} />
                 </Header>
                 <Container>
                     <List>
