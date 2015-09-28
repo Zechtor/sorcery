@@ -1,6 +1,11 @@
+// Colors
 $accentColor = #2b8ccd;
 $primaryColor = #f1f1f1;
 $secondaryColor = #333;
+
+// Font
+$font-family = helvetica,arial,sans-serif;
+$font-size = 16
 
 * {
     margin: 0px;
@@ -10,6 +15,8 @@ $secondaryColor = #333;
 html, body {
     background-color: $primaryColor;
     color: $secondaryColor;
+    font-family: $font-family
+    font-size: ($font-size)px
     height: 100%;
     overflow: hidden;
 }
@@ -25,6 +32,11 @@ a {
     &:visited {
         color: $accentColor;
     }   
+}
+
+h3 {
+    font-size ($font-size)px;
+    font-weight: 400;
 }
 
 section {
