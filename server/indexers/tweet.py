@@ -1,5 +1,6 @@
 import requests, md5
 from base64 import b64encode
+from urllib import quote
 
 from models.tweet import Tweet
 
@@ -16,8 +17,8 @@ class TweetIndexer():
         self.process(tweetData)
 
     @property
-    def initialQueryString(self):
-        hashtags = ['orlandomagic', 'magicbasketball']
+    def getQuery(self):
+        hashtags = []
         users = [
             'JoshuaBRobbins',
             'd_dedmon3',
@@ -31,7 +32,12 @@ class TweetIndexer():
             'FOXSportsMagic',
             'DevMarble',
             'Quietstorm_32',
-            'ShabazzNapier'
+            'ShabazzNapier',
+            'MagicSupporters',
+            'Channing_Frye',
+            'JasonSmith014',
+            'YoungTRaaw',
+            'gregstiemsma'
         ]
 
         query = '?lang=en&count=100'
@@ -39,22 +45,28 @@ class TweetIndexer():
             query += '&since_id=' + Tweet.getMostRecent(1).tweetId 
         query += '&q='
 
+        # hashtags
+        for hashtag in hashtags:
+            query += quote('#') + hashtag + '+OR+'
+
+        # trim the final or if there are no to append
+        if len(hashtags) > 0 and len(users) < 0:
+            query = query[:-4]
+
         # from users
         for user in users:
-            query += "from:" + user + '+OR+'
+            query += 'from:' + user + '+OR+'
 
         if len(users) > 0:
             query = query[:-4]
-
-        # hashtags
-
+        print query
         return query
 
     def search(self, accessToken):
         page = 1
         maxPage = 20
         tweetData = []
-        query = self.initialQueryString
+        query = self.getQuery
 
         # accumulate a list of tweet data from the twitter's search api
         while page <= maxPage:
@@ -69,6 +81,7 @@ class TweetIndexer():
 
     def getTweets(self, accessToken, query):
         url = 'https://api.twitter.com/1.1/search/tweets.json' + query
+
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
             'Authorization': 'Bearer ' + accessToken
