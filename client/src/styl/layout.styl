@@ -1,19 +1,36 @@
-$navHeight = 50;
-$colWidth = 320;
 $borderHeight = 1;
 $borderStyle = ($borderHeight)px solid #ccc;
+$buttonPadding = 20px;
+$colWidth = 320;
 $headerHeight = 40;
+$navHeight = 46;
+$phoneWidth = 480px;
 $showcaseHeight = 260;
 $tabletWidth = 950px
-$phoneWidth = 480px;
-$buttonPadding = 20px;
+
+/* Z-Index:
+ * To manage the state of spatial depth, z-index, we are establishing
+ * index bands, similar to frequency bands or airspace bands.
+ *
+ * Each column: left, right, center, is given a range of z-indexes that are
+ * reserved for it to use at it sees fit.
+ *
+ * This guarentees that the columns will correctly layer relative to one another,
+ * but have the flexibility to internally layer their content as they see fit
+ *
+ * The index bands are defined as follows:
+ * Center: 0 - 9
+ * Left: 10 - 19
+ * Right: 20 - 29
+ * Nav: 30
+ */
 
 #layout {
     height: 100%;
     width: 100%;
 
     // layout sections
-    section#nav {
+    #nav {
         background-color: $secondaryColor;
         border-bottom: ($borderHeight)px solid #000;
         color: $primaryColor;
@@ -22,7 +39,7 @@ $buttonPadding = 20px;
         position: absolute;
         top: 0px;
         width: 100%;
-        z-index: 3;
+        z-index: 30;
 
         button {
             display: none;
@@ -47,8 +64,8 @@ $buttonPadding = 20px;
         }
 
         #scheduleToggle {
-            left: $buttonPadding;
             background-image: url("images/iconSchedule.png");
+            left: $buttonPadding;
             
             &.isSelected {
                 background-image: url("images/iconScheduleSelected.png");   
@@ -56,8 +73,8 @@ $buttonPadding = 20px;
         }
 
         #tweetToggle {
-            right: $buttonPadding;
             background-image: url("images/iconTwitter.png");
+            right: $buttonPadding;
             
             &.isSelected {
                 background-image: url("images/iconTwitterSelected.png");   
@@ -65,15 +82,20 @@ $buttonPadding = 20px;
         }
         
         #scheduleToggle, #tweetToggle {
+            background-size: ($navHeight - $buttonPadding);
             height: $navHeight - $buttonPadding;
             width: $navHeight - $buttonPadding;
-            background-size: ($navHeight - $buttonPadding);
         }
     }
 
-    section#center {
-        padding-top: ($navHeight)px;
+    #center {
         margin: 0px ($colWidth)px;
+        padding-top: ($navHeight)px;
+        z-index: 0;
+
+        .header {
+            z-index: 1;
+        }
 
         @media screen and (max-width: $tabletWidth) {
             margin: 0px ($colWidth)px 0px 0px;
@@ -84,9 +106,14 @@ $buttonPadding = 20px;
         }
     }
 
-    section#left {
+    #left {
         border-right: ($borderHeight)px solid #666;
         left: 0px;
+        z-index: 10;
+        
+        .header {
+            z-index: 11;
+        }
 
         @media screen and (max-width: $tabletWidth) {
             transform: translateX(($colWidth * -1)px);
@@ -97,9 +124,8 @@ $buttonPadding = 20px;
         }
 
         @media screen and (max-width: $phoneWidth) {
-            width: 100%;
-
             transform: translateX(-1 * 100%);
+            width: 100%;
 
             &.isOpen {
                 transform: translateX(0);
@@ -107,9 +133,14 @@ $buttonPadding = 20px;
         }
     }
 
-    section#right {
+    #right {
         border-left: ($borderHeight)px solid #666;
         right: 0px;
+        z-index: 20;
+        
+        .header {
+            z-index: 21
+        }
 
         /*@media screen and (max-width: $tabletWidth) {
             transform: translateX(($colWidth)px);
@@ -128,59 +159,67 @@ $buttonPadding = 20px;
         }
     }
 
-    section#left, section#right {
+    #left, #right {
         position: absolute;
         top: ($navHeight)px;
-        width: ($colWidth)px;
-        z-index: 2;
         transition: 0.5s ease-in-out
+        width: ($colWidth)px;
 
         @media screen and (max-width: $phoneWidth) {
             width: 100%;
         }
     }
 
-    section#left, section#right, section#center {
+    #left, #right, #center {
         height: "calc(100% - %spx)" % ($navHeight);
     }
 
     // content sections
-    section#showcase {
+    #schedule {
+        height: 100%;
+    }
+    
+    #showcase {
         height: ($showcaseHeight)px;
-        position: relative;
     }
 
-    section#news {
+    #news {
         height: "calc(100% - %spx)" % ($showcaseHeight + $borderHeight);
+    }
+
+    #tweets {
+        height: 100%;
+    }
+    
+    #news, #schedule, #showcase, #tweets {
         position: relative;
-    }
-
-    section#schedule {
-        height: 100%;
-    }
-
-    section#tweets {
-        height: 100%;
     }
 }
 
 .header {
     background-color: $secondaryColor;
-    border-bottom: $borderStyle;
     color: $primaryColor;
-    box-shadow: 0px 1px 1px #ccc;
+    box-shadow: 0px 1px 5px #666;
     height: ($headerHeight)px;
     line-height: ($headerHeight)px;
     position: relative;
     text-align:center;
-    z-index: 2;
+    width: 100%;
 
     .refresh {
-        right: $buttonPadding;
         background-image: url("images/iconRefresh.png");
+        right: $buttonPadding;
         
-        &:active {
+        &.loading {
+            animation:spin 4s linear infinite;
             background-image: url("images/iconRefreshSelected.png");
+        }
+        
+        @keyframes spin { 
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform:rotate(360deg);
+            }
         }
     }
 }
@@ -199,13 +238,13 @@ $buttonPadding = 20px;
 }
 
 button {
-    height: $headerHeight - $buttonPadding;
-    width: $headerHeight - $buttonPadding;
     background-color: $secondaryColor;
-    top: ($buttonPadding / 2);
-    position: absolute;
-    border: 0px;
-    background-size: ($headerHeight - $buttonPadding);
     background-repeat: no-repeat;
+    background-size: ($headerHeight - $buttonPadding);
+    border: 0px;
+    height: $headerHeight - $buttonPadding;
     outline: none;
+    position: absolute;
+    top: ($buttonPadding / 2);
+    width: $headerHeight - $buttonPadding;
 }

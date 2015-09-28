@@ -6,6 +6,7 @@ var Header = require("./header");
 var List = require("./list");
 var Loader = require("./loader");
 var PartialLoader = require("./partialLoader");
+var Util = require("./util");
 
 var TweetsService = require("../services/tweetsService");
 
@@ -61,8 +62,6 @@ var Tweets = React.createClass({
 
         // get data
         TweetsService.get(page, function() {
-
-
             self.setState({
                 tweets: TweetsService.tweets,
                 isLoading: false,
@@ -77,10 +76,15 @@ var Tweets = React.createClass({
     },
 
     render: function() {
+        var refreshClasses = Util.classNames({
+            "refresh": true,
+            "loading": this.state.isLoading
+        });
+
         return (
             <section id="tweets">
                 <Header title="Tweets">
-                    <button className="refresh" onClick={this.refresh} />
+                    <button className={refreshClasses} onClick={this.refresh} />
                 </Header>
                 <Container>
                     <List>
