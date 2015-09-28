@@ -6,6 +6,7 @@ var Header = require("./header");
 var List = require("./list");
 var Loader = require("./loader");
 var PartialLoader = require("./partialLoader");
+var Util = require("./util");
 
 var NewsService = require("../services/newsService");
 
@@ -75,10 +76,15 @@ var News = React.createClass({
     },
     
     render : function() {
+        var refreshClasses = Util.classNames({
+            "refresh": true,
+            "loading": this.state.isLoading
+        });
+
         return (
             <section id="news">
                 <Header title="News">                
-                    <button className="refresh" onClick={this.refresh} />
+                    <button className={refreshClasses} onClick={this.refresh} />
                 </Header>
                 <Container>
                     <List>

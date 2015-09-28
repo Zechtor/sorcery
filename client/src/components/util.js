@@ -1,3 +1,6 @@
+// UI libraries
+var classNames = require("classnames");
+
 // Date libary
 var DateTools = {
     // converts date to format: Day Month Date (e.g. Tues Aug 5)
@@ -46,5 +49,6 @@ var DateTools = {
 };
 
 module.exports = {
-    DateTools: DateTools
+    DateTools: DateTools,
+    classNames: classNames
 };
