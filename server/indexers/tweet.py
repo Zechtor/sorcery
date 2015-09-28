@@ -37,7 +37,8 @@ class TweetIndexer():
             'Channing_Frye',
             'JasonSmith014',
             'YoungTRaaw',
-            'gregstiemsma'
+            'gregstiemsma',
+            'STUFFMagic'
         ]
 
         query = '?lang=en&count=100'
