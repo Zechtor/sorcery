@@ -67,12 +67,15 @@ var News = React.createClass({
                 isLoading: false,
                 isPartialLoading: false
             });
+
+            if (!partialLoad) {
+                $("#news .container").scrollTop(0);
+            }
         });
     },
 
     refresh: function() {
         this.load(1);
-        $("#news .container").scrollTop(0);
     },
     
     render : function() {
@@ -108,7 +111,7 @@ var NewsArticle = React.createClass({
 
     render : function() {
         return (
-            <li className="article">
+            <li className="article item">
                 <div>
                     <img src={this.props.data.imageUrl} />
                 </div>

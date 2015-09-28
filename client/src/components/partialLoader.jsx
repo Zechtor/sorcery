@@ -2,11 +2,11 @@ var PartialLoader = React.createClass({
     render : function() {
         return (
             <div className="partialLoader">
-                <ul className="loading">
+                <ol className="loading">
                     <li></li>
                     <li></li>
                     <li></li>
-                </ul>
+                </ol>
             </div>
         );
     }
