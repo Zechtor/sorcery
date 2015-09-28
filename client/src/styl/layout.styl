@@ -1,11 +1,12 @@
 $navHeight = 50;
 $colWidth = 320;
 $borderHeight = 1;
-$borderStyle = ($borderHeight)px solid #999;
+$borderStyle = ($borderHeight)px solid #ccc;
 $headerHeight = 40;
 $showcaseHeight = 260;
 $tabletWidth = 950px
 $phoneWidth = 480px;
+$buttonPadding = 20px;
 
 #layout {
     height: 100%;
@@ -27,8 +28,14 @@ $phoneWidth = 480px;
             display: none;
             padding: 0px 10px;
             position: absolute;
-
+            
             @media screen and (max-width: $tabletWidth) {
+                &#scheduleToggle {
+                    display:inline-block;
+                }
+            }
+
+            @media screen and (max-width: $phoneWidth) {
                 display:inline-block;
             }
         }
@@ -40,13 +47,27 @@ $phoneWidth = 480px;
         }
 
         #scheduleToggle {
-            height: ($navHeight)px;
-            left: 0px;
+            left: $buttonPadding;
+            background-image: url("images/iconSchedule.png");
+            
+            &.isSelected {
+                background-image: url("images/iconScheduleSelected.png");   
+            }
         }
 
         #tweetToggle {
-            height: ($navHeight)px;
-            right: 0px;
+            right: $buttonPadding;
+            background-image: url("images/iconTwitter.png");
+            
+            &.isSelected {
+                background-image: url("images/iconTwitterSelected.png");   
+            }
+        }
+        
+        #scheduleToggle, #tweetToggle {
+            height: $navHeight - $buttonPadding;
+            width: $navHeight - $buttonPadding;
+            background-size: ($navHeight - $buttonPadding);
         }
     }
 
@@ -55,12 +76,16 @@ $phoneWidth = 480px;
         margin: 0px ($colWidth)px;
 
         @media screen and (max-width: $tabletWidth) {
+            margin: 0px ($colWidth)px 0px 0px;
+        }
+        
+        @media screen and (max-width: $phoneWidth) {
             margin: 0px;
         }
     }
 
     section#left {
-        border-right: $borderStyle;
+        border-right: ($borderHeight)px solid #666;
         left: 0px;
 
         @media screen and (max-width: $tabletWidth) {
@@ -83,16 +108,16 @@ $phoneWidth = 480px;
     }
 
     section#right {
-        border-left: $borderStyle;
+        border-left: ($borderHeight)px solid #666;
         right: 0px;
 
-        @media screen and (max-width: $tabletWidth) {
+        /*@media screen and (max-width: $tabletWidth) {
             transform: translateX(($colWidth)px);
 
             &.isOpen {
                 transform: translateX(0px);
             }
-        }
+        }*/
 
         @media screen and (max-width: $phoneWidth) {
             transform: translateX(100%);
@@ -151,15 +176,17 @@ $phoneWidth = 480px;
     z-index: 2;
 
     .refresh {
-        height: ($headerHeight)px;
-        right: 0px;
-        padding: 0px 6px;
-        position: absolute;
+        right: $buttonPadding;
+        background-image: url("images/iconRefresh.png");
+        
+        &:active {
+            background-image: url("images/iconRefreshSelected.png");
+        }
     }
 }
 
 .container {
-    background-color: $backgroundColor;
+    background-color: $primaryColor;
     height: "calc(100% - %spx)" % ($headerHeight - $borderHeight);
     overflow-x: hidden;
     overflow-y: auto;
@@ -169,4 +196,16 @@ $phoneWidth = 480px;
 
 .list {
     list-style-type: none;
+}
+
+button {
+    height: $headerHeight - $buttonPadding;
+    width: $headerHeight - $buttonPadding;
+    background-color: $secondaryColor;
+    top: ($buttonPadding / 2);
+    position: absolute;
+    border: 0px;
+    background-size: ($headerHeight - $buttonPadding);
+    background-repeat: no-repeat;
+    outline: none;
 }

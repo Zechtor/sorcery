@@ -78,7 +78,7 @@ var News = React.createClass({
         return (
             <section id="news">
                 <Header title="News">                
-                    <button className="refresh" onClick={this.refresh}>Refresh</button>
+                    <button className="refresh" onClick={this.refresh} />
                 </Header>
                 <Container>
                     <List>
