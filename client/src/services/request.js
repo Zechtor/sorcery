@@ -8,7 +8,7 @@ var $ = require("jquery");
 
 // to help us with testing
 /* eslint no-console:0 */
-var delay = 2000;
+var delay = 3000;
 $.fn.extend( {
 
     delayedGet: function(path, params, callback) {
