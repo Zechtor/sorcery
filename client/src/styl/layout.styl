@@ -1,7 +1,7 @@
 $navHeight = 50;
 $colWidth = 320;
 $borderHeight = 1;
-$borderStyle = ($borderHeight)px solid black;
+$borderStyle = ($borderHeight)px solid #999;
 $headerHeight = 40;
 $showcaseHeight = 260;
 $tabletWidth = 950px
@@ -13,7 +13,9 @@ $phoneWidth = 480px;
 
     // layout sections
     section#nav {
-        border-bottom: $borderStyle;
+        background-color: $secondaryColor;
+        border-bottom: ($borderHeight)px solid #000;
+        color: $primaryColor;
         height: ($navHeight)px;
         line-height: ($navHeight)px;
         position: absolute;
@@ -124,7 +126,6 @@ $phoneWidth = 480px;
     }
 
     section#news {
-        border-top: $borderStyle;
         height: "calc(100% - %spx)" % ($showcaseHeight + $borderHeight);
         position: relative;
     }
@@ -139,12 +140,15 @@ $phoneWidth = 480px;
 }
 
 .header {
-    background-color: $backgroundColor;
+    background-color: $secondaryColor;
     border-bottom: $borderStyle;
+    color: $primaryColor;
+    box-shadow: 0px 1px 1px #ccc;
     height: ($headerHeight)px;
     line-height: ($headerHeight)px;
-    position:relative;
+    position: relative;
     text-align:center;
+    z-index: 2;
 
     .refresh {
         height: ($headerHeight)px;

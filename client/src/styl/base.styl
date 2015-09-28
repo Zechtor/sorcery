@@ -1,5 +1,7 @@
-$backgroundColor = #FFFFFF;
-$linkColor = #00AAFF;
+$primaryColor = #FFFFFF
+$secondaryColor = #343131
+$accentColor = #2b8ccd;
+$backgroundColor = #ececec;
 
 * {
     margin: 0px;
@@ -7,12 +9,14 @@ $linkColor = #00AAFF;
 }
 
 html, body {
+    background-color: $backgroundColor;
+    color: $secondaryColor;
     height: 100%;
     overflow: hidden;
 }
 
 a {
-    color: $linkColor;
+    color: $accentColor;
     text-decoration: none;
 
     &:hover {
@@ -20,6 +24,10 @@ a {
     }
 
     &:visited {
-        color: $linkColor;
+        color: $accentColor;
     }   
+}
+
+section {
+    position: relative;
 }
