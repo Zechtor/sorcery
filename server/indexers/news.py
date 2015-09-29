@@ -1,5 +1,6 @@
 import requests, md5
 from base64 import b64encode
+from lxml import html
 
 from models.article import Article
 
@@ -7,27 +8,27 @@ class NewsIndexer():
 
     # base method, entry point for the indexer
     def index(self):
-        print '\n===== begin news indexing =====\n'
+        print '\nIndexing: Bing Articles\n'
 
         newsData = self.search()
         self.process(newsData)
-
-        print '===== end news indexing\n ====='
 
     def getArticles(self, page):
         # search parameters
         pageSize = 15
         skip = pageSize * (page - 1)
+
         # create credential for authentication
         accountKey= 'VVex3zUPUy8nPJXTH66ZrTbebM36TANIPYMPGhxkD9U'
         encodedCredentials = (':%s' % accountKey).encode('base64')[:-1]
+
         # query
         url = 'https://api.datamarket.azure.com/Bing/Search/News?Query=\'\"Orlando+Magic\"\'&$skip=' + str(skip) + '&$format=json&NewsSortBy=\'Date\''
         headers = {
             'Authorization': 'Basic ' + encodedCredentials
         }
-        response = requests.get(url, headers=headers)
 
+        response = requests.get(url, headers=headers)
         results = response.json()
 
         return results['d']['results']
@@ -41,7 +42,7 @@ class NewsIndexer():
 
         # pagination
         currentPage = 1
-        maxPage = 5
+        maxPage = 1
         while currentPage <= maxPage:
             data = self.getArticles(currentPage)
             articleData += data
@@ -69,13 +70,32 @@ class NewsIndexer():
         successCount = 0
         errorCount = 0
         for data in articleList:
+            # attempt to extract an image
+            data['ImageUrl'] = self.extractImage(data['Url'])
+
             result = Article.save(Article(data))
             if result == True:
                 successCount += 1
             else: 
                 errorCount += 1
 
-        print 'Process results: Article Count %d - Success Count %d - Error Count %d' % (articleCount, successCount, errorCount)
+        print 'Process results:\n  Article Count %d\n  Success Count %d \n  Error Count %d' % (articleCount, successCount, errorCount)
 
+    def extractImage(self, url):
+        imageUrl = None
 
+        try:
+            # allows us to request sites that would otherwise block us
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+            }
+            page = requests.get(url, headers=headers)
+            root = html.fromstring(page.text)
+            imageMeta = root.find("head/meta[@property='og:image']")
 
+            if imageMeta is not None:
+                imageUrl = imageMeta.attrib.get('content')
+        except:
+            imageUrl = None
+
+        return imageUrl

@@ -25,6 +25,7 @@ class Article(Base):
         self.postDate = parser.parse(data['Date'], ignoretz=True)
         self.title = data['Title']
         self.articleUrl = data['Url']
+        self.imageUrl = data['ImageUrl']
         self.source = data['Source']
         self.description = data['Description']
         self.teamId = 1
