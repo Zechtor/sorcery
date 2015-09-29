@@ -1,19 +1,11 @@
-$tweetPadding = 20;
 $tweetProfileImageSize = 26;
 $tweetImageSize = 200;
 $tweetVerticalSpacer = 14;
-$tweetFontSize = 18;
 
 .tweet {
-    border-bottom: $borderStyle;
-    padding: ($tweetPadding)px;
-
-    h3 {
-        font-size: ($tweetFontSize)px;
-        font-weight: 400;
-    }
 
     img {
+        border-radius: 3px;
         margin-bottom: ($tweetVerticalSpacer)px;
         width: 100%
     }
@@ -31,7 +23,6 @@ $tweetFontSize = 18;
         }
 
         a {
-            font-size: ($tweetFontSize)px;
             line-height: ($tweetProfileImageSize)px;
         }
     }

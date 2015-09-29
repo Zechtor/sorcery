@@ -1,25 +1,28 @@
-$newsFontSize = 18;
 $newsPadding = 10;
 
 #news {
 
     .article {
-        border-bottom: $borderStyle;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-
-        div {
-            margin: ($newsPadding)px 0px ($newsPadding)px 0px;
-        }
-
-        h3 {
-            font-size: ($newsFontSize)px;
-            font-weight: 600;
+        
+        &:hover {
+            cursor: pointer;
+            
+            h3 {
+                text-decoration: underline;
+            }
         }
 
         img {
             padding: 0px ($newsPadding)px 0px ($newsPadding)px;
+        }
+        
+        h3 {
+            color: $accentColor;
+            font-size: ($fontSize + 2)px
+            margin-bottom:8px;
         }
     }
 }

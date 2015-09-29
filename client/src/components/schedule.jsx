@@ -47,7 +47,7 @@ var Schedule = React.createClass({
 var Game = React.createClass({
     render: function() {
         return (
-            <li className="game">
+            <li className="game item">
                 <GameInfo data={this.props.data} />
                 <GameState data={this.props.data} />
             </li>

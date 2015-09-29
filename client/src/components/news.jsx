@@ -67,12 +67,15 @@ var News = React.createClass({
                 isLoading: false,
                 isPartialLoading: false
             });
+
+            if (!partialLoad) {
+                $("#news .container").scrollTop(0);
+            }
         });
     },
 
     refresh: function() {
         this.load(1);
-        $("#news .container").scrollTop(0);
     },
     
     render : function() {
@@ -106,18 +109,17 @@ var News = React.createClass({
 
 var NewsArticle = React.createClass({
 
+    openArticle: function() {
+        window.open(this.props.data.articleUrl);
+    },
+
     render : function() {
         return (
-            <li className="article">
+            <li className="article item" onClick={this.openArticle}>
+                <img src={this.props.data.imageUrl} />
                 <div>
-                    <img src={this.props.data.imageUrl} />
-                </div>
-                <div>
-                    <a href={this.props.data.articleUrl} target="_blank">
-                        <h3>{this.props.data.title}</h3>
-                    </a>
-                    <br />
-                    {this.props.data.postDate}
+                    <h3>{this.props.data.title}</h3>
+                    <span>{this.props.data.postDate}</span>
                 </div>
             </li>
         );

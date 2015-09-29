@@ -67,12 +67,15 @@ var Tweets = React.createClass({
                 isLoading: false,
                 isPartialLoading: false
             });
+
+            if (!partialLoad) {
+                $("#tweets .container").scrollTop(0);
+            }
         });
     },
 
     refresh: function() {
         this.load(1);
-        $("#tweets .container").scrollTop(0);
     },
 
     render: function() {
@@ -127,7 +130,7 @@ var Tweet = React.createClass({
         }
 
         return (
-            <li className="tweet">
+            <li className="tweet item">
                 { this.props.data.imageUrl &&
                     <img src={this.props.data.imageUrl} />
                 }

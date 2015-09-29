@@ -4,8 +4,9 @@ $buttonPadding = 20px;
 $colWidth = 320;
 $headerHeight = 40;
 $navHeight = 46;
+$listItemPadding = 20;
 $phoneWidth = 480px;
-$showcaseHeight = 260;
+$showcaseHeight = 200;
 $tabletWidth = 950px
 
 /* Z-Index:
@@ -33,7 +34,7 @@ $tabletWidth = 950px
     #nav {
         background-color: $secondaryColor;
         border-bottom: ($borderHeight)px solid #000;
-        color: $primaryColor;
+        color: $secondaryFontColor;
         height: ($navHeight)px;
         line-height: ($navHeight)px;
         position: absolute;
@@ -107,7 +108,7 @@ $tabletWidth = 950px
     }
 
     #left {
-        border-right: ($borderHeight)px solid #666;
+        border-right: ($borderHeight)px solid #a1a1a1;
         left: 0px;
         z-index: 10;
         
@@ -134,7 +135,7 @@ $tabletWidth = 950px
     }
 
     #right {
-        border-left: ($borderHeight)px solid #666;
+        border-left: ($borderHeight)px solid #a1a1a1;
         right: 0px;
         z-index: 20;
         
@@ -198,7 +199,7 @@ $tabletWidth = 950px
 
 .header {
     background-color: $secondaryColor;
-    color: $primaryColor;
+    color: $secondaryFontColor;
     box-shadow: 0px 1px 5px #666;
     height: ($headerHeight)px;
     line-height: ($headerHeight)px;
@@ -235,6 +236,14 @@ $tabletWidth = 950px
 
 .list {
     list-style-type: none;
+    
+    .item {
+        background-color: #fff;
+        border: $borderStyle;
+        border-radius: 4px;
+        padding: ($listItemPadding)px;
+        margin: 10px;
+    }
 }
 
 button {
