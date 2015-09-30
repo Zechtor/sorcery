@@ -43,6 +43,30 @@ var Schedule = React.createClass({
     }
 });
 
+var Game = React.createClass({ 
+    render: function() {
+        var homeTeam;
+        var awayTeam;
+        if (this.props.data.teams[0].isHome == true) {
+            homeTeam = this.props.data.teams[0];
+            awayTeam = this.props.data.teams[1];
+        } else {
+            homeTeam = this.props.data.teams[1];
+            awayTeam = this.props.data.teams[0];
+        }
+        return (
+            <div className="game">
+                <div>
+                    <img src={awayTeam.imageUrl} />
+                    {this.props.data.teams[0].name}
+                {homeTeam.name}
+                </div>                
+            </div>
+         );
+    }
+});
+
+/**
 // Individual Game component
 var Game = React.createClass({
     render: function() {
@@ -136,5 +160,5 @@ var GameResults = React.createClass({
         );
     }
 });
-
+**/
 module.exports = Schedule;
