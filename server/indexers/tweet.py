@@ -3,8 +3,10 @@ from base64 import b64encode
 from urllib import quote
 
 from models.tweet import Tweet
+from models.team import Team
 
 class TweetIndexer():
+    team = Team.getByName('magic')
 
     # base method, entry point for the indexer
     def index(self):
@@ -41,8 +43,9 @@ class TweetIndexer():
         ]
 
         query = '?lang=en&count=100'
-        if Tweet.getMostRecent(1) is not None:
-            query += '&since_id=' + Tweet.getMostRecent(1).tweetId 
+        mostRecentTweet = Tweet.getMostRecent(self.team.id)
+        if mostRecentTweet is not None:
+            query += '&since_id=' + mostRecentTweet.tweetId 
         query += '&q='
 
         # hashtags
@@ -108,6 +111,9 @@ class TweetIndexer():
             if 'retweeted_status' in data:
                 retweetCount += 1
                 continue
+
+            # input the teamId into the data package
+            data['teamId'] = self.team.id
 
             tweet = Tweet(data)
             result = Tweet.save(tweet)

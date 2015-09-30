@@ -15,7 +15,7 @@ class Article(Base):
     articleUrl = Column(String(200), nullable=False)
     source = Column(String(200), nullable=False)
     description = Column(String(500), nullable=False)
-    imageUrl = Column(String(200))
+    imageUrl = Column(String(500))
     teamId = Column(Integer, ForeignKey('team.id'))
 
     def __init__(self, data):
@@ -28,7 +28,7 @@ class Article(Base):
         self.imageUrl = data['ImageUrl']
         self.source = data['Source']
         self.description = data['Description']
-        self.teamId = 1
+        self.teamId = data['teamId']
 
     # serialize
     def serialize(self):
@@ -47,13 +47,21 @@ class Article(Base):
 
     @classmethod
     def save(class_, article):
-        session.add(article)
+        existing = Article.getByArticleId(article.articleId) is not None
+        if existing:
+            return False
+
         try:
+            session.add(article)
             session.commit()
             return True 
         except:
             return False
         
+    @classmethod
+    def getByArticleId(class_, articleId):
+        return session.query(class_).filter(class_.articleId == articleId).first()
+
     @classmethod
     def getList(class_, teamId, start, count):
         return session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.postDate)).offset(start).limit(count).all()
