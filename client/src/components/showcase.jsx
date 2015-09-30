@@ -57,7 +57,7 @@ var ShowcaseDisplay = React.createClass({
                     <div className="team">
                         {this.props.data.teams[0].abbreviation}<br />
                         <img src={this.props.data.teams[0].imageUrl} /><br />
-                        <div className="score">{this.props.data.teams[0].score}</div>
+                        {this.props.data.teams[0].score}
                     </div>
                     <div className="vs">
                     vs
@@ -65,7 +65,7 @@ var ShowcaseDisplay = React.createClass({
                     <div className="team">
                         {this.props.data.teams[1].abbreviation}<br />
                         <img src={this.props.data.teams[1].imageUrl} /><br />
-                        <div className="score">{this.props.data.teams[1].score}</div>
+                        {this.props.data.teams[1].score}
                     </div>
                 </div>
                 <div className="date">
