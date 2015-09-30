@@ -3,8 +3,10 @@ from base64 import b64encode
 from lxml import html
 
 from models.article import Article
+from models.team import Team
 
 class NewsIndexer():
+    team = Team.getByName('magic')
 
     # base method, entry point for the indexer
     def index(self):
@@ -34,9 +36,9 @@ class NewsIndexer():
         return results['d']['results']
 
     def search(self):
-        lastIndexed = None    
-        if Article.getMostRecent(1):
-            lastIndexed = Article.getMostRecent(1).articleId
+        lastIndexed = Article.getMostRecent(self.team.id) 
+        if lastIndexed is not None:
+            lastIndexed = lastIndexed.articleId
 
         articleData = []
 
@@ -72,6 +74,9 @@ class NewsIndexer():
         for data in articleList:
             # attempt to extract an image
             data['ImageUrl'] = self.extractImage(data['Url'])
+
+            # input the teamId into the data package
+            data['teamId'] = self.team.id
 
             result = Article.save(Article(data))
             if result == True:

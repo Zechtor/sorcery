@@ -27,7 +27,7 @@ class Tweet(Base):
             self.imageUrl = data['entities']['media'][0]['media_url']
         self.username = data['user']['screen_name']
         self.userImageUrl = data['user']['profile_image_url']
-        self.teamId = 1
+        self.teamId = data['teamId']
 
     @property
     def profileUrl(self):
