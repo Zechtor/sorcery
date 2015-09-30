@@ -35,6 +35,7 @@ var Showcase = React.createClass({
         <BlankDisplay />;
         return (
             <section id="showcase">
+                <Header title="Showcase"></Header>
                 <Container>
                     {showcaseStatus}
                 </Container>
@@ -49,25 +50,26 @@ var Showcase = React.createClass({
 
 var ShowcaseDisplay = React.createClass({
     render : function () {
-        var formattedDate = Util.DateTools.convertDate(this.props.data.startTime);
 
         return (
             <section>
                 <div className="game">
-                    <div>
-                        {this.props.data.team.location} {this.props.data.team.name} <br />
-                        <img src={this.props.data.team.icon} /> <br />
-                        {this.props.data.team.score} 
+                    <div className="team">
+                        {this.props.data.teams[0].abbreviation}<br />
+                        <img src={this.props.data.teams[0].imageUrl} /><br />
+                        <div className="score">{this.props.data.teams[0].score}</div>
                     </div>
-                    vs 
-                    <div>
-                        {this.props.data.opponent.location} {this.props.data.opponent.name} <br />
-                        <img src={this.props.data.results.winner.icon} /> <br />
-                        {this.props.data.opponent.score} 
+                    <div className="vs">
+                    vs
+                    </div>
+                    <div className="team">
+                        {this.props.data.teams[1].abbreviation}<br />
+                        <img src={this.props.data.teams[1].imageUrl} /><br />
+                        <div className="score">{this.props.data.teams[1].score}</div>
                     </div>
                 </div>
                 <div className="date">
-                    {formattedDate}
+                    {this.props.data.startTime}
                 </div>
             </section>
         );
