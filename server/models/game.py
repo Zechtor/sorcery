@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from datetime import datetime
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, asc, or_
 from sqlalchemy.orm import backref
 
 from models import Base, session
@@ -8,19 +9,22 @@ class Game(Base):
     __tablename__ = 'game'
     id = Column(Integer, primary_key=True)
     createDate = Column(DateTime, nullable=False)
-    teamId = Column(Integer, ForeignKey('team.id'), nullable=False)
-    teamScore = Column(Integer)
-    # Foreign Key needed
-    team2Id = Column(String(100), nullable=False)
-    team2Score = Column(Integer)
-    startTime = Column(DateTime, nullable=False)
+    externalId = Column(String(50), unique=True, nullable=False)
     # Foreign Key needed
     homeTeamId = Column(Integer, nullable=False,)
+    homeTeamScore = Column(Integer)
     overtime = Column(Integer)
+    startTime = Column(DateTime, nullable=False)
+    # Foreign Key needed
+    visitorTeamId = Column(String(100), nullable=False)
+    visitorTeamScore = Column(Integer)
 
-    @classmethod
-    def getAll(class_):
-        return session.query(class_).all()
+    def __init__(self, data):
+        self.externalId = data['GAME_ID']
+        self.createDate = datetime.now()
+        self.homeTeamId = data['HOME_TEAM_ID']
+        self.visitorTeamId = data['VISITOR_TEAM_ID']
+        self.startTime = data['GAME_DATE_EST']
 
     # serialize
     def serialize(self):
@@ -29,14 +33,28 @@ class Game(Base):
             'startTime': self.startTime,
             'overtime': self.overtime,
             'teams': [
-                Team.getById(self.teamId).serialize({
-                    "score": self.teamScore,
-                    "isHome": self.homeTeamId == self.teamId
+                Team.getById(self.homeTeamId).serialize({
+                    "score": self.homeTeamScore,
+                    "isHome": True
                 }),
-                Team.getById(self.team2Id).serialize({
-                    "score": self.team2Score,
-                    "isHome": self.homeTeamId == self.team2Id
+                Team.getById(self.visitorTeamId).serialize({
+                    "score": self.visitorTeamScore,
+                    "isHome": False
                 })
             ]
         }
         return game;
+
+    @classmethod
+    def save(class_, tweet):
+        session.add(tweet)
+        try:
+            session.commit()
+            return True 
+        except:
+            return False
+
+    @classmethod
+    def getList(class_, teamId):
+        print teamId
+        return session.query(class_).filter(or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId)).order_by(asc(class_.startTime)).all()
