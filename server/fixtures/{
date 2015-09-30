@@ -1,0 +1,52 @@
+{ 
+	GameHeader: [
+	    {
+	        "GAMECODE": "20151027/DETATL",
+	        "GAME_DATE_EST": "2015-10-27T00:00:00",
+	        "GAME_ID": "0021500001",
+	        "GAME_SEQUENCE": 1,
+	        "GAME_STATUS_ID": 1,
+	        "GAME_STATUS_TEXT": "8:00 pm ET",
+	        "HOME_TEAM_ID": 1610612737,
+	        "LIVE_PC_TIME": "     ",
+	        "LIVE_PERIOD": 0,
+	        "LIVE_PERIOD_TIME_BCAST": "Q0       - ",
+	        "NATL_TV_BROADCASTER_ABBREVIATION": null,
+	        "SEASON": "2015",
+	        "VISITOR_TEAM_ID": 1610612765,
+	        "WH_STATUS": 0
+	    },
+	    {
+	        "GAMECODE": "20151027/CLECHI",
+	        "GAME_DATE_EST": "2015-10-27T00:00:00",
+	        "GAME_ID": "0021500002",
+	        "GAME_SEQUENCE": 2,
+	        "GAME_STATUS_ID": 1,
+	        "GAME_STATUS_TEXT": "8:00 pm ET",
+	        "HOME_TEAM_ID": 1610612741,
+	        "LIVE_PC_TIME": "     ",
+	        "LIVE_PERIOD": 0,
+	        "LIVE_PERIOD_TIME_BCAST": "Q0       - TNT",
+	        "NATL_TV_BROADCASTER_ABBREVIATION": "TNT",
+	        "SEASON": "2015",
+	        "VISITOR_TEAM_ID": 1610612739,
+	        "WH_STATUS": 0
+	    },
+	    {
+	        "GAMECODE": "20151027/NOPGSW",
+	        "GAME_DATE_EST": "2015-10-27T00:00:00",
+	        "GAME_ID": "0021500003",
+	        "GAME_SEQUENCE": 3,
+	        "GAME_STATUS_ID": 1,
+	        "GAME_STATUS_TEXT": "10:30 pm ET",
+	        "HOME_TEAM_ID": 1610612744,
+	        "LIVE_PC_TIME": "     ",
+	        "LIVE_PERIOD": 0,
+	        "LIVE_PERIOD_TIME_BCAST": "Q0       - TNT",
+	        "NATL_TV_BROADCASTER_ABBREVIATION": "TNT",
+	        "SEASON": "2015",
+	        "VISITOR_TEAM_ID": 1610612740,
+	        "WH_STATUS": 0
+	    }
+	]
+}
