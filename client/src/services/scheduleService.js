@@ -5,7 +5,7 @@ var Service = {
 
     get: function(callback) {
         Request.get("/schedule", {}, function(data) {
-            Service.schedule = data.schedule;
+            Service.schedule = data.games;
             callback();
         });
     },

@@ -16,5 +16,5 @@ class TeamIndexer():
 			self.processTeam(data)
 
 	def processTeam(self, data):
-		teamData['imageUrl'] = 'http://stats.nba.com/media/img/teams/logos/' + teamData['abbr'].upper() + '_logo.svg'
-		Team.save(Team(teamData))
+		data['imageUrl'] = 'http://stats.nba.com/media/img/teams/logos/' + data['abbr'].upper() + '_logo.svg'
+		Team.save(Team(data))

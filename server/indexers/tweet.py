@@ -39,8 +39,11 @@ class TweetIndexer():
             'JasonSmith014',
             'YoungTRaaw',
             'gregstiemsma',
-            'STUFFMagic'
-        ]
+            'STUFFMagic',
+            'Magic_Radio',
+            'Magic_PRDish',
+            'CommunityLeak'
+        ]   
 
         query = '?lang=en&count=100'
         mostRecentTweet = Tweet.getMostRecent(self.team.id)
