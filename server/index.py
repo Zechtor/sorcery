@@ -6,11 +6,11 @@ from indexers.schedule import ScheduleIndexer
 
 s = sched.scheduler(time.time, time.sleep)
 def runIndexers(sc): 
-	# execute all index functions here
-	#TeamIndexer().index()
+    # execute all index functions here
+    #TeamIndexer().index()
     #TweetIndexer().index()
     #NewsIndexer().index()
-    ScheduleIndexer().index()
+    #ScheduleIndexer().index()
     sc.enter(60*15, 1, runIndexers, (sc,))
 
 runIndexers(s)
