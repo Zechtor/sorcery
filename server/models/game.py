@@ -47,8 +47,8 @@ class Game(Base):
 
     @classmethod
     def save(class_, tweet):
-        tweet = Game.getByExternalId(tweet.externalId)
-        if tweet is not None:
+        existingTweet = Game.getByExternalId(tweet.externalId)
+        if existingTweet is not None:
             return False
 
         session.add(tweet)

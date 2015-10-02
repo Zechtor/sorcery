@@ -26,7 +26,8 @@ class ScheduleIndexer():
         # GAME_STATUS_TEXT: 7:00 pm ET
         startTime = parser.parse(data['GAME_DATE_EST'])
         time = parser.parse(data['GAME_STATUS_TEXT'])
-        timeDelta = timedelta(hours=time.hour, minutes=time.minute)
+        offset = 4 # there is a 4 hour offset between GMT and EST
+        timeDelta = timedelta(hours=time.hour + offset, minutes=time.minute)
         startTime += timeDelta
         data['START_TIME'] = startTime
 
