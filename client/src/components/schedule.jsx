@@ -4,7 +4,6 @@
 var Container = require("./container");
 var Header = require("./header");
 var List = require("./list");
-var Loader = require("./loader");
 
 var ScheduleService = require("../services/scheduleService");
 
