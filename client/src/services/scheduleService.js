@@ -1,13 +1,18 @@
 var Request = require("./request");
+var q = require("q");
 
 var Service = {
     schedule: [],
 
-    get: function(callback) {
-        Request.get("/schedule", {}, function(data) {
+    get: function() {
+        var deferred = q.defer();
+
+        Request.get("/schedule", {}).then(function(data) {
             Service.schedule = data.games;
-            callback();
+            deferred.resolve();
         });
+
+        return deferred.promise;
     },
 
     getShowcase: function() {

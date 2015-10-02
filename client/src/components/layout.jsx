@@ -1,7 +1,7 @@
-var Showcase = require("./showcase");
 var Nav = require("./nav");
 var News = require("./news");
 var Schedule = require("./schedule");
+var Showcase = require("./showcase");
 var Tweets = require("./tweets");
 
 var Layout = React.createClass({

@@ -24,7 +24,7 @@ class Game(Base):
         self.createDate = datetime.now()
         self.homeTeamId = data['HOME_TEAM_ID']
         self.visitorTeamId = data['VISITOR_TEAM_ID']
-        self.startTime = data['GAME_DATE_EST']
+        self.startTime = data['START_TIME']
 
     # serialize
     def serialize(self):
@@ -47,6 +47,10 @@ class Game(Base):
 
     @classmethod
     def save(class_, tweet):
+        existingTweet = Game.getByExternalId(tweet.externalId)
+        if existingTweet is not None:
+            return False
+
         session.add(tweet)
         try:
             session.commit()
@@ -55,6 +59,9 @@ class Game(Base):
             return False
 
     @classmethod
+    def getByExternalId(class_, externalId):
+        return session.query(class_).filter(class_.externalId == externalId).first()
+
+    @classmethod
     def getList(class_, teamId):
-        print teamId
         return session.query(class_).filter(or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId)).order_by(asc(class_.startTime)).all()

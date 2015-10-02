@@ -4,6 +4,7 @@
 var Container = require("./container");
 var Header = require("./header");
 var List = require("./list");
+var Loader = require("./loader");
 
 var ScheduleService = require("../services/scheduleService");
 
@@ -19,7 +20,7 @@ var Schedule = React.createClass({
     componentDidMount: function() {
         // initial data load
         var that = this; // TODO: remove this dependency
-        ScheduleService.get(function() {
+        ScheduleService.get().then(function() {
             that.setState({
                 schedule: ScheduleService.schedule
             });
