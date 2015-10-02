@@ -1,12 +1,15 @@
 var Request = require("./request");
+var q = require("q");
 
 var Service = {
     eof: false,
     page: 1,
     tweets: [],
 
-    get: function(page, callback) {
-        Request.get("/tweets?page=" + page, {}, function(data){
+    get: function(page) {
+        var deferred = q.defer();
+
+        Request.get("/tweets?page=" + page, {}).then(function(data){
             // page doesn't update if the next page was empty 
             if (data.tweets.length > 0) {
                 Service.page = page;
@@ -22,8 +25,10 @@ var Service = {
                 Service.tweets = Service.tweets.concat(data.tweets);
             }
 
-            callback();
+            deferred.resolve();
         });
+
+        return deferred.promise;
     }
 };
 

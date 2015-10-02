@@ -1,14 +1,35 @@
-.loader, .partialLoader {
-    animation: fadeIn 0.3s forwards;
+$fadeInDuration = 0.3s
+$fadeOutDuration = 0.15s
+
+.loader {
     background-color: $primaryColor;
     height: "calc(100% - %spx)" % ($headerHeight - $borderHeight);
-    opacity: 0;
+    opacity: 0
     position:absolute;
     right: 0px;
     top: ($headerHeight + $borderHeight)px;
+    transition: opacity $fadeInDuration linear, visibility 0s linear $fadeOutDuration;
+    visibility: hidden;
     width: 100%;
+
+    &.loading {
+        opacity: 1;
+        transition: opacity $fadeOutDuration linear, visibility 0s linear 0s;
+        visibility: visible;
+    }
     
-    .loading {
+    &.fullScreen.loading {
+        animation: fadeIn 0s;
+        z-index: 30;
+    }
+    
+    &.partial {
+        top: 0px;
+        height: 60px;
+        position: relative;
+    }
+    
+    .animation {
         font-size: 0;
         left: 50%;
         position: absolute;
@@ -44,12 +65,6 @@
     }
 }
 
-.partialLoader {
-    top: 0px;
-    height: 60px;
-    position: relative;
-}
-
 @keyframes LOADING {
     0% { 
         background: $primaryColor;
@@ -62,13 +77,5 @@
     100% { 
         background: $primaryCOlor;
         transform: scale(0.5);
-    }
-}
-
-@keyframes fadeIn {
-    from { 
-        opacity: 0;
-    } to {
-        opacity: 1;
     }
 }

@@ -21,6 +21,7 @@
     "image-webpack-loader": "^1.6.1",
     "imagemin": "^3.2.0",
     "jquery": "^2.1.4",
+    "q": "^1.4.1",
     "react-hot-loader": "^1.2.7",
     "style-loader": "^0.12.3",
     "stylus": "^0.52.0",
