@@ -61,7 +61,7 @@ var News = React.createClass({
         }
 
         // get data
-        NewsService.get(page, function() {
+        NewsService.get(page).then(function() {
             self.setState({
                 news: NewsService.articles,
                 isLoading: false,

@@ -19,7 +19,7 @@ var Schedule = React.createClass({
     componentDidMount: function() {
         // initial data load
         var that = this; // TODO: remove this dependency
-        ScheduleService.get(function() {
+        ScheduleService.get().then(function() {
             that.setState({
                 schedule: ScheduleService.schedule
             });

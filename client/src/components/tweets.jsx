@@ -61,7 +61,7 @@ var Tweets = React.createClass({
         }
 
         // get data
-        TweetsService.get(page, function() {
+        TweetsService.get(page).then(function() {
             self.setState({
                 tweets: TweetsService.tweets,
                 isLoading: false,

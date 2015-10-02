@@ -1,12 +1,15 @@
 var Request = require("./request");
+var q = require("q");
 
 var Service = {
     eof: false,
     page: 1,
     articles: [],
 
-    get: function(page, callback) {
-        Request.get("/news?page=" + page, {}, function(data){
+    get: function(page) {
+        var deferred = q.defer();
+
+        Request.get("/news?page=" + page, {}).then(function(data){
             // page doesn't update if the next page was empty 
             if (data.articles.length > 0) {
                 Service.page = page;
@@ -22,8 +25,10 @@ var Service = {
                 Service.articles = Service.articles.concat(data.articles);
             }
 
-            callback();
+            deferred.resolve();
         });
+
+        return deferred.promise;
     }
 };
 
