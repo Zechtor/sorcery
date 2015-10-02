@@ -44,7 +44,7 @@ var News = React.createClass({
         var self = this;
 
         // do not trigger a load if one is already occuring or if you have reached the end
-        if (self.state.isLoading || self.state.isPartialLoading) {
+        if (self.state.loading || self.state.isPartialLoading) {
             return;
         }
 
@@ -57,14 +57,14 @@ var News = React.createClass({
         if (partialLoad) {
             self.setState({isPartialLoading: true});
         } else {
-            self.setState({isLoading: true});
+            self.setState({loading: true});
         }
 
         // get data
         NewsService.get(page).then(function() {
             self.setState({
                 news: NewsService.articles,
-                isLoading: false,
+                loading: false,
                 isPartialLoading: false
             });
 
@@ -81,7 +81,7 @@ var News = React.createClass({
     render : function() {
         var refreshClasses = Util.classNames({
             "refresh": true,
-            "loading": this.state.isLoading
+            "loading": this.state.loading
         });
 
         return (
@@ -99,9 +99,7 @@ var News = React.createClass({
                         }
                     </List>
                 </Container>
-                { this.state.isLoading &&
-                    <Loader />
-                }
+                <Loader loading={this.state.loading} />
             </section>
         );
     }

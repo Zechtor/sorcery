@@ -3,8 +3,6 @@
 
 var Container = require("./container");
 var Header = require("./header");
-var Loader = require("./loader");
-var Util = require("./util");
 
 var ScheduleService = require("../services/scheduleService");
 
@@ -12,8 +10,7 @@ var Showcase = React.createClass({
 
     getInitialState : function() {
         return {
-            showcase: null,
-            isLoading: true
+            showcase: null
         };
     },
 
@@ -22,8 +19,7 @@ var Showcase = React.createClass({
         var that = this; // TODO: remove this dependency
         ScheduleService.get().then(function() {
             that.setState({
-                showcase: ScheduleService.getShowcase(),
-                isLoading: false
+                showcase: ScheduleService.getShowcase()
             });
         });
     },
@@ -39,9 +35,6 @@ var Showcase = React.createClass({
                 <Container>
                     {showcaseStatus}
                 </Container>
-                { this.state.isLoading &&
-                    <Loader />
-                }
             </section>
         );
     }
