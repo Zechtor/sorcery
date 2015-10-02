@@ -7,7 +7,7 @@ var Loader = React.createClass({
             "loader": true,
             "fullScreen": this.props.fullScreen,
             "loading": this.props.loading,
-            "hidden": !this.props.loading
+            "partial": this.props.partial
         });
 
         return (

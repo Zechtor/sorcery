@@ -5,7 +5,6 @@ var Container = require("./container");
 var Header = require("./header");
 var List = require("./list");
 var Loader = require("./loader");
-var PartialLoader = require("./partialLoader");
 var Util = require("./util");
 
 var NewsService = require("../services/newsService");
@@ -44,7 +43,7 @@ var News = React.createClass({
         var self = this;
 
         // do not trigger a load if one is already occuring or if you have reached the end
-        if (self.state.loading || self.state.isPartialLoading) {
+        if (self.state.loading || self.state.partialLoading) {
             return;
         }
 
@@ -55,7 +54,7 @@ var News = React.createClass({
         
         // set loading state
         if (partialLoad) {
-            self.setState({isPartialLoading: true});
+            self.setState({partialLoading: true});
         } else {
             self.setState({loading: true});
         }
@@ -65,7 +64,7 @@ var News = React.createClass({
             self.setState({
                 news: NewsService.articles,
                 loading: false,
-                isPartialLoading: false
+                partialLoading: false
             });
 
             if (!partialLoad) {
@@ -94,9 +93,7 @@ var News = React.createClass({
                         { this.state.news.map(function(article) { 
                             return <NewsArticle data={article}></NewsArticle>;
                         })}
-                        { this.state.isPartialLoading &&
-                            <PartialLoader />
-                        }
+                        <Loader loading={this.state.partialLoading} partial={true} />
                     </List>
                 </Container>
                 <Loader loading={this.state.loading} />

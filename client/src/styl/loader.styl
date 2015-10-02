@@ -1,7 +1,7 @@
 $fadeInDuration = 0.3s
 $fadeOutDuration = 0.15s
 
-.loader, .partialLoader {
+.loader {
     background-color: $primaryColor;
     height: "calc(100% - %spx)" % ($headerHeight - $borderHeight);
     opacity: 0
@@ -21,6 +21,12 @@ $fadeOutDuration = 0.15s
     &.fullScreen.loading {
         animation: fadeIn 0s;
         z-index: 30;
+    }
+    
+    &.partial {
+        top: 0px;
+        height: 60px;
+        position: relative;
     }
     
     .animation {
@@ -57,12 +63,6 @@ $fadeOutDuration = 0.15s
             }
         }
     }
-}
-
-.partialLoader {
-    top: 0px;
-    height: 60px;
-    position: relative;
 }
 
 @keyframes LOADING {
