@@ -1,4 +1,6 @@
 import json, requests
+from datetime import datetime, timedelta
+from dateutil import parser
 from urllib import quote
 
 from models.game import Game
@@ -7,7 +9,7 @@ from models.team import Team
 class ScheduleIndexer():
 
     def index(self):
-        games = self.search('10/2/2015', 21)
+        games = self.search('10/2/2015', 22)
         self.process(games)
 
     def process(self, games):
@@ -18,6 +20,15 @@ class ScheduleIndexer():
         # replace the nba team id's with our internal teami ids
         homeTeam = Team.getByExternalId(data['HOME_TEAM_ID'])
         visitorTeam = Team.getByExternalId(data['VISITOR_TEAM_ID'])
+
+        # create a GAME_START key by combining GAME_DATE_EST and GAME_STATUS_TEXT
+        # GAME_DATE_EST: 2015-10-03T00:00:00
+        # GAME_STATUS_TEXT: 7:00 pm ET
+        startTime = parser.parse(data['GAME_DATE_EST'])
+        time = parser.parse(data['GAME_STATUS_TEXT'])
+        timeDelta = timedelta(hours=time.hour, minutes=time.minute)
+        startTime += timeDelta
+        data['START_TIME'] = startTime
 
         if homeTeam is None or visitorTeam is None:
             return
@@ -38,7 +49,6 @@ class ScheduleIndexer():
             rawData = response.json()
 
             print url + query
-            print rawData
 
             cleanData = {}
 
@@ -68,4 +78,5 @@ class ScheduleIndexer():
             games += cleanData['GameHeader']
             offset += 1
 
+        print json.dumps(games)
         return games
