@@ -18,9 +18,9 @@ def index(args):
 	scheduleTweets(ts)
 	ts.run()
 
-	ns = sched.scheduler(time.time, time.sleep)
-	scheduleNews(ns)
-	ns.run()
+	#ns = sched.scheduler(time.time, time.sleep)
+	#scheduleNews(ns)
+	#ns.run()
 
 def runOnce(): 
     # indexers that only needed to be run rarely
