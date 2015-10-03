@@ -1,35 +1,41 @@
 var Request = require("./request");
 var q = require("q");
 
-var Service = {
+var self = {
     schedule: [],
+    request: null,
 
     get: function() {
-        var deferred = q.defer();
+        // do not call another load if one is in flight
+        if (self.request && self.request.promise.isPending()) {
+            return self.request.promise;
+        }
+
+        self.request = q.defer();
 
         Request.get("/schedule", {}).then(function(data) {
-            Service.schedule = data.games;
-            deferred.resolve();
+            self.schedule = data.games;
+            self.request.resolve();
         });
 
-        return deferred.promise;
+        return self.request.promise;
     },
 
     getShowcase: function() {
         var i;
         var currentEpoch = new Date() / 1000;
         var twoDaysEpoch = (2 * 24 * 60 * 60);
-        var showcaseGame = Service.schedule[0];
-        for (i = 0; i < Service.schedule.length; i++) {
+        var showcaseGame = self.schedule[0];
+        for (i = 0; i < self.schedule.length; i++) {
             // Display upcoming game if start time takes place within 48 hours
-            if (currentEpoch - Service.schedule[i].startTime < twoDaysEpoch) {
-                if (Service.schedule[i].startTime < showcaseGame.startTime) {
-                    showcaseGame = Service.schedule[i];
+            if (currentEpoch - self.schedule[i].startTime < twoDaysEpoch) {
+                if (self.schedule[i].startTime < showcaseGame.startTime) {
+                    showcaseGame = self.schedule[i];
                     break;
                 }
             } else {
-                if (Service.schedule[i].startTime > showcaseGame.startTime && Service.schedule[i].startTime < currentEpoch) {
-                    showcaseGame = Service.schedule[i];
+                if (self.schedule[i].startTime > showcaseGame.startTime && self.schedule[i].startTime < currentEpoch) {
+                    showcaseGame = self.schedule[i];
                     break;
                 }
             }
@@ -38,4 +44,4 @@ var Service = {
     }
 };
 
-module.exports = Service;
+module.exports = self;
