@@ -1,9 +1,9 @@
 import sched, sys, time
 
-from indexers.news import NewsIndexer
-from indexers.team import TeamIndexer
-from indexers.tweet import TweetIndexer
-from indexers.schedule import ScheduleIndexer
+from indexers.newsIndexer import NewsIndexer
+from indexers.teamIndexer import TeamIndexer
+from indexers.tweetIndexer import TweetIndexer
+from indexers.scheduleIndexer import ScheduleIndexer
 
 def index(args):
 

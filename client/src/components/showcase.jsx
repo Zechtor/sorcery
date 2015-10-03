@@ -2,7 +2,7 @@
  */
 
 var Container = require("./container");
-var Header = require("./header");
+var Util = require("./util");
 
 var ScheduleService = require("../services/scheduleService");
 
@@ -31,10 +31,7 @@ var Showcase = React.createClass({
         <BlankDisplay />;
         return (
             <section id="showcase">
-                <Header title="Showcase"></Header>
-                <Container>
-                    {showcaseStatus}
-                </Container>
+                {showcaseStatus}
             </section>
         );
     }
@@ -43,26 +40,24 @@ var Showcase = React.createClass({
 
 var ShowcaseDisplay = React.createClass({
     render : function () {
-
+        var formattedDate = Util.DateTools.convertDate(this.props.data.startTime);
         return (
-            <section>
-                <div className="game">
+            <section className="item">
+                <div className="row">
                     <div className="team">
-                        {this.props.data.teams[0].abbreviation}<br />
-                        <img src={this.props.data.teams[0].imageUrl} /><br />
                         {this.props.data.teams[0].score}
+                        <img src={this.props.data.teams[0].imageUrl} />
                     </div>
                     <div className="vs">
-                    vs
+                        vs
                     </div>
                     <div className="team">
-                        {this.props.data.teams[1].abbreviation}<br />
-                        <img src={this.props.data.teams[1].imageUrl} /><br />
+                        <img src={this.props.data.teams[1].imageUrl} />
                         {this.props.data.teams[1].score}
                     </div>
                 </div>
                 <div className="date">
-                    {this.props.data.startTime}
+                    {formattedDate}
                 </div>
             </section>
         );
