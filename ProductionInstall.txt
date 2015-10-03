@@ -10,8 +10,11 @@ mysql -u root -p -h localhost
 #create the sorcery database:
 CREATE DATABASE might DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_general_ci;
 
+# start nginx
+sudo nginx
+
 # server setup
-sudo yum install gcc git mysql-devel libxslt-devel libxml2-devel
+sudo yum install gcc git mysql-devel libxslt-devel libxml2-devel nginx
 
 # clone repo
 git clone https://github.com/Zechtor/sorcery.git
@@ -36,4 +39,4 @@ cd ~/sorcery/client
 npm install
 
 # run client
-npm run production
+npm run deploy
