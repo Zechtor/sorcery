@@ -1,4 +1,13 @@
 #showcase {
+
+    .item {
+        background-color: #fff;
+        border: $borderStyle;
+        border-radius: 4px;
+        height: "calc(100% - %spx)" % (($listItemPadding * 2) + $listItemMargin);
+        margin: ($listItemMargin)px;
+        padding: ($listItemPadding)px;
+    }
         
     .row {
         display: flex;
@@ -23,18 +32,15 @@
         }
         
         img {
-            height: 130px;
+            height: 120px;
             padding: 0px 12px;
         }
     }
     
-
     .date {
         margin: auto;
         text-align: center;
         width: 100%;
         text-align: center;
     }
-
-   
 }

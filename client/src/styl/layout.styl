@@ -4,6 +4,7 @@ $buttonPadding = 20px;
 $colWidth = 320;
 $headerHeight = 40;
 $navHeight = 46;
+$listItemMargin = 10;
 $listItemPadding = 20;
 $phoneWidth = 480px;
 $showcaseHeight = 200;
@@ -236,14 +237,14 @@ $tabletWidth = 950px
 
 .list {
     list-style-type: none;
-}
-
-.item {
-    background-color: #fff;
-    border: $borderStyle;
-    border-radius: 4px;
-    padding: ($listItemPadding)px;
-    margin: 10px;
+    
+    .item {
+        background-color: #fff;
+        border: $borderStyle;
+        border-radius: 4px;
+        padding: ($listItemPadding)px;
+        margin: ($listItemMargin)px;
+    }
 }
 
 button {
