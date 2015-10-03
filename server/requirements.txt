@@ -1,5 +1,6 @@
 Flask==0.10.1
 livereload==2.4.0
+mysql-devel
 mysql-python==1.2.5
 flask-mysql==1.3
 flask-sqlalchemy==2.0

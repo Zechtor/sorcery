@@ -10,6 +10,12 @@ mysql -u root -p -h localhost
 #create the sorcery database:
 CREATE DATABASE sorcery DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_general_ci;
 
+# setup
+sudo yum install gcc
+sudo yum install git
+
+# clone repo
+git clone https://github.com/Zechtor/sorcery.git
 
 
 
