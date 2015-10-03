@@ -34,3 +34,6 @@ sudo yum install nodejs npm --enablerepo=epel
 
 cd ~/sorcery/client
 npm install
+
+# run client
+npm run production

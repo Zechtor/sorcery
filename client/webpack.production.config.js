@@ -1,7 +1,9 @@
 var path = require("path");
 var webpack = require("webpack");
 
+// stylus : needed for production
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var stylusLoader = ExtractTextPlugin.extract("style-loader", "css-loader!stylus-loader");
 
 module.exports = {
     devtool: "eval",
@@ -31,7 +33,7 @@ module.exports = {
         },
         { 
             test: /\.styl$/, 
-            loader: "style-loader!css-loader!stylus-loader"
+            loader: stylusLoader
         },
         {
             test: /\.(jpe?g|png|gif|svg)$/i,
