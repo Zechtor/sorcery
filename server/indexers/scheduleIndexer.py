@@ -25,10 +25,18 @@ class ScheduleIndexer():
         # GAME_DATE_EST: 2015-10-03T00:00:00
         # GAME_STATUS_TEXT: 7:00 pm ET
         startTime = parser.parse(data['GAME_DATE_EST'])
-        time = parser.parse(data['GAME_STATUS_TEXT'])
-        offset = 4 # there is a 4 hour offset between GMT and EST
-        timeDelta = timedelta(hours=time.hour + offset, minutes=time.minute)
-        startTime += timeDelta
+        time = data['GAME_STATUS_TEXT']
+        if time == 'Final':
+            # if the game is over, record the scores
+            # this code does not yet exist
+            x = 10
+        else:
+            # if the game has not happened, record the date
+            time = parser.parse(data['GAME_STATUS_TEXT'])
+            offset = 4 # there is a 4 hour offset between GMT and EST
+            timeDelta = timedelta(hours=time.hour + offset, minutes=time.minute)
+            startTime += timeDelta
+
         data['START_TIME'] = startTime
 
         if homeTeam is None or visitorTeam is None:

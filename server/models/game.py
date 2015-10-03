@@ -46,22 +46,21 @@ class Game(Base):
         return game;
 
     @classmethod
-    def save(class_, tweet):
-        existingTweet = Game.getByExternalId(tweet.externalId)
-        if existingTweet is not None:
-            return False
-
-        session.add(tweet)
-        try:
-            session.commit()
-            return True 
-        except:
-            return False
-
-    @classmethod
     def getByExternalId(class_, externalId):
         return session.query(class_).filter(class_.externalId == externalId).first()
 
     @classmethod
     def getList(class_, teamId):
         return session.query(class_).filter(or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId)).order_by(asc(class_.startTime)).all()
+
+    @classmethod
+    def save(class_, game):
+        existingGame = Game.getByExternalId(game.externalId)
+        if existingGame is None:
+            session.add(game)
+
+        try:
+            session.commit()
+            return True 
+        except:
+            return False

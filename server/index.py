@@ -1,9 +1,12 @@
 import sched, sys, time
 
-from indexers.news import NewsIndexer
-from indexers.team import TeamIndexer
-from indexers.tweet import TweetIndexer
-from indexers.schedule import ScheduleIndexer
+from indexers.newsIndexer import NewsIndexer
+from indexers.teamIndexer import TeamIndexer
+from indexers.tweetIndexer import TweetIndexer
+from indexers.scheduleIndexer import ScheduleIndexer
+
+from models.sport import Sport
+from models.league import League
 
 def index(args):
 
@@ -21,6 +24,9 @@ def index(args):
 
 def runOnce(): 
     # indexers that only needed to be run rarely
+    sport = Sport('Basketball')
+    Sport.save(sport)
+    League.save(League('NBA', sport.id))
     TeamIndexer().index()
     ScheduleIndexer().index()
 

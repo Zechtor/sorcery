@@ -1,0 +1,58 @@
+#Production Environment Install
+
+#install mysql:
+sudo yum install mysql mysql-server
+sudo service mysqld start
+
+#log into the mysql server:
+mysql -u root -p -h localhost
+
+#create the sorcery database:
+CREATE DATABASE sorcery DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_general_ci;
+
+
+
+
+
+
+
+install gcc:
+sudo yum install gcc
+sudo yum install gcc-c++
+
+install python 2.7:
+wget http://python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz
+tar xf Python-2.7.6.tar.xz
+cd Python-2.7.6
+./configure --prefix=/usr/local --enable-unicode=ucs4 --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+sudo make && sudo make altinstall
+sudo rm -rf Python-2.7.6; sudo rm -rf Python-2.7.6.tar.xz;
+
+add to bash.rc:
+sudo nano ~/.bashrc
+alias python=/usr/local/bin/python2.7
+
+install python project:
+sudo yum install python-devel
+sudo yum -y install mysql-devel
+sudo yum install -y libjpeg-devel
+sudo yum install git
+git clone https://github.com/Zechtor/tower.git tower
+sudo python setup.py develop
+
+Create nginX server:
+sudo yum install nginx
+sudo nano /etc/nginx/conf.d/tower.conf
+add to tower.conf:
+server {
+    listen 80;
+    server_name tower.com;
+    location / {
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   Host      $http_host;
+        proxy_pass         http://127.0.0.1:8080
+    }
+}
+
+Start nginx:
+sudo service nginx restart
