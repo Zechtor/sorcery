@@ -38,5 +38,14 @@ sudo yum install nodejs npm --enablerepo=epel
 cd ~/sorcery/client
 npm install
 
+# run servers
+# this will run the server as a background process
+nohup python server.py &
+
+# similarly we can do the same for the indexers
+nohup python index.py tweets &
+nohup python index.py root &
+
 # run client
 npm run deploy
+
