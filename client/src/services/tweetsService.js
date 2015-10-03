@@ -1,35 +1,41 @@
 var Request = require("./request");
 var q = require("q");
 
-var Service = {
+var self = {
     eof: false,
     page: 1,
     tweets: [],
+    request: null,
 
     get: function(page) {
-        var deferred = q.defer();
+        // do not call another load if one is in flight
+        if (self.request && self.request.promise.isPending()) {
+            return self.request.promise;
+        }
+
+        self.request = q.defer();
 
         Request.get("/tweets?page=" + page, {}).then(function(data){
             // page doesn't update if the next page was empty 
             if (data.tweets.length > 0) {
-                Service.page = page;
-                Service.eof = false;
+                self.page = page;
+                self.eof = false;
             } else {
-                Service.eof = true;
+                self.eof = true;
             }
 
             // service supports infinite scrolling
             if (page == 1) {
-                Service.tweets = data.tweets;
+                self.tweets = data.tweets;
             } else {
-                Service.tweets = Service.tweets.concat(data.tweets);
+                self.tweets = self.tweets.concat(data.tweets);
             }
 
-            deferred.resolve();
+            self.request.resolve();
         });
 
-        return deferred.promise;
+        return self.request.promise;
     }
 };
 
-module.exports = Service;
+module.exports = self;

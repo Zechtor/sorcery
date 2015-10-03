@@ -58,6 +58,10 @@ class Team(Base):
 
     @classmethod
     def save(class_, team):
+        existingTeam = Team.getByExternalId(team.externalId)
+        if existingTeam is not None:
+            return
+
         session.add(team)
         try:
             session.commit()
