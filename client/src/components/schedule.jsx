@@ -4,7 +4,10 @@
 var Container = require("./container");
 var Header = require("./header");
 var List = require("./list");
+<<<<<<< HEAD
 var Util = require("./util");
+=======
+>>>>>>> f3b367654d27e4c6292580fc14bfb24ca5a37500
 
 var ScheduleService = require("../services/scheduleService");
 

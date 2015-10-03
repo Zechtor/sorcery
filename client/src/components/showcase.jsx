@@ -1,7 +1,6 @@
 /* Showcase Component
  */
 
-var Container = require("./container");
 var Util = require("./util");
 
 var ScheduleService = require("../services/scheduleService");
@@ -17,6 +16,8 @@ var Showcase = React.createClass({
     componentDidMount : function() {
         // initial data load
         var that = this; // TODO: remove this dependency
+
+        // wait for the schedule to return
         ScheduleService.get().then(function() {
             that.setState({
                 showcase: ScheduleService.getShowcase()
