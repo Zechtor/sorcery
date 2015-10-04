@@ -44,7 +44,7 @@ nohup python server.py &
 
 # similarly we can do the same for the indexers
 nohup python index.py tweets &
-nohup python index.py root &
+nohup python index.py news &
 
 # run client
 npm run deploy
