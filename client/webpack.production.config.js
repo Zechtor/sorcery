@@ -41,6 +41,6 @@ module.exports = {
         }]
     },
     externals: {
-        "config": "{serverUrl: 'http://ec2-54-164-172-235.compute-1.amazonaws.com:5000'}"
+        "config": "{serverUrl: 'http://ec2-54-164-172-235.compute-1.amazonaws.com:1000'}"
     }
 };
