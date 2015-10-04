@@ -40,5 +40,8 @@ module.exports = {
                 "image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false"
             ]
         }]
+    },
+    externals: {
+        "config": "{serverUrl: 'http://localhost:5000'}"
     }
 };

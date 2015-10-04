@@ -6,10 +6,8 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var stylusLoader = ExtractTextPlugin.extract("style-loader", "css-loader!stylus-loader");
 
 module.exports = {
-    devtool: "eval",
+    minimize: true,
     entry: [
-        "webpack-dev-server/client?http://localhost:3000",
-        "webpack/hot/only-dev-server",
         "./src/index"
     ],
     output: {
@@ -18,7 +16,6 @@ module.exports = {
         publicPath: "/static/"
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new ExtractTextPlugin("sorcery.css")
     ],
@@ -42,5 +39,8 @@ module.exports = {
                 "image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false"
             ]
         }]
+    },
+    externals: {
+        "config": "{serverUrl: 'http://ec2-54-164-172-235.compute-1.amazonaws.com:5000'}"
     }
 };

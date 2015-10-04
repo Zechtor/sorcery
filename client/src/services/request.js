@@ -4,6 +4,7 @@
 
 var $ = require("jquery");
 var q = require("q");
+var config = require("config");
 
 // to help us with testing
 /* eslint no-console:0 */
@@ -36,12 +37,11 @@ $.fn.extend( {
 });
 
 var Request = {
-    baseUri: "http://localhost:5000",
     
     get: function(path, params) {
         var deferred = q.defer();
 
-        $.fn.delayedGet(this.baseUri + path, params).then(function(data){
+        $.fn.delayedGet(config.serverUrl + path, params).then(function(data){
             console.log("GET " + path, data);
             deferred.resolve(data);
         });
@@ -52,7 +52,7 @@ var Request = {
     post: function(path, data) {
         var deferred = q.defer();
 
-        $.fn.delayedPost(this.baseUri + path, data).then(function(data) {
+        $.fn.delayedPost(config.serverUrl + path, data).then(function(data) {
             console.log("POST" + path, data);
             deferred.resolve(data);
         });
