@@ -4,6 +4,7 @@
   "description": "A Hud for Orlando Magic news and information",
   "scripts": {
     "start": "node server.js",
+    "production": "node server-production.js",
     "lint": "eslint --quiet src/**"
   },
   "author": "",

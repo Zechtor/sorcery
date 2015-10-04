@@ -1,0 +1,51 @@
+#Production Environment Install
+
+#install mysql:
+sudo yum install mysql mysql-server
+sudo service mysqld start
+
+#log into the mysql server:
+mysql -u root -p -h localhost
+
+#create the sorcery database:
+CREATE DATABASE might DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_general_ci;
+
+# start nginx
+sudo nginx
+
+# server setup
+sudo yum install gcc git mysql-devel libxslt-devel libxml2-devel nginx
+
+# clone repo
+git clone https://github.com/Zechtor/sorcery.git
+
+# install project
+cd ~/sorcery/server
+sudo pip install -r requirements.txt
+
+# start server to create tables
+python server.py
+
+# load initial data
+python index.py setup
+
+# load initial data
+python index.py
+
+# client setup
+sudo yum install nodejs npm --enablerepo=epel
+
+cd ~/sorcery/client
+npm install
+
+# run servers
+# this will run the server as a background process
+nohup python server.py &
+
+# similarly we can do the same for the indexers
+nohup python index.py tweets &
+nohup python index.py news &
+
+# run client
+npm run deploy
+
