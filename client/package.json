@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "production": "forever start server-production.js",
+    "production-reload": "npm run production-stop; npm run production",
     "production-stop": "forever stopall",
     "lint": "eslint --quiet src/**"
   },
