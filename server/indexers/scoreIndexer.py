@@ -34,6 +34,8 @@ class ScoreIndexer():
             if self.gameHasStarted(game['stt']) is False:
                 continue
 
+            # TODO: need to record the status, but must wait until we have live data again
+
             scoreData = {
                 'gameId': game['gid'],
                 'homeScore': game['h']['s'],

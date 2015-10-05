@@ -52,7 +52,7 @@ var ShowcaseDisplay = React.createClass({
         }
         return (
             <section className="item">
-                <div className="date">
+                <div className="status">
                     {showcaseHeader}
                 </div>
                 <div className="row">
@@ -72,8 +72,12 @@ var ShowcaseDisplay = React.createClass({
                     </div>
                     <span className="spacer" />
                 </div>
-                <div className="date">
-                    {formattedDate}
+                <div className="status">
+                    { this.props.data.status ?
+                        this.props.data.status
+                    :
+                        formattedDate
+                    }
                 </div>
             </section>
         );

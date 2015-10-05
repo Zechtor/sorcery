@@ -15,6 +15,7 @@ class Game(Base):
     homeTeamScore = Column(Integer)
     overtime = Column(Integer)
     startTime = Column(DateTime, nullable=False)
+    status = Column(String(100))
     # Foreign Key needed
     visitorTeamId = Column(String(100), nullable=False)
     visitorTeamScore = Column(Integer)
@@ -25,6 +26,8 @@ class Game(Base):
         self.homeTeamId = data['HOME_TEAM_ID']
         self.visitorTeamId = data['VISITOR_TEAM_ID']
         self.startTime = data['START_TIME']
+        if data['STATUS'] is not None:
+            self.status = data['STATUS']
 
     # serialize
     def serialize(self):
@@ -45,6 +48,10 @@ class Game(Base):
                 Team.getById(self.visitorTeamId).serialize(visitorTeamExtensions)
             ]
         }
+
+        if self.status is not None:
+            game['status'] = self.status
+
         return game;
 
     @classmethod
