@@ -29,27 +29,6 @@ class Tweet(Base):
         self.userImageUrl = data['user']['profile_image_url']
         self.teamId = data['teamId']
 
-    @property
-    def profileUrl(self):
-        return 'https://twitter.com/' + self.username
-
-    @classmethod
-    def save(class_, tweet):
-        session.add(tweet)
-        try:
-            session.commit()
-            return True 
-        except:
-            return False
-
-    @classmethod
-    def getList(class_, teamId, start, count):
-        return session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.postDate)).offset(start).limit(count).all()
-
-    @classmethod
-    def getMostRecent(class_, teamId):
-        return session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.postDate)).first()
-
     # serialize
     def serialize(self):
         tweet = {
@@ -67,3 +46,31 @@ class Tweet(Base):
             tweet["imageUrl"] = self.imageUrl
 
         return tweet;
+
+    @property
+    def profileUrl(self):
+        return 'https://twitter.com/' + self.username
+
+    @classmethod
+    def getByExternalId(class_, externalId):
+        return session.query(class_).filter(class_.tweetId == externalId).first()
+
+    @classmethod
+    def getList(class_, teamId, start, count):
+        return session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.postDate)).offset(start).limit(count).all()
+
+    @classmethod
+    def getMostRecent(class_, teamId):
+        return session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.postDate)).first()
+
+    @classmethod
+    def save(class_, tweet):
+        existingTweet = Tweet.getByExternalId(tweet.tweetId)
+        if existingTweet is None:
+            session.add(tweet)
+
+        try:
+            session.commit()
+            return True 
+        except:
+            return False
