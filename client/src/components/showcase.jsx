@@ -28,8 +28,8 @@ var Showcase = React.createClass({
     render : function() {
         var showcaseStatus;
         showcaseStatus = this.state.showcase ?
-        <ShowcaseDisplay data={this.state.showcase} /> : 
-        <BlankDisplay />;
+            <ShowcaseDisplay data={this.state.showcase} /> : 
+            <BlankDisplay />;
         return (
             <section id="showcase">
                 {showcaseStatus}
@@ -45,8 +45,6 @@ var ShowcaseDisplay = React.createClass({
         var currentDate = new Date();
         var showcaseDate = new Date(this.props.data.startTime);
         var showcaseHeader;
-        showcaseHeader = showcaseDate < currentDate ?
-        "Last Game" : "Next Game";
         if (showcaseDate < currentDate) {
             showcaseHeader = "Last Game";
         } else {
