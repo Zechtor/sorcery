@@ -1,40 +1,49 @@
+$showcasePadding = 10
+
 #showcase {
-    
-    img {
-        height: 72px;
-    }
+
+    .item {
+        background-color: #fff;
+        border: $borderStyle;
+        border-radius: 4px;
+        height: "calc(100% - %spx)" % (($showcasePadding * 2) + $listItemMargin);
+        margin: ($listItemMargin)px;
+        padding: ($showcasePadding)px;
         
-    .game {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 10px 10px 10px 10px;
-        text-align: center;
-     }
-
-     .team {
-        font-size: 22px;
-        letter-spacing: 12px;
-             }
-
-    .date {
-        margin: auto;
-        text-align: center;
-        width: 100%;
-        text-align: center;
-    }
-
-    .score {
-        letter-spacing: 4px;
-        padding: 10px 0px 0px 0px;
-    }
-
-    .vs {
-        align-items: center;
-        display: flex;
-        font-size: 22px;
-        justify-content: center;
-        letter-spacing: 12px;
-
+        .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 10px 10px 10px 10px;
+            text-align: center;
+            
+            .team {
+                font-size: 24px;
+                font-weight: bold;
+            }
+            
+            .vs {
+                color: #666;
+                font-size: 22px;
+            }
+            
+            div {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+            
+            img {
+                height: 110px;
+                padding: 0px 12px;
+            }
+        }
+        
+        .date {
+            color: #666;
+            margin: auto;
+            text-align: center;
+            width: 100%;
+        }
     }
 }

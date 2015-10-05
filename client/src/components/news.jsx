@@ -109,12 +109,13 @@ var NewsArticle = React.createClass({
     },
 
     render : function() {
+        var formattedDate = Util.DateTools.convertDate(this.props.data.postDate);
         return (
             <li className="article item" onClick={this.openArticle}>
                 <img src={this.props.data.imageUrl} />
                 <div>
                     <h3>{this.props.data.title}</h3>
-                    <span>{this.props.data.postDate}</span>
+                    <span className="date">{formattedDate}</span>
                 </div>
             </li>
         );

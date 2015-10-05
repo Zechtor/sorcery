@@ -6,7 +6,7 @@ var DateTools = {
     // converts date to format: Day Month Date (e.g. Tues Aug 5)
     // startTime is an epoch
     convertDate: function(startTime) {
-        var d = new Date(startTime * 1000);
+        var d = new Date(startTime);
 
         // sets day of week
         var dayArray = new Array(7);
@@ -38,13 +38,17 @@ var DateTools = {
         // sets date
         var date = d.getDate().toString();
 
-        // returns date string
-        return day + " " + month + " " + date;
-    },
+        // sets time
+        var hours = d.getHours();
+        var minutes = d.getMinutes();
+        var ampm = hours >= 12 ? "pm" : "am";
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        var strTime = hours + ":" + minutes + " " + ampm;
 
-    convertTime: function(startTime) {
-        var d = new Date(startTime * 1000);
-        return d.toLocaleTimeString();
+        // returns date string
+        return day + ", " + month + " " + date + " - " + strTime;
     }
 };
 
