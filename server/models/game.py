@@ -30,11 +30,11 @@ class Game(Base):
     def serialize(self):
         homeTeamExtensions = { "isHome": True }
         if self.homeTeamScore is not None:
-            homeExtensions['score'] = self.homeTeamScore
+            homeTeamExtensions['score'] = self.homeTeamScore
 
         visitorTeamExtensions = { "isHome": False }
         if self.visitorTeamScore is not None:
-            visitorExtensions['score'] = self.visitorTeamScore
+            visitorTeamExtensions['score'] = self.visitorTeamScore
 
         game = {
             'id': self.id,

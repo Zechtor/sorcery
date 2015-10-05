@@ -23,10 +23,10 @@ class ScheduleIndexer():
             if gameId in scores.keys():
                 result = scores[gameId]
 
-            teamId = Team.getByExternalId(d['TEAM_ID']).id
-            result[str(teamId)] = d['PTS']
-
-            scores[gameId] = result
+            team = Team.getByExternalId(d['TEAM_ID'])
+            if team is not None:
+                result[str(team.id)] = d['PTS']
+                scores[gameId] = result
 
         return scores
 
@@ -85,6 +85,9 @@ class ScheduleIndexer():
 
     def processScore(self, gameId, data):
         game = Game.getByExternalId(gameId)
+        if game is None:
+            return
+
         game.homeTeamScore = data[str(game.homeTeamId)]
         game.visitorTeamScore = data[str(game.visitorTeamId)]
         Game.save(game)

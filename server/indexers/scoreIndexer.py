@@ -52,6 +52,9 @@ class ScoreIndexer():
 
     def processScore(self, data):
         game = Game.getByExternalId(data['gameId'])
+        if game is None:
+            return
+
         game.homeTeamScore = data['homeScore']
         game.visitorTeamScore = data['visitorScore']
         Game.save(game)

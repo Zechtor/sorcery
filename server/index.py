@@ -41,7 +41,7 @@ def indexScores():
     ScoreIndexer().index()
 
 def indexSchedule():
-    ScheduleIndexer().index('10/2/2015', 1)
+    ScheduleIndexer().index('10/2/2015', 23)
 
 ## News ##
 def indexNews():
