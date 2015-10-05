@@ -65,6 +65,9 @@ class ScheduleIndexer():
         if homeTeam is None or visitorTeam is None:
             return
 
+        # status is dependent on other keys in the object
+        data['STATUS'] = None
+
         # create a GAME_START key by combining GAME_DATE_EST and GAME_STATUS_TEXT
         # GAME_DATE_EST: 2015-10-03T00:00:00
         # GAME_STATUS_TEXT: 7:00 pm ET
@@ -77,11 +80,23 @@ class ScheduleIndexer():
             offset = 4 # there is a 4 hour offset between GMT and EST
             timeDelta = timedelta(hours=time.hour + offset, minutes=time.minute)
             startTime += timeDelta
+        else:
+            # we will record the status
+            data['STATUS'] = data['GAME_STATUS_TEXT']
 
         data['START_TIME'] = startTime
         data['HOME_TEAM_ID'] = homeTeam.id
         data['VISITOR_TEAM_ID'] = visitorTeam.id
-        Game.save(Game(data))
+
+        game = Game(data)
+
+        # TODO: update / save is a little dirty, mechanisms need to be cleaned up
+        existingGame = Game.getByExternalId(game.externalId)
+        if existingGame is not None:
+            existingGame.status = data['STATUS']
+            Game.save(existingGame)
+        else:
+            Game.save(game)
 
     def processScore(self, gameId, data):
         game = Game.getByExternalId(gameId)

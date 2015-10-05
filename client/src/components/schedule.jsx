@@ -74,7 +74,13 @@ var Game = React.createClass({
                     </div>
                     <span className="spacer" />
                 </div>
-                <span className="date">{formattedDate}</span>
+                <span className="status">
+                    { this.props.data.status ?
+                        this.props.data.status
+                    :
+                        formattedDate
+                    }
+                </span>
             </li>
          );
     }
