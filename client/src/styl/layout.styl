@@ -52,7 +52,7 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
             position: absolute;
             
             @media screen and (max-width: $threeColumnMin) {
-                &#scheduleToggle {
+                &#leftToggle {
                     display:inline-block;
                 }
             }
@@ -68,7 +68,7 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
             width:100%;
         }
 
-        #scheduleToggle {
+        #leftToggle {
             background-image: url("images/iconSchedule.png");
             left: $buttonPadding;
             
@@ -77,7 +77,7 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
             }
         }
 
-        #tweetToggle {
+        #rightToggle {
             background-image: url("images/iconTwitter.png");
             right: $buttonPadding;
             
@@ -86,7 +86,7 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
             }
         }
         
-        #scheduleToggle, #tweetToggle {
+        #leftToggle, #rightToggle {
             background-size: ($navHeight - $buttonPadding);
             height: $navHeight - $buttonPadding;
             width: $navHeight - $buttonPadding;
@@ -178,86 +178,69 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
     #left, #right, #center {
         height: "calc(100% - %spx)" % ($navHeight);
     }
-
-    // content sections
-    #schedule {
-        height: 100%;
-    }
     
-    #showcase {
-        height: ($showcaseHeight)px;
-    }
-
-    #news {
-        height: "calc(100% - %spx)" % ($showcaseHeight + $borderHeight);
-    }
-
-    #tweets {
-        height: 100%;
-    }
-    
-    #news, #schedule, #showcase, #tweets {
+    .header {
+        background-color: $secondaryColor;
+        color: $secondaryFontColor;
+        box-shadow: 0px 1px 5px #666;
+        height: ($headerHeight)px;
+        line-height: ($headerHeight)px;
         position: relative;
-    }
-}
+        text-align:center;
+        width: 100%;
 
-.header {
-    background-color: $secondaryColor;
-    color: $secondaryFontColor;
-    box-shadow: 0px 1px 5px #666;
-    height: ($headerHeight)px;
-    line-height: ($headerHeight)px;
-    position: relative;
-    text-align:center;
-    width: 100%;
-
-    .refresh {
-        background-image: url("images/iconRefresh.png");
-        right: $buttonPadding;
-        
-        &.loading {
-            animation:spin 4s linear infinite;
-            background-image: url("images/iconRefreshSelected.png");
-        }
-        
-        @keyframes spin { 
-            100% {
-                -webkit-transform: rotate(360deg);
-                transform:rotate(360deg);
+        .refresh {
+            background-image: url("images/iconRefresh.png");
+            right: $buttonPadding;
+            
+            &.loading {
+                animation:spin 4s linear infinite;
+                background-image: url("images/iconRefreshSelected.png");
+            }
+            
+            @keyframes spin { 
+                100% {
+                    -webkit-transform: rotate(360deg);
+                    transform:rotate(360deg);
+                }
             }
         }
     }
-}
 
-.container {
-    background-color: $primaryColor;
-    height: "calc(100% - %spx)" % ($headerHeight - $borderHeight);
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: relative;
-    width: 100%;
-}
-
-.list {
-    list-style-type: none;
-    
-    .item {
-        background-color: #fff;
-        border: $borderStyle;
-        border-radius: 4px;
-        padding: ($listItemPadding)px;
-        margin: ($listItemMargin)px;
+    .container {
+        background-color: $primaryColor;
+        height: "calc(100% - %spx)" % ($headerHeight - $borderHeight);
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+        width: 100%;
     }
-}
 
-button {
-    background-color: $secondaryColor;
-    background-repeat: no-repeat;
-    background-size: ($headerHeight - $buttonPadding);
-    border: 0px;
-    height: $headerHeight - $buttonPadding;
-    outline: none;
-    position: absolute;
-    top: ($buttonPadding / 2);
-    width: $headerHeight - $buttonPadding;
+    .list {
+        list-style-type: none;
+        
+        .item {
+            background-color: #fff;
+            border: $borderStyle;
+            border-radius: 4px;
+            padding: ($listItemPadding)px;
+            margin: ($listItemMargin)px;
+        }
+    }
+    
+    .spacer {
+        flex: 1;
+    }
+
+    button {
+        background-color: $secondaryColor;
+        background-repeat: no-repeat;
+        background-size: ($headerHeight - $buttonPadding);
+        border: 0px;
+        height: $headerHeight - $buttonPadding;
+        outline: none;
+        position: absolute;
+        top: ($buttonPadding / 2);
+        width: $headerHeight - $buttonPadding;
+    }
 }

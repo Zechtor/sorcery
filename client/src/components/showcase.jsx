@@ -56,17 +56,21 @@ var ShowcaseDisplay = React.createClass({
                     {showcaseHeader}
                 </div>
                 <div className="row">
+                    <span className="spacer" />
                     <div className="team">
                         {this.props.data.teams[0].score}
                         <img src={this.props.data.teams[0].imageUrl} />
                     </div>
+                    <span className="spacer" />
                     <div className="vs">
                         vs
                     </div>
+                    <span className="spacer" />
                     <div className="team">
                         <img src={this.props.data.teams[1].imageUrl} />
                         {this.props.data.teams[1].score}
                     </div>
+                    <span className="spacer" />
                 </div>
                 <div className="date">
                     {formattedDate}

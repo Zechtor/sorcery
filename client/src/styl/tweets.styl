@@ -2,28 +2,32 @@ $tweetProfileImageSize = 26;
 $tweetImageSize = 200;
 $tweetVerticalSpacer = 14;
 
-.tweet {
-
-    img {
-        border-radius: 3px;
-        margin-bottom: ($tweetVerticalSpacer)px;
-        width: 100%
-    }
-
-    div {
-        margin-top: ($tweetVerticalSpacer)px;
-
+#tweets {
+    height: 100%;
+    position: relative;
+    
+    .tweet {
         img {
-            border-radius: ($tweetProfileImageSize/2)px;
-            height: ($tweetProfileImageSize)px;
-            margin-bottom: 0px;
-            margin-right: 4px;
-            vertical-align: top;
-            width: ($tweetProfileImageSize)px;
+            border-radius: 3px;
+            margin-bottom: ($tweetVerticalSpacer)px;
+            width: 100%
         }
 
-        a {
-            line-height: ($tweetProfileImageSize)px;
+        div {
+            margin-top: ($tweetVerticalSpacer)px;
+
+            img {
+                border-radius: ($tweetProfileImageSize/2)px;
+                height: ($tweetProfileImageSize)px;
+                margin-bottom: 0px;
+                margin-right: 4px;
+                vertical-align: top;
+                width: ($tweetProfileImageSize)px;
+            }
+
+            a {
+                line-height: ($tweetProfileImageSize)px;
+            }
         }
     }
 }
