@@ -6,9 +6,12 @@ $headerHeight = 40;
 $navHeight = 46;
 $listItemMargin = 10;
 $listItemPadding = 20;
-$phoneWidth = 480px;
 $showcaseHeight = 200;
-$tabletWidth = 950px
+
+// breakpoints
+$mobileWidth = 480;
+$twoColumnMin = ($mobileWidth + $colWidth)px
+$threeColumnMin = ($mobileWidth + (2 * $colWidth))px
 
 /* Z-Index:
  * To manage the state of spatial depth, z-index, we are establishing
@@ -48,13 +51,13 @@ $tabletWidth = 950px
             padding: 0px 10px;
             position: absolute;
             
-            @media screen and (max-width: $tabletWidth) {
+            @media screen and (max-width: $threeColumnMin) {
                 &#scheduleToggle {
                     display:inline-block;
                 }
             }
 
-            @media screen and (max-width: $phoneWidth) {
+            @media screen and (max-width: $twoColumnMin) {
                 display:inline-block;
             }
         }
@@ -99,11 +102,11 @@ $tabletWidth = 950px
             z-index: 1;
         }
 
-        @media screen and (max-width: $tabletWidth) {
+        @media screen and (max-width: $threeColumnMin) {
             margin: 0px ($colWidth)px 0px 0px;
         }
         
-        @media screen and (max-width: $phoneWidth) {
+        @media screen and (max-width: $twoColumnMin) {
             margin: 0px;
         }
     }
@@ -117,7 +120,7 @@ $tabletWidth = 950px
             z-index: 11;
         }
 
-        @media screen and (max-width: $tabletWidth) {
+        @media screen and (max-width: $threeColumnMin) {
             transform: translateX(($colWidth * -1)px);
 
             &.isOpen {
@@ -125,7 +128,7 @@ $tabletWidth = 950px
             }
         }
 
-        @media screen and (max-width: $phoneWidth) {
+        @media screen and (max-width: $twoColumnMin) {
             transform: translateX(-1 * 100%);
             width: 100%;
 
@@ -152,7 +155,7 @@ $tabletWidth = 950px
             }
         }*/
 
-        @media screen and (max-width: $phoneWidth) {
+        @media screen and (max-width: $twoColumnMin) {
             transform: translateX(100%);
 
             &.isOpen {
@@ -167,7 +170,7 @@ $tabletWidth = 950px
         transition: 0.5s ease-in-out
         width: ($colWidth)px;
 
-        @media screen and (max-width: $phoneWidth) {
+        @media screen and (max-width: $twoColumnMin) {
             width: 100%;
         }
     }
