@@ -34,7 +34,7 @@ var Schedule = React.createClass({
                 <Header title="Schedule" />
                 <Container>
                     <List>
-                        {this.state.schedule.map(function(game){ 
+                        {this.state.schedule.map(function(game){
                             return <Game data={game} />;
                         })}
                     </List>
@@ -60,15 +60,19 @@ var Game = React.createClass({
         return (
             <li className="item">
                 <div className="row">
+                    <span className="spacer" />
                     <div className="team">
                         {awayTeam.score}<img src={awayTeam.imageUrl} align="middle"/> 
                     </div>
+                    <span className="spacer" />
                     <div className="at">
                     @
                     </div>
+                    <span className="spacer" />
                     <div className="team">
                         <img src={homeTeam.imageUrl} />{homeTeam.score} 
-                    </div>                
+                    </div>
+                    <span className="spacer" />
                 </div>
                 <span className="date">{formattedDate}</span>
             </li>

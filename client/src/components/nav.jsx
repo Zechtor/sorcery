@@ -17,10 +17,10 @@ var Nav = React.createClass({
         // apply toggle to the layout
         var section;
         var other;
-        if (id == "scheduleToggle") {
+        if (id == "leftToggle") {
             section = $("#left");
             other = $("#right");
-        } else if (id == "tweetToggle") {
+        } else if (id == "rightToggle") {
             section = $("#right");
             other = $("#left");
         }
@@ -36,9 +36,9 @@ var Nav = React.createClass({
     render: function() {
         return (
             <section id="nav">
-                <button id="scheduleToggle" className="navToggle" onClick={this.toggleShelf} />
+                <button id="leftToggle" className="navToggle" onClick={this.toggleShelf} />
                 <span>Sorcery</span>
-                <button id="tweetToggle" className="navToggle" onClick={this.toggleShelf} />
+                <button id="rightToggle" className="navToggle" onClick={this.toggleShelf} />
             </section>
         );
     }
