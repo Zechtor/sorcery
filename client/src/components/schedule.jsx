@@ -4,6 +4,8 @@
 var Container = require("./container");
 var Header = require("./header");
 var List = require("./list");
+var Util = require("./util");
+
 
 var ScheduleService = require("../services/scheduleService");
 
@@ -44,6 +46,7 @@ var Schedule = React.createClass({
 
 var Game = React.createClass({ 
     render: function() {
+        var formattedDate = Util.DateTools.convertDate(this.props.data.startTime);
         var homeTeam;
         var awayTeam;
         // Set home and away teams
@@ -55,23 +58,19 @@ var Game = React.createClass({
             awayTeam = this.props.data.teams[0];
         }
         return (
-            <li className="schedule item">
-                {this.props.data.startTime}
-                <div className="game">
-                    <div>
-                        <img src={awayTeam.imageUrl} />
-                        <br />
-                        {awayTeam.score}
+            <li className="item">
+                <div className="row">
+                    <div className="team">
+                        {awayTeam.score}<img src={awayTeam.imageUrl} align="middle"/> 
                     </div>
                     <div className="at">
                     @
                     </div>
-                    <div>
-                        <img src={homeTeam.imageUrl} />
-                        <br />
-                        {homeTeam.score}
+                    <div className="team">
+                        <img src={homeTeam.imageUrl} />{homeTeam.score} 
                     </div>                
                 </div>
+                <span className="date">{formattedDate}</span>
             </li>
          );
     }

@@ -23,21 +23,13 @@ var self = {
 
     getShowcase: function() {
         var i;
-        var currentEpoch = new Date() / 1000;
-        var twoDaysEpoch = (2 * 24 * 60 * 60);
+        var currentDate = new Date();
         var showcaseGame = self.schedule[0];
         for (i = 0; i < self.schedule.length; i++) {
-            // Display upcoming game if start time takes place within 48 hours
-            if (currentEpoch - self.schedule[i].startTime < twoDaysEpoch) {
-                if (self.schedule[i].startTime < showcaseGame.startTime) {
-                    showcaseGame = self.schedule[i];
-                    break;
-                }
-            } else {
-                if (self.schedule[i].startTime > showcaseGame.startTime && self.schedule[i].startTime < currentEpoch) {
-                    showcaseGame = self.schedule[i];
-                    break;
-                }
+            var scheduleDate = new Date(self.schedule[i].startTime);
+            var showcaseDate = new Date(showcaseGame.startTime);
+            if (Math.abs(currentDate - scheduleDate) < Math.abs(currentDate - showcaseDate)) {
+                showcaseGame = self.schedule[i];
             }
         }
         return showcaseGame;
