@@ -38,7 +38,13 @@ def setup():
 
 ## Games ##
 def indexScores():
+    ss = sched.scheduler(time.time, time.sleep)
+    scheduleScores(ss)
+    ss.run()
+
+def scheduleScores(sc): 
     ScoreIndexer().index()
+    sc.enter(24 * 60 * 60, 1, scheduleScores, (sc,))
 
 def indexSchedule():
     ScheduleIndexer().index('10/2/2015', 23)
@@ -51,7 +57,7 @@ def indexNews():
 
 def scheduleNews(sc): 
     NewsIndexer().index()
-    sc.enter(12 * 60 * 15, 1, scheduleNews, (sc,))
+    sc.enter(6 * 60 * 60, 1, scheduleNews, (sc,))
 
 ## Tweets ##
 def indexTweets():
