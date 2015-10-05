@@ -1,13 +1,13 @@
 var path = require("path");
 var webpack = require("webpack");
 
+// stylus : needed for production
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var stylusLoader = ExtractTextPlugin.extract("style-loader", "css-loader!stylus-loader");
 
 module.exports = {
-    devtool: "eval",
+    minimize: true,
     entry: [
-        "webpack-dev-server/client?http://localhost:3000",
-        "webpack/hot/only-dev-server",
         "./src/index"
     ],
     output: {
@@ -16,7 +16,6 @@ module.exports = {
         publicPath: "/static/"
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new ExtractTextPlugin("sorcery.css")
     ],
@@ -31,7 +30,7 @@ module.exports = {
         },
         { 
             test: /\.styl$/, 
-            loader: "style-loader!css-loader!stylus-loader"
+            loader: stylusLoader
         },
         {
             test: /\.(jpe?g|png|gif|svg)$/i,
@@ -42,6 +41,6 @@ module.exports = {
         }]
     },
     externals: {
-        "config": "{serverUrl: 'http://localhost:5000'}"
+        "config": "{serverUrl: 'http://ec2-52-23-222-159.compute-1.amazonaws.com:1000'}"
     }
 };

@@ -11,6 +11,6 @@ Base.query = session.query_property()
 
 def init_db():
     # import models
-    import league, sport, team, tweet
+    import league, sport, team, tweet, game
     print "Initializing database"
     Base.metadata.create_all(bind=engine)
