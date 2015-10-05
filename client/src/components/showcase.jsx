@@ -47,8 +47,6 @@ var ShowcaseDisplay = React.createClass({
         var showcaseHeader;
         showcaseHeader = showcaseDate < currentDate ?
         "Last Game" : "Next Game";
-        console.log(currentDate);
-        console.log(showcaseDate);
         if (showcaseDate < currentDate) {
             showcaseHeader = "Last Game";
         } else {
