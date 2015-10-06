@@ -64,11 +64,11 @@ class Game(Base):
 
     @classmethod
     def getLive(class_):
-        return session.query(class_).filter(and_(class_.startTime < datetime.now(), class_.status != 'Final')).order_by(asc(class_.startTime)).first()
+        return session.query(class_).filter(and_(class_.startTime < datetime.utcnow(), class_.status is not 'Final')).order_by(asc(class_.startTime)).first()
 
     @classmethod
     def getNext(class_):
-        return session.query(class_).filter(class_.startTime > datetime.now()).order_by(asc(class_.startTime)).first()
+        return session.query(class_).filter(class_.startTime > datetime.utcnow()).order_by(asc(class_.startTime)).first()
 
     @classmethod
     def save(class_, game):
