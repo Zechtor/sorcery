@@ -80,7 +80,6 @@ class ScoreScheduler():
         return interval
 
     def schedule(self):
-        print self.interval
         ScoreIndexer().index()
         self.s.enter(self.interval, 1, self.schedule, ())
 
