@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, asc, or_
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, asc, or_, and_
 from sqlalchemy.orm import backref
 
 from models import Base, session
@@ -61,6 +61,14 @@ class Game(Base):
     @classmethod
     def getList(class_, teamId):
         return session.query(class_).filter(or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId)).order_by(asc(class_.startTime)).all()
+
+    @classmethod
+    def getLive(class_):
+        return session.query(class_).filter(and_(class_.startTime < datetime.now(), class_.status != 'Final')).order_by(asc(class_.startTime)).first()
+
+    @classmethod
+    def getNext(class_):
+        return session.query(class_).filter(class_.startTime > datetime.now()).order_by(asc(class_.startTime)).first()
 
     @classmethod
     def save(class_, game):

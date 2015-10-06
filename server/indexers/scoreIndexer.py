@@ -35,10 +35,10 @@ class ScoreIndexer():
                 continue
 
             # TODO: need to record the status, but must wait until we have live data again
-
             scoreData = {
                 'gameId': game['gid'],
                 'homeScore': game['h']['s'],
+                'status': game['stt'],
                 'visitorScore': game['v']['s']
             }
 
@@ -58,5 +58,6 @@ class ScoreIndexer():
             return
 
         game.homeTeamScore = data['homeScore']
+        game.status = data['status']
         game.visitorTeamScore = data['visitorScore']
         Game.save(game)
