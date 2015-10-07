@@ -45,6 +45,16 @@ var ShowcaseDisplay = React.createClass({
         var currentDate = new Date();
         var showcaseDate = new Date(this.props.data.startTime);
         var showcaseHeader;
+        var homeTeam;
+        var awayTeam;
+        // Set home and away teams
+        if (this.props.data.teams[0].isHome == true) {
+            homeTeam = this.props.data.teams[0];
+            awayTeam = this.props.data.teams[1];
+        } else {
+            homeTeam = this.props.data.teams[1];
+            awayTeam = this.props.data.teams[0];
+        }
         if (showcaseDate < currentDate) {
             showcaseHeader = "Last Game";
         } else {
@@ -58,8 +68,8 @@ var ShowcaseDisplay = React.createClass({
                 <div className="row">
                     <span className="spacer" />
                     <div className="team">
-                        {this.props.data.teams[0].score}
-                        <img src={this.props.data.teams[0].imageUrl} />
+                        {awayTeam.score}
+                        <img src={awayTeam.imageUrl} />
                     </div>
                     <span className="spacer" />
                     <div className="vs">
@@ -67,8 +77,8 @@ var ShowcaseDisplay = React.createClass({
                     </div>
                     <span className="spacer" />
                     <div className="team">
-                        <img src={this.props.data.teams[1].imageUrl} />
-                        {this.props.data.teams[1].score}
+                        <img src={homeTeam.imageUrl} />
+                        {homeTeam.score}
                     </div>
                     <span className="spacer" />
                 </div>
