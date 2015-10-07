@@ -49,6 +49,18 @@ var DateTools = {
 
         // returns date string
         return day + ", " + month + " " + date + " - " + strTime;
+    },
+
+    timeAgo: function(postTime) {
+        var postDate = new Date(postTime);
+        var currentDate = new Date();
+        var dateDifference = currentDate.getTime() - postDate.getTime();
+        dateDifference = (dateDifference / 1000 / 60 / 60);
+        if(dateDifference > 72){
+            return Math.round(dateDifference / 24) + " days ago";
+        } else {
+            return Math.round(dateDifference * 2)/2 + " hours ago";
+        }
     }
 };
 

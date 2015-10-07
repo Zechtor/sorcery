@@ -37,7 +37,8 @@ class Article(Base):
             'articleId': self.articleId,
             'postDate': self.postDate,
             'title': self.title,
-            'articleUrl': self.articleUrl
+            'articleUrl': self.articleUrl,
+            'source': self.source
         }
 
         if (self.imageUrl != None):
