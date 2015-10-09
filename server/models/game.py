@@ -64,7 +64,7 @@ class Game(Base):
 
     @classmethod
     def getLive(class_):
-        return session.query(class_).filter(and_(class_.startTime < datetime.utcnow(), or_(class_.status != 'Final', class_.status == None))).order_by(asc(class_.startTime)).first()
+        return session.query(class_).filter(and_(class_.startTime <= datetime.utcnow(), or_(class_.status != 'Final', class_.status == None))).order_by(asc(class_.startTime)).first()
 
     @classmethod
     def getNext(class_):
