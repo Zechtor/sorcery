@@ -42,7 +42,9 @@ class TweetIndexer():
             'STUFFMagic',
             'Magic_Radio',
             'Magic_PRDish',
-            'CommunityLeak'
+            'CommunityLeak',
+            'JohnDenton555',
+            'adamosgp'
         ]   
 
         query = '?lang=en&count=100'

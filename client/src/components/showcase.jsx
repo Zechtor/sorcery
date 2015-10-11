@@ -64,15 +64,27 @@ var Showcase = React.createClass({
 });
 
 var ShowcaseDisplay = React.createClass({
+
     render: function () {
-        var formattedDate = Util.DateTools.convertDate(this.props.data.startTime);
+        var formattedDate = Util.DateTools.convertDateNoDay(this.props.data.startTime);
+        var formattedDayTime = Util.DateTools.convertDayTime(this.props.data.startTime);
         var currentDate = new Date();
         var showcaseDate = new Date(this.props.data.startTime);
         var showcaseHeader;
-        if (showcaseDate < currentDate) {
-            showcaseHeader = "Last Game";
+        var homeTeam;
+        var awayTeam;
+        // Set home and away teams
+        if (this.props.data.teams[0].isHome == true) {
+            homeTeam = this.props.data.teams[0];
+            awayTeam = this.props.data.teams[1];
         } else {
-            showcaseHeader = "Next Game";
+            homeTeam = this.props.data.teams[1];
+            awayTeam = this.props.data.teams[0];
+        }
+        if (showcaseDate < currentDate) {
+            showcaseHeader = "Last Game: " + formattedDate;
+        } else {
+            showcaseHeader = "Next Game: " + formattedDate;
         }
         return (
             <section className="item">
@@ -82,8 +94,8 @@ var ShowcaseDisplay = React.createClass({
                 <div className="row">
                     <span className="spacer" />
                     <div className="team">
-                        {this.props.data.teams[0].score}
-                        <img src={this.props.data.teams[0].imageUrl} />
+                        {awayTeam.score}
+                        <img src={awayTeam.imageUrl} />
                     </div>
                     <span className="spacer" />
                     <div className="vs">
@@ -91,8 +103,8 @@ var ShowcaseDisplay = React.createClass({
                     </div>
                     <span className="spacer" />
                     <div className="team">
-                        <img src={this.props.data.teams[1].imageUrl} />
-                        {this.props.data.teams[1].score}
+                        <img src={homeTeam.imageUrl} />
+                        {homeTeam.score}
                     </div>
                     <span className="spacer" />
                 </div>
@@ -100,7 +112,7 @@ var ShowcaseDisplay = React.createClass({
                     { this.props.data.status ?
                         this.props.data.status
                     :
-                        formattedDate
+                        formattedDayTime
                     }
                 </div>
             </section>

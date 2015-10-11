@@ -46,7 +46,8 @@ var Schedule = React.createClass({
 
 var Game = React.createClass({ 
     render: function() {
-        var formattedDate = Util.DateTools.convertDate(this.props.data.startTime);
+        var formattedDate = Util.DateTools.convertDateNoDay(this.props.data.startTime);
+        var formattedDayTime = Util.DateTools.convertDayTime(this.props.data.startTime);
         var homeTeam;
         var awayTeam;
         // Set home and away teams
@@ -59,6 +60,9 @@ var Game = React.createClass({
         }
         return (
             <li className="item">
+                <span className="status">
+                    {formattedDate}
+                </span>
                 <div className="row">
                     <span className="spacer" />
                     <div className="team">
@@ -78,7 +82,7 @@ var Game = React.createClass({
                     { this.props.data.status ?
                         this.props.data.status
                     :
-                        formattedDate
+                        formattedDayTime
                     }
                 </span>
             </li>
