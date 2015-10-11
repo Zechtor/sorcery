@@ -11,6 +11,7 @@ import models
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
+app.config['SQLALCHEMY_POOL_RECYCLE'] = 7200
 
 # setup api routes
 app.register_blueprint(sorceryAPI)
@@ -20,7 +21,6 @@ app.register_blueprint(tweetsAPI)
 app.register_blueprint(liveAPI)
 
 if __name__ == '__main__':
-    # wipe and load db
     models.init_db()
 
     # server starts with live reload
