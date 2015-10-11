@@ -115,7 +115,7 @@ var NewsArticle = React.createClass({
                 <img src={this.props.data.imageUrl} />
                 <div>
                     <h3>{this.props.data.title}</h3>
-                    <span className="source">{formattedDate} -  {this.props.data.source}</span>
+                    <span className="source">{this.props.data.source} - {formattedDate}</span>
                 </div>
             </li>
         );
