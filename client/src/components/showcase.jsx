@@ -3,29 +3,53 @@
 
 var Util = require("./util");
 
+var LiveService = require("../services/liveService");
 var ScheduleService = require("../services/scheduleService");
 
 var Showcase = React.createClass({
 
-    getInitialState : function() {
+    getInitialState: function() {
         return {
             showcase: null
         };
     },
 
-    componentDidMount : function() {
+    componentDidMount: function() {
         // initial data load
-        var that = this; // TODO: remove this dependency
+        var self = this; // TODO: remove this dependency
 
         // wait for the schedule to return
         ScheduleService.get().then(function() {
-            that.setState({
+            self.setState({
                 showcase: ScheduleService.getShowcase()
-            });
+            }); 
+
+            self.autoUpdate();
         });
     },
 
-    render : function() {
+    autoUpdate: function() {
+        self = this;
+        var interval = 30 * 1000;
+
+        if (ScheduleService.isLive()) {
+            // if there is a live game, get data and renew in 30 seconds
+            LiveService.get().then(function(data) {
+                self.setState({
+                    showcase: data
+                });
+            });
+        } else {
+            // if there is no live game, try again when the next game starts
+            interval = ScheduleService.timeUntilNextGame();
+        }
+
+        setTimeout(function() {
+            self.autoUpdate();
+        }, interval);
+    },
+
+    render: function() {
         var showcaseStatus;
         showcaseStatus = this.state.showcase ?
             <ShowcaseDisplay data={this.state.showcase} /> : 
@@ -40,7 +64,8 @@ var Showcase = React.createClass({
 });
 
 var ShowcaseDisplay = React.createClass({
-    render : function () {
+
+    render: function () {
         var formattedDate = Util.DateTools.convertDateNoDay(this.props.data.startTime);
         var formattedDayTime = Util.DateTools.convertDayTime(this.props.data.startTime);
         var currentDate = new Date();

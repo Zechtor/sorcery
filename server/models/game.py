@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, asc, or_, and_
 from sqlalchemy.orm import backref
 
@@ -63,8 +63,14 @@ class Game(Base):
         return session.query(class_).filter(or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId)).order_by(asc(class_.startTime)).all()
 
     @classmethod
-    def getLive(class_):
-        return session.query(class_).filter(and_(class_.startTime < datetime.utcnow(), or_(class_.status != 'Final', class_.status == None))).order_by(asc(class_.startTime)).first()
+    def getLive(class_, teamId):
+        now = datetime.utcnow()
+        threshhold = datetime.utcnow() - timedelta(hours=6)
+
+        if teamId is None:
+            return session.query(class_).filter(and_(class_.startTime <= now, class_.startTime >= threshhold, or_(class_.status != 'Final', class_.status == None))).order_by(asc(class_.startTime)).first()
+        else:
+            return session.query(class_).filter(and_(class_.startTime <= now, class_.startTime >= threshhold, or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId), or_(class_.status != 'Final', class_.status == None))).order_by(asc(class_.startTime)).first()
 
     @classmethod
     def getNext(class_):

@@ -65,7 +65,7 @@ class ScoreScheduler():
         interval = 60 * 60
 
         # the score scheduler increases in frequency during lives games
-        game = Game.getLive()
+        game = Game.getLive(None)
         if game is not None:
             interval = 30
             return interval

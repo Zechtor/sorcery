@@ -37,7 +37,10 @@ var Nav = React.createClass({
         return (
             <section id="nav">
                 <button id="leftToggle" className="navToggle" onClick={this.toggleShelf} />
-                <span>Sorcery</span>
+                <div>
+                    <span>TeamWatcher -</span>
+                    <img src="http://stats.nba.com/media/img/teams/logos/ORL_logo.svg" />
+                </div>
                 <button id="rightToggle" className="navToggle" onClick={this.toggleShelf} />
             </section>
         );
