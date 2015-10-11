@@ -33,6 +33,35 @@ var self = {
             }
         }
         return showcaseGame;
+    },
+
+    isLive: function() {
+        var isLive = false;
+        var game = self.getShowcase();
+        var startTime = new Date(game.startTime);
+        var now = new Date();
+
+        if (startTime <= now && game.status != "Final") {
+            isLive = true;
+        }
+
+        return isLive;
+    },
+
+    timeUntilNextGame: function() {
+        var now = new Date();
+        var startTime = new Date();
+
+        // starting from the top, the first game with a positive time differential is the next
+        for (var i = 0; i < self.schedule.length; i++) {
+            var scheduleDate = new Date(self.schedule[i].startTime);
+            if (scheduleDate - now >= 0) {
+                startTime = scheduleDate;
+                break;
+            }
+        }
+
+        return startTime - now;
     }
 };
 

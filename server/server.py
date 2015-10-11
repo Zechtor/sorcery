@@ -5,6 +5,7 @@ from api import sorceryAPI
 from api.news import newsAPI
 from api.schedule import scheduleAPI
 from api.tweets import tweetsAPI
+from api.live import liveAPI
 
 import models
 
@@ -16,6 +17,7 @@ app.register_blueprint(sorceryAPI)
 app.register_blueprint(newsAPI)
 app.register_blueprint(scheduleAPI)
 app.register_blueprint(tweetsAPI)
+app.register_blueprint(liveAPI)
 
 if __name__ == '__main__':
     # wipe and load db
