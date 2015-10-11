@@ -35,6 +35,7 @@ class Tweet(Base):
             'id': self.id,
             'tweetId': self.tweetId,
             'message': self.text,
+            'postDate': self.postDate,
             'user': {
                 'username': self.username,
                 'imageUrl': self.userImageUrl,

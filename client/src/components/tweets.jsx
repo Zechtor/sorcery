@@ -124,6 +124,8 @@ var Tweet = React.createClass({
             return { __html: formattedText };
         }
 
+        var formattedDate = Util.DateTools.timeAgo(this.props.data.postDate);
+
         return (
             <li className="tweet item">
                 { this.props.data.imageUrl &&
@@ -133,8 +135,7 @@ var Tweet = React.createClass({
                 <div>
                     <img src={this.props.data.user.imageUrl} />
                     <a href={this.props.data.user.profileUrl} target="_blank">
-                        @{this.props.data.user.username}
-                    </a>
+                        @{this.props.data.user.username}</a> - {formattedDate}
                 </div>
             </li>
         );
