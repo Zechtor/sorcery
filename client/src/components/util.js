@@ -55,11 +55,15 @@ var DateTools = {
         var postDate = new Date(postTime);
         var currentDate = new Date();
         var dateDifference = currentDate.getTime() - postDate.getTime();
-        dateDifference = (dateDifference / 1000 / 60 / 60);
-        if(dateDifference > 72){
-            return Math.round(dateDifference / 24) + " days ago";
+        dateDifference = (dateDifference / 1000 / 60 / 60 / 60);
+        if (dateDifference < 60) {
+            return Math.round(dateDifference) + " minutes ago";
         } else {
-            return Math.round(dateDifference * 2)/2 + " hours ago";
+            if (dateDifference / 60 < 24 ) {
+                return Math.round(dateDifference / 60) + " hours ago";
+            } else {
+                return Math.round(dateDifference / 60 / 24) + " days ago";
+            }
         }
     }
 };
