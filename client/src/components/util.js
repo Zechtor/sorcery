@@ -10,13 +10,13 @@ var DateTools = {
 
         // sets day of week
         var dayArray = new Array(7);
-        dayArray[0]=  "Sun";
-        dayArray[1] = "Mon";
-        dayArray[2] = "Tues";
-        dayArray[3] = "Wed";
-        dayArray[4] = "Thurs";
-        dayArray[5] = "Fri";
-        dayArray[6] = "Sat";
+        dayArray[0]=  "Sunday";
+        dayArray[1] = "Monday";
+        dayArray[2] = "Tuesday";
+        dayArray[3] = "Wednesday";
+        dayArray[4] = "Thursday";
+        dayArray[5] = "Friday";
+        dayArray[6] = "Saturday";
         var day = dayArray[d.getDay()];  
 
         // sets month 
@@ -38,6 +38,12 @@ var DateTools = {
         // sets date
         var date = d.getDate().toString();
 
+        // returns date string
+        return day + ", " + month + " " + date;
+    },
+
+    convertTime: function(startTime) {
+        var d = new Date(startTime);
         // sets time
         var hours = d.getHours();
         var minutes = d.getMinutes();
@@ -48,13 +54,12 @@ var DateTools = {
         var strTime = hours + ":" + minutes + " " + ampm;
 
         // returns date string
-        return day + ", " + month + " " + date + " - " + strTime;
+        return strTime;
     },
 
-    convertDateNoTime: function(startTime) {
+    convertDayTime: function(startTime) {
         var d = new Date(startTime);
-
-        // sets day of week
+         // sets day of week
         var dayArray = new Array(7);
         dayArray[0]=  "Sun";
         dayArray[1] = "Mon";
@@ -64,6 +69,22 @@ var DateTools = {
         dayArray[5] = "Fri";
         dayArray[6] = "Sat";
         var day = dayArray[d.getDay()];  
+
+        // sets time
+        var hours = d.getHours();
+        var minutes = d.getMinutes();
+        var ampm = hours >= 12 ? "pm" : "am";
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        var strTime = hours + ":" + minutes + " " + ampm;
+
+        // returns date string
+        return day + " - " + strTime;
+    },
+
+    convertDateNoDay: function(startTime) {
+        var d = new Date(startTime);
 
         // sets month 
         var monthArray = new Array(12);

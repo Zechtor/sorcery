@@ -135,7 +135,7 @@ var Tweet = React.createClass({
                 <div>
                     <img src={this.props.data.user.imageUrl} />
                     <a href={this.props.data.user.profileUrl} target="_blank">
-                        @{this.props.data.user.username}</a> - {formattedDate}
+                        @{this.props.data.user.username}</a><span className="date"> - {formattedDate}</span>
                 </div>
             </li>
         );

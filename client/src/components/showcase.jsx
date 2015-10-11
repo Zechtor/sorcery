@@ -41,7 +41,8 @@ var Showcase = React.createClass({
 
 var ShowcaseDisplay = React.createClass({
     render : function () {
-        var formattedDate = Util.DateTools.convertDate(this.props.data.startTime);
+        var formattedDate = Util.DateTools.convertDateNoDay(this.props.data.startTime);
+        var formattedDayTime = Util.DateTools.convertDayTime(this.props.data.startTime);
         var currentDate = new Date();
         var showcaseDate = new Date(this.props.data.startTime);
         var showcaseHeader;
@@ -56,9 +57,9 @@ var ShowcaseDisplay = React.createClass({
             awayTeam = this.props.data.teams[0];
         }
         if (showcaseDate < currentDate) {
-            showcaseHeader = "Last Game";
+            showcaseHeader = "Last Game: " + formattedDate;
         } else {
-            showcaseHeader = "Next Game";
+            showcaseHeader = "Next Game: " + formattedDate;
         }
         return (
             <section className="item">
@@ -86,7 +87,7 @@ var ShowcaseDisplay = React.createClass({
                     { this.props.data.status ?
                         this.props.data.status
                     :
-                        formattedDate
+                        formattedDayTime
                     }
                 </div>
             </section>
