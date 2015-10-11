@@ -94,12 +94,24 @@ var DateTools = {
         var dateDifference = currentDate.getTime() - postDate.getTime();
         dateDifference = (dateDifference / 1000 / 60);
         if (dateDifference < 60) {
-            return Math.round(dateDifference) + " minutes ago";
-        } else {
-            if (dateDifference / 60 < 24 ) {
-                return Math.round(dateDifference / 60) + " hours ago";
+            if (Math.round(dateDifference) == 1) {
+                return Math.round(dateDifference) + " minute ago";
             } else {
-                return Math.round(dateDifference / 60 / 24) + " days ago";
+                return Math.round(dateDifference) + " minutes ago";
+            }
+        } else {
+            if (Math.round(dateDifference / 60 < 24)) {
+                if (Math.round(dateDifference / 60) == 1) {
+                    return Math.round(dateDifference / 60) + " hour ago";
+                } else {
+                    return Math.round(dateDifference / 60) + " hours ago";
+                }
+            } else {
+                if (Math.round(dateDifference / 60 / 24) == 1) {
+                    return Math.round(dateDifference / 60 / 24) + " day ago";
+                } else {
+                    return Math.round(dateDifference / 60 / 24) + " days ago";
+                }
             }
         }
     }
