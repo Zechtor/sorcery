@@ -116,7 +116,7 @@ class RssScheduler():
 
     def run(self):
         self.schedule()
-        #self.s.run()
+        self.s.run()
 
 class TweetScheduler():
     s = sched.scheduler(time.time, time.sleep)
