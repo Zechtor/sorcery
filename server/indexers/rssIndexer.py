@@ -66,11 +66,11 @@ class RssIndexer():
         return Article.save(Article(articleData))
 
     def search(self, feed):
-        print 'Indexing: ' + 'http://www.nba.com/magic/rss.xml'
+        print 'Indexing: ' + feed.url
 
         items = []
 
-        page = requests.get('http://www.nba.com/magic/rss.xml')
+        page = requests.get(feed.url)
         rss = page.content
 
         # if the checksum has not changed, skip this feed
