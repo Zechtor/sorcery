@@ -10,7 +10,7 @@ class Article(Base):
     id = Column(Integer, primary_key=True)
     articleUrl = Column(String(200), nullable=False)
     createDate = Column(DateTime, nullable=False)
-    description = Column(String(500), nullable=False)
+    description = Column(String(2000), nullable=False)
     externalId = Column(String(50), unique=True, nullable=False)
     imageUrl = Column(String(500))
     postDate = Column(DateTime, nullable=False)

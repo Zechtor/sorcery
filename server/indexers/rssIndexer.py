@@ -54,7 +54,7 @@ class RssIndexer():
         # convert xml to object
         articleData = {
             'articleUrl': url,
-            'description': item.findtext('description'),
+            'description': item.findtext('description')[:2000],
             'externalId': externalId,
             'imageUrl': self.extractImage(url),
             'postDate': item.findtext('pubDate'),
@@ -69,10 +69,12 @@ class RssIndexer():
         print 'Indexing: ' + feed.url
 
         items = []
-
-        page = requests.get(feed.url)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+        }
+        page = requests.get(feed.url, headers=headers)
         rss = page.content
-
+        print rss
         # if the checksum has not changed, skip this feed
         checksum = md5.new(rss).hexdigest()
         if feed.checksum == checksum:
@@ -85,3 +87,17 @@ class RssIndexer():
         items = root.findall("channel/item")
 
         return items
+
+    # RSS
+    def getRssItems(self rss):
+        return []
+
+    def processRssItem(self, feed, item):
+        return []
+
+    # ATOM
+    def getAtomItems(self rss):
+        return []
+
+    def processAtomItem(self, feed, item):
+        return []
