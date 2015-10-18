@@ -9,8 +9,11 @@ from models.team import Team
 class RssIndexer():
 
     def index(self, feed):
-        items = self.search(feed)
-        self.process(feed, items)
+        rss = self.search(feed)
+        if rss is not None:
+            self.process(feed, rss)
+
+        print 'Finished indexing: ' + feed.source
 
     def extractImage(self, url):
         imageUrl = None
@@ -31,19 +34,57 @@ class RssIndexer():
 
         return imageUrl
 
-    def process(self, feed, items):
+    def process(self, feed, rss):
+        items = []
+
+        isAtom = None in rss.nsmap and rss.nsmap[None] == 'http://www.w3.org/2005/Atom'
+        if isAtom is True:
+            items = self.getAtomItems(rss)
+        else:
+            items = self.getRssItems(rss)
+
         itemCount = len(items)
         successCount = 0
 
         for item in items:
-            result = self.processItem(feed, item)
+            result = False
+            if isAtom is True:
+                result = self.processAtomItem(feed, item)
+            else:
+                result = self.processRssItem(feed, item)
 
             if result == True:
                 successCount += 1
 
         print 'Process results:\n  Article Count %d\n  Success Count %d' % (itemCount, successCount)
 
-    def processItem(self, feed, item):
+    def search(self, feed):
+        print 'Indexing: ' + feed.source
+
+        items = []
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+        }
+        page = requests.get(feed.url, headers=headers)
+        rss = page.content
+
+        # if the checksum has not changed, skip this feed
+        checksum = md5.new(rss).hexdigest()
+        if feed.checksum == checksum:
+            return None
+        else:
+            feed.checksum = checksum
+            Feed.save(feed) 
+
+        return etree.fromstring(rss)
+
+    # RSS
+    def getRssItems(self, rss):
+        items = rss.findall("channel/item")
+
+        return items
+
+    def processRssItem(self, feed, item):
         url = item.findtext('link')
         externalId = md5.new(url).hexdigest()
 
@@ -65,39 +106,30 @@ class RssIndexer():
 
         return Article.save(Article(articleData))
 
-    def search(self, feed):
-        print 'Indexing: ' + feed.url
-
-        items = []
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
-        }
-        page = requests.get(feed.url, headers=headers)
-        rss = page.content
-        print rss
-        # if the checksum has not changed, skip this feed
-        checksum = md5.new(rss).hexdigest()
-        if feed.checksum == checksum:
-            return items
-        else:
-            feed.checksum = checksum
-            Feed.save(feed) 
-
-        root = etree.fromstring(rss)
-        items = root.findall("channel/item")
+    # ATOM
+    def getAtomItems(self, rss):
+        items = rss.findall("{http://www.w3.org/2005/Atom}entry")
 
         return items
 
-    # RSS
-    def getRssItems(self rss):
-        return []
-
-    def processRssItem(self, feed, item):
-        return []
-
-    # ATOM
-    def getAtomItems(self rss):
-        return []
-
     def processAtomItem(self, feed, item):
-        return []
+        url = item.find('{http://www.w3.org/2005/Atom}link').attrib.get('href')
+        externalId = md5.new(url).hexdigest()
+
+        # if this article has already been indexed, skip it
+        if Article.getByExternalId(externalId) is not None:
+            return False
+
+        # convert xml to object
+        articleData = {
+            'articleUrl': url,
+            'description': item.findtext('{http://www.w3.org/2005/Atom}content')[:2000],
+            'externalId': externalId,
+            'imageUrl': self.extractImage(url),
+            'postDate': item.findtext('{http://www.w3.org/2005/Atom}published'),
+            'source': feed.source,
+            'teamId': feed.teamId,
+            'title': HTMLParser.HTMLParser().unescape(item.findtext('{http://www.w3.org/2005/Atom}title')),
+        }
+
+        return Article.save(Article(articleData))
