@@ -47,5 +47,5 @@ nohup python index.py tweets &
 nohup python index.py news &
 
 # run client
-npm run deploy
+npm run production
 

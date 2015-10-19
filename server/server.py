@@ -11,7 +11,7 @@ import models
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_POOL_RECYCLE'] = 7200
+app.config['SQLALCHEMY_POOL_RECYCLE'] = 3600
 
 # setup api routes
 app.register_blueprint(sorceryAPI)
