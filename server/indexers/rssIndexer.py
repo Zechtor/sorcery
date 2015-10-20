@@ -53,7 +53,7 @@ class RssIndexer():
             else:
                 result = self.processRssItem(feed, item)
 
-            if result == True:
+            if result is not None:
                 successCount += 1
 
         print 'Process results:\n  Article Count %d\n  Success Count %d' % (itemCount, successCount)

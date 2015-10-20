@@ -25,21 +25,30 @@ class League(Base):
 
     @classmethod
     def getAll(class_):
-        return session.query(class_).all()
+        result = session.query(class_).all()
+        session.close()
+
+        return result
 
     @classmethod
     def getByName(class_, name):
-        return session.query(class_).filter(class_.name == name).first()
+        result = session.query(class_).filter(class_.name == name).first()
+        session.close()
+
+        return result
 
     @classmethod
     def save(class_, league):
         existingLeague = League.getByName(league.name)
-        if existingLeague is not None:
-            return
+        if existingLeague is None:
+            session.add(league)
 
-        session.add(league)
+        result = league
         try:
             session.commit()
-            return True 
         except:
-            return False
+            result = None
+        finally:
+            session.close()
+
+        return result

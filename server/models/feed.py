@@ -23,20 +23,30 @@ class Feed(Base):
 
     @classmethod
     def getAll(class_):
-        return session.query(class_).all()
+        result = session.query(class_).all()
+        session.close()
+
+        return result
 
     @classmethod
     def getByUrl(class_, url):
-        return session.query(class_).filter(class_.url == url).first()
+        result = session.query(class_).filter(class_.url == url).first()
+        session.close()
+
+        return result
 
     @classmethod
     def save(class_, feed):
         existing = Feed.getByUrl(feed.url)
         if existing is None:
             session.add(feed)
-        session.commit()
+
+        result = feed
         try:
-            #session.commit()
-            return True 
+            session.commit()
         except:
-            return False
+            result = None
+        finally:
+            session.close()
+
+        return result
