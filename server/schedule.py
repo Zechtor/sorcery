@@ -52,6 +52,9 @@ def setup():
     Feed.save(Feed('Orlando Pinstriped Post', magic.id, 'http://feeds.feedburner.com/sportsblogs/orlandopinstripedpost'))
     Feed.save(Feed('Orlando Magic Daily', magic.id, 'http://orlandomagicdaily.com/feed/'))
 
+    warriors = Team.getByName('warriors')
+    Feed.save(Feed('NBA.com', warriors.id, 'http://www.nba.com/warriors/rss.xml'))
+
 def indexSchedule():
     ScheduleIndexer().index('10/2/2015', 23)
 

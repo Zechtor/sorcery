@@ -91,16 +91,14 @@ class Game(Base):
 
     @classmethod
     def save(class_, game):
-        existingGame = Game.getByExternalId(game.externalId)
-        if existingGame is None:
-            session.add(game)
-
         result = game
         try:
+            session.add(game)
             session.commit()
         except:
             result = None
         finally:
-            session.close()
+            'NOOOOO'
+            #session.close()
 
         return result

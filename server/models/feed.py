@@ -11,7 +11,7 @@ class Feed(Base):
     id = Column(Integer, primary_key=True)
     checksum = Column(String(50))
     createDate = Column(DateTime, nullable=False)
-    source = Column(String(100), unique=True, nullable=False)
+    source = Column(String(100), nullable=False)
     teamId = Column(Integer, ForeignKey('team.id'))
     url = Column(String(150), unique=True, nullable=False)
 

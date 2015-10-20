@@ -95,7 +95,7 @@ class RssIndexer():
         # convert xml to object
         articleData = {
             'articleUrl': url,
-            'description': item.findtext('description')[:2000],
+            'description': item.findtext('description')[:2000] if item.find('description') is not None else '',
             'externalId': externalId,
             'imageUrl': self.extractImage(url),
             'postDate': item.findtext('pubDate'),
