@@ -56,25 +56,38 @@ class Game(Base):
 
     @classmethod
     def getByExternalId(class_, externalId):
-        return session.query(class_).filter(class_.externalId == externalId).first()
+        result = session.query(class_).filter(class_.externalId == externalId).first()
+        session.close()
+
+        return result
 
     @classmethod
     def getList(class_, teamId):
-        return session.query(class_).filter(or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId)).order_by(asc(class_.startTime)).all()
+        result = session.query(class_).filter(or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId)).order_by(asc(class_.startTime)).all()
+        session.close()
+
+        return result
 
     @classmethod
     def getLive(class_, teamId):
         now = datetime.utcnow()
         threshhold = datetime.utcnow() - timedelta(hours=6)
 
+        result = None
         if teamId is None:
-            return session.query(class_).filter(and_(class_.startTime <= now, class_.startTime >= threshhold, or_(class_.status != 'Final', class_.status == None))).order_by(asc(class_.startTime)).first()
+            result = session.query(class_).filter(and_(class_.startTime <= now, class_.startTime >= threshhold, or_(class_.status != 'Final', class_.status == None))).order_by(asc(class_.startTime)).first()
         else:
-            return session.query(class_).filter(and_(class_.startTime <= now, class_.startTime >= threshhold, or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId), or_(class_.status != 'Final', class_.status == None))).order_by(asc(class_.startTime)).first()
+            result = session.query(class_).filter(and_(class_.startTime <= now, class_.startTime >= threshhold, or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId), or_(class_.status != 'Final', class_.status == None))).order_by(asc(class_.startTime)).first()
+        session.close()
+
+        return result
 
     @classmethod
     def getNext(class_):
-        return session.query(class_).filter(class_.startTime > datetime.utcnow()).order_by(asc(class_.startTime)).first()
+        result = session.query(class_).filter(class_.startTime > datetime.utcnow()).order_by(asc(class_.startTime)).first()
+        session.close()
+
+        return result
 
     @classmethod
     def save(class_, game):
@@ -82,8 +95,12 @@ class Game(Base):
         if existingGame is None:
             session.add(game)
 
+        result = game
         try:
             session.commit()
-            return True 
         except:
-            return False
+            result = None
+        finally:
+            session.close()
+
+        return result

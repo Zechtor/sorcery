@@ -22,21 +22,30 @@ class Sport(Base):
 
     @classmethod
     def getAll(class_):
-        return session.query(class_).all()
+        result = session.query(class_).all()
+        session.close()
+
+        return result
 
     @classmethod
     def getByName(class_, name):
-        return session.query(class_).filter(class_.name == name).first()
+        result = session.query(class_).filter(class_.name == name).first()
+        session.close()
+
+        return result
 
     @classmethod
     def save(class_, sport):
         existingSport = Sport.getByName(sport.name)
-        if existingSport is not None:
-            return
+        if existingSport is None:
+            session.add(sport)
 
-        session.add(sport)
+        result = sport
         try:
             session.commit()
-            return True 
         except:
-            return False
+            result = None
+        finally:
+            session.close()
+
+        return result
