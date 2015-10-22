@@ -22,8 +22,13 @@ var App = React.createClass({
     load: function() {
         // on startup, the application makes all of the initial data requests
         var self = this;
-        q.all([NewsService.get(1), ScheduleService.get(), TweetsService.get(1)]).then(function() {
-            self.setState({loading: false});
+
+        // shomehow we turn the route into: 'magic' and pass it into TeamService.get()
+
+        Teamservice.get('magic').then(function() {
+            q.all([NewsService.get(1), ScheduleService.get(), TweetsService.get(1)]).then(function() {
+                self.setState({loading: false});
+            });
         });
     },
 
