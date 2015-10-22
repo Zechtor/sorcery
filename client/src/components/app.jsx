@@ -24,7 +24,7 @@ var App = React.createClass({
         // on startup, the application makes all of the initial data requests
         var self = this;
 
-        // shomehow we turn the route into: 'magic' and pass it into TeamService.get()
+        // somehow we turn the route into: 'magic' and pass it into TeamService.get()
 
         TeamsService.get("Magic").then(function() {
             q.all([NewsService.get(1), ScheduleService.get(), TweetsService.get(1)]).then(function() {

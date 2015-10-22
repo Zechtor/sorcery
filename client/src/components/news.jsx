@@ -8,6 +8,7 @@ var Loader = require("./loader");
 var Util = require("./util");
 
 var NewsService = require("../services/newsService");
+var TeamsService = require("../services/teamsService");
 
 var News = React.createClass({
 
@@ -19,7 +20,9 @@ var News = React.createClass({
 
     componentDidMount: function() {
         var self = this;
-        self.load(1);
+        TeamsService.get("Magic").then(function(){
+            self.load(1);
+        });
 
         // Attach scroll listener
         $("#news .container").scroll(function() {

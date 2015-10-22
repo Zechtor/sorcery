@@ -1,31 +1,45 @@
 // this service manages the teams and keeps track of the currently selected team
 
 var Request = require("./request");
+var q = require("q");
 
 var self = {
     currentTeam: null,
     teams: [],
+    request: null,
 
     get: function(teamName) {
+        console.log("first",teamName);
+        if (self.request && self.request.promise.isPending()) {
+            return self.request.promise;
+        }
+
+        self.request = q.defer();
         // match team name
-        if (teams.length > 0) 
-            findTeam(teamName);        
+        if (self.teams.length > 0) {
+            self.currentTeam = findTeam(teamName, self.teams);
+            self.request.resolve();
+            return self.request.promise;
+        }
 
         Request.get("/teams").then(function(data) {
             self.teams = data.teams;
-            findTeam(teamName);
+            self.currentTeam = findTeam(teamName, self.teams);
+            self.request.resolve();
         });
+
+        return self.request.promise;
     }
 };
 
-function findTeam(teamName) {
-    for (i = 0; teams[i]; i++)
-        {
-        if (teamName === team[i].name)
-        {
-            self.currentTeam = team[i];
-        }
+function findTeam(teamName, teams) {
+    console.log(teamName);
+    for (var i = 0; i < teams.length; i++) {
+        if (teamName.toLowerCase() === teams[i].name.toLowerCase()) {
+            return teams[i];
+        } 
     }
+    return teams[1];
 }
 
 module.exports = self;

@@ -5,6 +5,7 @@ var Util = require("./util");
 
 var LiveService = require("../services/liveService");
 var ScheduleService = require("../services/scheduleService");
+var TeamsService = require("../services/teamsService");
 
 var Showcase = React.createClass({
 
@@ -19,12 +20,14 @@ var Showcase = React.createClass({
         var self = this; // TODO: remove this dependency
 
         // wait for the schedule to return
-        ScheduleService.get().then(function() {
-            self.setState({
-                showcase: ScheduleService.getShowcase()
-            }); 
+        TeamsService.get("Magic").then(function(){
+            ScheduleService.get().then(function() {
+                self.setState({
+                    showcase: ScheduleService.getShowcase()
+                }); 
 
-            self.autoUpdate();
+                self.autoUpdate();
+            });
         });
     },
 

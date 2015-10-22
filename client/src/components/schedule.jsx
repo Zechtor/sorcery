@@ -6,8 +6,8 @@ var Header = require("./header");
 var List = require("./list");
 var Util = require("./util");
 
-
 var ScheduleService = require("../services/scheduleService");
+var TeamsService = require("../services/teamsService");
 
 // Main schedule component
 var Schedule = React.createClass({
@@ -21,9 +21,11 @@ var Schedule = React.createClass({
     componentDidMount: function() {
         // initial data load
         var that = this; // TODO: remove this dependency
-        ScheduleService.get().then(function() {
-            that.setState({
-                schedule: ScheduleService.schedule
+        TeamsService.get("Magic").then(function(){
+            ScheduleService.get().then(function() {
+                that.setState({
+                    schedule: ScheduleService.schedule
+                });
             });
         });
     },

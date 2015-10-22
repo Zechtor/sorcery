@@ -9,6 +9,6 @@ teamsAPI = Blueprint('teamsAPI', __name__)
 @crossdomain(origin='*')
 def news():
     teamsList = Team.getAll()
-    serializedList = [t.serialize() for t in teamsList]
+    serializedList = [t.serialize(None) for t in teamsList]
 
     return jsonify(teams=serializedList)

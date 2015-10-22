@@ -8,13 +8,14 @@ var self = {
 
     get: function() {
         // do not call another load if one is in flight
+        console.log("I AM SCHEDULE SERVICE GET");
         if (self.request && self.request.promise.isPending()) {
             return self.request.promise;
         }
 
         self.request = q.defer();
 
-        Request.get("/schedule?team=" + TeamsService.currentTeam.id, {}).then(function(data) {
+        Request.get("/schedule?teamId=" + TeamsService.currentTeam.id, {}).then(function(data) {
             self.schedule = data.games;
             self.request.resolve();
         });

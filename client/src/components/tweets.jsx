@@ -8,6 +8,7 @@ var Loader = require("./loader");
 var Util = require("./util");
 
 var TweetsService = require("../services/tweetsService");
+var TeamsService = require("../services/teamsService");
 
 var Tweets = React.createClass({
     
@@ -19,7 +20,9 @@ var Tweets = React.createClass({
 
     componentDidMount: function() {
         var self = this;
-        self.load(1);
+        TeamsService.get("Magic").then(function(){
+            self.load(1);
+        });
 
         // Attach scroll listener
         $("#tweets .container").scroll(function() {
