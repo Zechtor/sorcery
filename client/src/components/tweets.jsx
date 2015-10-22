@@ -17,10 +17,14 @@ var Tweets = React.createClass({
         };
     },
 
-    componentDidMount: function() {
-        var self = this;
-        self.load(1);
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            tweets: nextProps.tweets,
+            loading: false
+        });
+    },
 
+    componentDidMount: function() {
         // Attach scroll listener
         $("#tweets .container").scroll(function() {
             self.scroll();

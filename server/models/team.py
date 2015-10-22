@@ -26,6 +26,7 @@ class Team(Base):
         self.leagueId = 1
 
      # serialize
+     # TODO: make serialize function take an optional parameter
     def serialize(self, data):
         team = {
             'id': self.id,

@@ -6,6 +6,7 @@ from api.news import newsAPI
 from api.schedule import scheduleAPI
 from api.tweets import tweetsAPI
 from api.live import liveAPI
+from api.teams import teamsAPI
 
 import models
 
@@ -18,6 +19,7 @@ app.register_blueprint(newsAPI)
 app.register_blueprint(scheduleAPI)
 app.register_blueprint(tweetsAPI)
 app.register_blueprint(liveAPI)
+app.register_blueprint(teamsAPI)
 
 if __name__ == '__main__':
     models.init_db()

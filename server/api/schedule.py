@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from api import crossdomain
 
 from models.game import Game
@@ -9,7 +9,8 @@ scheduleAPI = Blueprint('scheduleAPI', __name__)
 @scheduleAPI.route('/schedule')
 @crossdomain(origin='*')
 def schedule():
-    gameList = Game.getList(Team.getByName('magic').id)
+    teamId = int(request.args.get('teamId'))
+    gameList = Game.getList(teamId)
     serializedList = [g.serialize() for g in gameList]
 
     return jsonify(games=serializedList)

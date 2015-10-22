@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from api import crossdomain
 
 from models.game import Game
@@ -9,7 +9,7 @@ liveAPI = Blueprint('liveAPI', __name__)
 @liveAPI.route('/live')
 @crossdomain(origin='*')
 def live():
-    teamId = Team.getByName('magic').id
+    teamId = int(request.args.get('teamId'))
     game = Game.getLive(teamId)
     
     result = {}

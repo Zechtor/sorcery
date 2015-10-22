@@ -1,4 +1,5 @@
 var Request = require("./request");
+var TeamsService = require("./teamsService");
 var q = require("q");
 
 var self = {
@@ -13,7 +14,7 @@ var self = {
 
         self.request = q.defer();
 
-        Request.get("/schedule", {}).then(function(data) {
+        Request.get("/schedule?teamId=" + TeamsService.currentTeam.id, {}).then(function(data) {
             self.schedule = data.games;
             self.request.resolve();
         });

@@ -17,10 +17,14 @@ var News = React.createClass({
         };
     },
 
-    componentDidMount: function() {
-        var self = this;
-        self.load(1);
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            news: nextProps.articles,
+            loading: false
+        });
+    },
 
+    componentDidMount: function() {
         // Attach scroll listener
         $("#news .container").scroll(function() {
             self.scroll();
