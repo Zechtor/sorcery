@@ -7,7 +7,7 @@ teamsAPI = Blueprint('teamsAPI', __name__)
 
 @teamsAPI.route('/teams')
 @crossdomain(origin='*')
-def news():
+def teams():
     teamsList = Team.getAll()
     serializedList = [t.serialize(None) for t in teamsList]
 
