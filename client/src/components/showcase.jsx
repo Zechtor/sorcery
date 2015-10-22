@@ -66,30 +66,37 @@ var Showcase = React.createClass({
 var ShowcaseDisplay = React.createClass({
 
     render: function () {
-        var formattedDate = Util.DateTools.convertDateNoDay(this.props.data.startTime);
-        var formattedDayTime = Util.DateTools.convertDayTime(this.props.data.startTime);
-        var currentDate = new Date();
-        var showcaseDate = new Date(this.props.data.startTime);
-        var showcaseHeader;
+        var game = this.props.data;
+
+        function header() {
+            var showcaseHeader;
+
+            if (game.status == "Final") {
+                showcaseHeader = "Last Game";
+            } else if (new Date() > new Date(game.startTime)) {
+                showcaseHeader = "Live";
+            } else {
+                showcaseHeader = "Next Game";
+            }
+
+            return showcaseHeader;
+        }
+
         var homeTeam;
         var awayTeam;
         // Set home and away teams
-        if (this.props.data.teams[0].isHome == true) {
-            homeTeam = this.props.data.teams[0];
-            awayTeam = this.props.data.teams[1];
+        if (game.teams[0].isHome == true) {
+            homeTeam = game.teams[0];
+            awayTeam = game.teams[1];
         } else {
-            homeTeam = this.props.data.teams[1];
-            awayTeam = this.props.data.teams[0];
+            homeTeam = game.teams[1];
+            awayTeam = game.teams[0];
         }
-        if (showcaseDate < currentDate) {
-            showcaseHeader = "Last Game: " + formattedDate;
-        } else {
-            showcaseHeader = "Next Game: " + formattedDate;
-        }
+
         return (
             <section className="item">
                 <div className="status">
-                    {showcaseHeader}
+                    {header()}
                 </div>
                 <div className="row">
                     <span className="spacer" />
@@ -109,8 +116,8 @@ var ShowcaseDisplay = React.createClass({
                     <span className="spacer" />
                 </div>
                 <div className="status">
-                    { this.props.data.status ?
-                        this.props.data.status
+                    { game.status ?
+                        game.status
                     :
                         formattedDayTime
                     }
