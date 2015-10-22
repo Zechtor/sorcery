@@ -1,5 +1,4 @@
 var Request = require("./request");
-var TeamsService = require("./teamService");
 var q = require("q");
 
 var self = {
@@ -7,6 +6,7 @@ var self = {
     page: 1,
     tweets: [],
     request: null,
+    teamId: 22,
 
     get: function(page) {
         // do not call another load if one is in flight
@@ -16,7 +16,7 @@ var self = {
 
         self.request = q.defer();
 
-        Request.get("/tweets?page=" + page + "?team=" + TeamsService.currentTeam.id, {}).then(function(data){
+        Request.get("/tweets?page=" + page + "&teamId=" + self.teamId, {}).then(function(data){
             // page doesn't update if the next page was empty 
             if (data.tweets.length > 0) {
                 self.page = page;
