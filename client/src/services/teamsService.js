@@ -37,7 +37,7 @@ function findTeam(teamName, teams) {
             return teams[i];
         } 
     }
-    return teams[1];
+    return teams[0];
 }
 
 module.exports = self;
