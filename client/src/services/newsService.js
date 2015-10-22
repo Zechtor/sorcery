@@ -6,6 +6,7 @@ var self = {
     page: 1,
     articles: [],
     request: null,
+    teamId: 1,
 
     get: function(page) {
         // do not call another load if one is in flight
@@ -15,7 +16,7 @@ var self = {
 
         self.request = q.defer();
 
-        Request.get("/news?page=" + page, {}).then(function(data){
+        Request.get("/news?page=" + page + "?team=" + teamId, {}).then(function(data){
             // page doesn't update if the next page was empty 
             if (data.articles.length > 0) {
                 self.page = page;

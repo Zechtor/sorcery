@@ -9,12 +9,12 @@ newsAPI = Blueprint('newsAPI', __name__)
 @newsAPI.route('/news')
 @crossdomain(origin='*')
 def news():
-    team = Team.getByName('magic')
+	team = int(request.args.get('teamId'))
     page = int(request.args.get('page'))
     pageSize = 20
     start = pageSize * (page - 1)
 
-    articleList = Article.getList(team.id, start, pageSize)
+    articleList = Article.getList(teamId, start, pageSize)
     serializedList = [a.serialize() for a in articleList]
 
     return jsonify(articles=serializedList)
