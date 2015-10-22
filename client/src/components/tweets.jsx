@@ -25,6 +25,7 @@ var Tweets = React.createClass({
     },
 
     componentDidMount: function() {
+        var self = this;
         // Attach scroll listener
         $("#tweets .container").scroll(function() {
             self.scroll();

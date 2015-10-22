@@ -25,6 +25,7 @@ var News = React.createClass({
     },
 
     componentDidMount: function() {
+        var self = this;
         // Attach scroll listener
         $("#news .container").scroll(function() {
             self.scroll();
