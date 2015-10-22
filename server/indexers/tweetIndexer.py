@@ -123,7 +123,7 @@ class TweetIndexer():
             tweet = Tweet(data)
             result = Tweet.save(tweet)
 
-            if result == True:
+            if result is not None:
                 successCount +=1
             else:
                 errorCount += 1

@@ -54,15 +54,24 @@ class Tweet(Base):
 
     @classmethod
     def getByExternalId(class_, externalId):
-        return session.query(class_).filter(class_.tweetId == externalId).first()
+        result = session.query(class_).filter(class_.tweetId == externalId).first()
+        session.close()
+
+        return result
 
     @classmethod
     def getList(class_, teamId, start, count):
-        return session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.postDate)).offset(start).limit(count).all()
+        result =  session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.postDate)).offset(start).limit(count).all()
+        session.close()
+
+        return result
 
     @classmethod
     def getMostRecent(class_, teamId):
-        return session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.postDate)).first()
+        result = session.query(class_).filter(class_.teamId == teamId).order_by(desc(class_.postDate)).first()
+        session.close()
+
+        return result
 
     @classmethod
     def save(class_, tweet):
@@ -70,8 +79,12 @@ class Tweet(Base):
         if existingTweet is None:
             session.add(tweet)
 
+        result = tweet
         try:
             session.commit()
-            return True 
         except:
-            return False
+            result = None
+        finally:
+            session.close()
+
+        return result
