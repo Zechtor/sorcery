@@ -3,9 +3,9 @@ from api import crossdomain
 
 from models.team import Team
 
-teamsAPI = Blueprint('newsAPI', __name__)
+teamsAPI = Blueprint('teamsAPI', __name__)
 
-@newsAPI.route('/teams')
+@teamsAPI.route('/teams')
 @crossdomain(origin='*')
 def news():
     teamsList = Team.getAll()
