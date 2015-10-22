@@ -3,6 +3,7 @@ var q = require("q");
 
 var self = {
     request: null,
+    teamId: 1,
 
     get: function() {
         // do not call another load if one is in flight
@@ -12,7 +13,7 @@ var self = {
 
         self.request = q.defer();
 
-        Request.get("/live", {}).then(function(data) {
+        Request.get("/live?team=" + teamId, {}).then(function(data) {
             self.request.resolve(data.game);
         });
 
