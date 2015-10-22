@@ -1,10 +1,10 @@
 var Request = require("./request");
+var TeamsService = require("./teamService");
 var q = require("q");
 
 var self = {
     schedule: [],
     request: null,
-    teamId: 1,
 
     get: function() {
         // do not call another load if one is in flight
@@ -14,7 +14,7 @@ var self = {
 
         self.request = q.defer();
 
-        Request.get("/schedule?team=" + teamId, {}).then(function(data) {
+        Request.get("/schedule?team=" + TeamsService.currentTeam.id, {}).then(function(data) {
             self.schedule = data.games;
             self.request.resolve();
         });

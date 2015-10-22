@@ -5,6 +5,7 @@ var q = require("q");
 
 var NewsService = require("../services/newsService");
 var ScheduleService = require("../services/scheduleService");
+var TeamsService = require("../services/teamService");
 var TweetsService = require("../services/tweetsService");
 
 var App = React.createClass({
@@ -25,7 +26,7 @@ var App = React.createClass({
 
         // shomehow we turn the route into: 'magic' and pass it into TeamService.get()
 
-        Teamservice.get('magic').then(function() {
+        TeamsService.get("Magic").then(function() {
             q.all([NewsService.get(1), ScheduleService.get(), TweetsService.get(1)]).then(function() {
                 self.setState({loading: false});
             });

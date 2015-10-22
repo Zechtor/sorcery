@@ -9,7 +9,7 @@ liveAPI = Blueprint('liveAPI', __name__)
 @liveAPI.route('/live')
 @crossdomain(origin='*')
 def live():
-    teamId = int(request.args.get('teamId'))
+    teamId = int(request.args.get('team'))
     game = Game.getLive(teamId)
     
     result = {}

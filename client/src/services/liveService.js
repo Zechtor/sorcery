@@ -1,4 +1,5 @@
 var Request = require("./request");
+var TeamsService = require("./teamService");
 var q = require("q");
 
 var self = {
@@ -13,7 +14,7 @@ var self = {
 
         self.request = q.defer();
 
-        Request.get("/live?team=" + teamId, {}).then(function(data) {
+        Request.get("/live?team=" + TeamsService.currentTeam.id, {}).then(function(data) {
             self.request.resolve(data.game);
         });
 
