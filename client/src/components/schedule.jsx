@@ -7,7 +7,6 @@ var List = require("./list");
 var Util = require("./util");
 
 var ScheduleService = require("../services/scheduleService");
-var TeamsService = require("../services/teamsService");
 
 // Main schedule component
 var Schedule = React.createClass({
@@ -18,15 +17,9 @@ var Schedule = React.createClass({
         };
     },
 
-    componentDidMount: function() {
-        // initial data load
-        var that = this; // TODO: remove this dependency
-        TeamsService.get("Magic").then(function(){
-            ScheduleService.get().then(function() {
-                that.setState({
-                    schedule: ScheduleService.schedule
-                });
-            });
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            schedule: nextProps.schedule
         });
     },
 

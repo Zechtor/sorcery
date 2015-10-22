@@ -9,7 +9,6 @@ var self = {
     request: null,
 
     get: function(teamName) {
-        console.log("first",teamName);
         if (self.request && self.request.promise.isPending()) {
             return self.request.promise;
         }
@@ -33,13 +32,12 @@ var self = {
 };
 
 function findTeam(teamName, teams) {
-    console.log(teamName);
     for (var i = 0; i < teams.length; i++) {
         if (teamName.toLowerCase() === teams[i].name.toLowerCase()) {
             return teams[i];
         } 
     }
-    return teams[1];
+    return teams[0];
 }
 
 module.exports = self;

@@ -7,6 +7,7 @@ var self = {
     page: 1,
     tweets: [],
     request: null,
+    teamId: 22,
 
     get: function(page) {
         // do not call another load if one is in flight

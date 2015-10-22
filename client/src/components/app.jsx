@@ -1,7 +1,12 @@
 var React = require("react");
-var Layout = require("./layout");
 var Loader = require("./loader");
 var q = require("q");
+
+var Nav = require("./nav");
+var News = require("./news");
+var Schedule = require("./schedule");
+var Showcase = require("./showcase");
+var Tweets = require("./tweets");
 
 var NewsService = require("../services/newsService");
 var ScheduleService = require("../services/scheduleService");
@@ -24,11 +29,16 @@ var App = React.createClass({
         // on startup, the application makes all of the initial data requests
         var self = this;
 
-        // somehow we turn the route into: 'magic' and pass it into TeamService.get()
-
-        TeamsService.get("Magic").then(function() {
+        TeamsService.get(this.props.params.teamName).then(function() {
             q.all([NewsService.get(1), ScheduleService.get(), TweetsService.get(1)]).then(function() {
-                self.setState({loading: false});
+                self.setState({
+                    abbr: TeamsService.currentTeam.abbreviation,
+                    loading: false,
+                    articles: NewsService.articles,
+                    schedule: ScheduleService.schedule,
+                    showcase: ScheduleService.getShowcase(),
+                    tweets: TweetsService.tweets
+                });
             });
         });
     },
@@ -36,7 +46,19 @@ var App = React.createClass({
     render : function() {
         return (
             <div>
-                <Layout />
+                <div id="layout">
+                    <Nav abbr={this.state.abbr} />
+                    <section id="left">
+                        <Schedule schedule={this.state.schedule} />
+                    </section>
+                    <section id="center">
+                        <Showcase showcase={this.state.showcase} />
+                        <News articles={this.state.articles} />
+                    </section>
+                    <section id="right">
+                        <Tweets tweets={this.state.tweets} />
+                    </section>
+                </div>
                 <Loader fullScreen={true} loading={this.state.loading} />
             </div>
         );

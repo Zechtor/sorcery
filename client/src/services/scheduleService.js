@@ -8,7 +8,6 @@ var self = {
 
     get: function() {
         // do not call another load if one is in flight
-        console.log("I AM SCHEDULE SERVICE GET");
         if (self.request && self.request.promise.isPending()) {
             return self.request.promise;
         }
