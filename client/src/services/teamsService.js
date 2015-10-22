@@ -1,0 +1,1 @@
+// this service manages the teams and keeps track of the currently selected team
