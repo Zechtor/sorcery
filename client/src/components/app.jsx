@@ -32,6 +32,7 @@ var App = React.createClass({
         TeamsService.get(this.props.params.teamName).then(function() {
             q.all([NewsService.get(1), ScheduleService.get(), TweetsService.get(1)]).then(function() {
                 self.setState({
+                    abbr: TeamsService.currentTeam.abbreviation,
                     loading: false,
                     articles: NewsService.articles,
                     schedule: ScheduleService.schedule,
@@ -46,7 +47,7 @@ var App = React.createClass({
         return (
             <div>
                 <div id="layout">
-                    <Nav />
+                    <Nav abbr={this.state.abbr} />
                     <section id="left">
                         <Schedule schedule={this.state.schedule} />
                     </section>
