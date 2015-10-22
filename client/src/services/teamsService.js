@@ -15,17 +15,17 @@ var self = {
             self.teams = data.teams;
             findTeam(teamName);
         });
-    },
-
-    findTeam: function(teamName) {
-        for (i = 0; teams[i]; i++)
-            {
-            if (teamName === team[i].name)
-            {
-                self.currentTeam = team[i];
-            }
-        }
     }
 };
+
+function findTeam(teamName) {
+    for (i = 0; teams[i]; i++)
+        {
+        if (teamName === team[i].name)
+        {
+            self.currentTeam = team[i];
+        }
+    }
+}
 
 module.exports = self;
