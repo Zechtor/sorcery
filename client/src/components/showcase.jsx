@@ -14,18 +14,12 @@ var Showcase = React.createClass({
         };
     },
 
-    componentDidMount: function() {
-        // initial data load
-        var self = this; // TODO: remove this dependency
-
-        // wait for the schedule to return
-        ScheduleService.get().then(function() {
-            self.setState({
-                showcase: ScheduleService.getShowcase()
-            }); 
-
-            self.autoUpdate();
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            showcase: nextProps.showcase
         });
+
+        this.autoUpdate();
     },
 
     autoUpdate: function() {

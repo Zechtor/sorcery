@@ -1,4 +1,5 @@
 var Request = require("./request");
+var TeamsService = require("./teamsService");
 var q = require("q");
 
 var self = {
@@ -16,7 +17,7 @@ var self = {
 
         self.request = q.defer();
 
-        Request.get("/tweets?page=" + page + "&teamId=" + self.teamId, {}).then(function(data){
+        Request.get("/tweets?page=" + page + "&teamId=" + TeamsService.currentTeam.id, {}).then(function(data){
             // page doesn't update if the next page was empty 
             if (data.tweets.length > 0) {
                 self.page = page;

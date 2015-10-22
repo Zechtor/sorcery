@@ -6,7 +6,6 @@ var Header = require("./header");
 var List = require("./list");
 var Util = require("./util");
 
-
 var ScheduleService = require("../services/scheduleService");
 
 // Main schedule component
@@ -18,13 +17,9 @@ var Schedule = React.createClass({
         };
     },
 
-    componentDidMount: function() {
-        // initial data load
-        var that = this; // TODO: remove this dependency
-        ScheduleService.get().then(function() {
-            that.setState({
-                schedule: ScheduleService.schedule
-            });
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            schedule: nextProps.schedule
         });
     },
 
