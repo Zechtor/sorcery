@@ -1,5 +1,5 @@
 var Request = require("./request");
-var TeamsService = require("./teamService");
+var TeamsService = require("./teamsService");
 var q = require("q");
 
 var self = {
@@ -16,7 +16,7 @@ var self = {
 
         self.request = q.defer();
 
-        Request.get("/news?page=" + page + "?team=" + TeamsService.currentTeam.id, {}).then(function(data){
+        Request.get("/news?page=" + page + "&team=" + TeamsService.currentTeam.id, {}).then(function(data){
             // page doesn't update if the next page was empty 
             if (data.articles.length > 0) {
                 self.page = page;

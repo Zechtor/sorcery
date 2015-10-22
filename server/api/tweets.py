@@ -9,7 +9,7 @@ tweetsAPI = Blueprint('tweetsAPI', __name__)
 @tweetsAPI.route('/tweets')
 @crossdomain(origin='*')
 def tweets():
-    teamId = int(request.args.get('team'))
+    teamId = int(request.args.get('teamId'))
     page = int(request.args.get('page'))
     pageSize = 20
     start = pageSize * (page - 1)

@@ -9,7 +9,7 @@ scheduleAPI = Blueprint('scheduleAPI', __name__)
 @scheduleAPI.route('/schedule')
 @crossdomain(origin='*')
 def schedule():
-    teamId = int(request.args.get('team'))
+    teamId = int(request.args.get('teamId'))
     gameList = Game.getList(teamId)
     serializedList = [g.serialize() for g in gameList]
 

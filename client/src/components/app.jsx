@@ -5,7 +5,7 @@ var q = require("q");
 
 var NewsService = require("../services/newsService");
 var ScheduleService = require("../services/scheduleService");
-var TeamsService = require("../services/teamService");
+var TeamsService = require("../services/teamsService");
 var TweetsService = require("../services/tweetsService");
 
 var App = React.createClass({

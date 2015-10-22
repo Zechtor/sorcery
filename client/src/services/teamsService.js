@@ -7,29 +7,24 @@ var self = {
     teams: [],
 
     get: function(teamName) {
-        if (teams.length > 0) {
-        // match teamname
-            for (i = 0; teams[i]; i++)
-            {
-                if (teamName == team[i])
-                {
-                    self.currentTeam = team[i];
-                    return self.request.promise;
-                }
-            }
-        }
+        // match team name
+        if (teams.length > 0) 
+            findTeam(teamName);        
 
         Request.get("/teams").then(function(data) {
             self.teams = data.teams;
-            for (i = 0; teams[i]; i++)
-            {
-                if (teamName == team[i])
-                {
-                    self.currentTeam = team[i];
-                    return self.request.promise;
-                }
-            }
+            findTeam(teamName);
         });
+    },
+
+    findTeam: function(teamName) {
+        for (i = 0; teams[i]; i++)
+            {
+            if (teamName === team[i].name)
+            {
+                self.currentTeam = team[i];
+            }
+        }
     }
 };
 

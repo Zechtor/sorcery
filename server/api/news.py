@@ -9,7 +9,7 @@ newsAPI = Blueprint('newsAPI', __name__)
 @newsAPI.route('/news')
 @crossdomain(origin='*')
 def news():
-    teamId = int(request.args.get('team'))
+    teamId = int(request.args.get('teamId'))
     page = int(request.args.get('page'))
     pageSize = 20
     start = pageSize * (page - 1)

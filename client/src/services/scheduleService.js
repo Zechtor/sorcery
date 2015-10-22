@@ -1,5 +1,5 @@
 var Request = require("./request");
-var TeamsService = require("./teamService");
+var TeamsService = require("./teamsService");
 var q = require("q");
 
 var self = {
