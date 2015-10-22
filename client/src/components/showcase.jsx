@@ -73,7 +73,7 @@ var ShowcaseDisplay = React.createClass({
 
             if (game.status == "Final") {
                 showcaseHeader = "Last Game";
-            } else if (new Date() > new Date(game.startTime)) {
+            } else if (game.status) {
                 showcaseHeader = "Live";
             } else {
                 showcaseHeader = "Next Game";
@@ -92,6 +92,8 @@ var ShowcaseDisplay = React.createClass({
             homeTeam = game.teams[1];
             awayTeam = game.teams[0];
         }
+
+        var formattedGameTime = Util.DateTools.convertDayTime(game.startTime);
 
         return (
             <section className="item">
@@ -119,7 +121,7 @@ var ShowcaseDisplay = React.createClass({
                     { game.status ?
                         game.status
                     :
-                        formattedDayTime
+                        formattedGameTime
                     }
                 </div>
             </section>
