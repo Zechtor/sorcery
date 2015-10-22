@@ -42,29 +42,44 @@ class Team(Base):
 
     @classmethod
     def getAll(class_):
-        return session.query(class_).all()
+        result = session.query(class_).all()
+        session.close()
+
+        return result
 
     @classmethod
     def getById(class_, teamId):
-        return session.query(class_).filter(class_.id == teamId).first()
+        result = session.query(class_).filter(class_.id == teamId).first()
+        session.close()
+
+        return result
 
     @classmethod
     def getByExternalId(class_, externalId):
-        return session.query(class_).filter(class_.externalId == externalId).first()
+        result = session.query(class_).filter(class_.externalId == externalId).first()
+        session.close()
+
+        return result
 
     @classmethod
     def getByName(class_, name):
-        return session.query(class_).filter(class_.name == name).first()
+        result = session.query(class_).filter(class_.name == name).first()
+        session.close()
+
+        return result
 
     @classmethod
     def save(class_, team):
         existingTeam = Team.getByExternalId(team.externalId)
-        if existingTeam is not None:
-            return
+        if existingTeam is None:
+            session.add(team)
 
-        session.add(team)
+        result = team
         try:
             session.commit()
-            return True 
         except:
-            return False
+            result = None
+        finally:
+            session.close()
+
+        return result
