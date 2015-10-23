@@ -28,8 +28,7 @@ var App = React.createClass({
     load: function() {
         // on startup, the application makes all of the initial data requests
         var self = this;
-
-        TeamsService.get(this.props.params.teamName).then(function() {
+        TeamsService.get("magic").then(function() {
             q.all([NewsService.get(1), ScheduleService.get(), TweetsService.get(1)]).then(function() {
                 self.setState({
                     abbr: TeamsService.currentTeam.abbreviation,

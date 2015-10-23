@@ -4,29 +4,20 @@ window.$ = require("jquery");
 var App = require("./components/app");
 var RouterModule = require("react-router"),
     Router = RouterModule.Router,
-    Route = RouterModule.Route;
+    Route = RouterModule.Route,
+    Redirect = RouterModule.Redirect;
 var History = require("history");
 
 require("./index.styl");
 
-var View = React.createClass({
-    render: function() {
-        return (
-            <div>
-                {this.props.children}
-            </div>
-        );
-    }
-});
-
 var history = History.useBasename(History.createHistory)({
-    basename: "/sorcery"
+    basename: ""
 });
 
 React.render((
     <Router history={history}>
-        <Route path="/" component={View}>
-            <Route path=":teamName" component={App}></Route>
-        </Route>
+        <Redirect from="/" to="/magic" />
+        <Route path="/magic" component={App}></Route>
+        <Redirect from="/:teamName" to="/magic" />
     </Router>
 ), document.getElementById("root"));
