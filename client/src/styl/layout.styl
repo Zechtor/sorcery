@@ -2,11 +2,13 @@ $borderHeight = 1;
 $borderStyle = ($borderHeight)px solid #ccc;
 $buttonPadding = 20px;
 $colWidth = 320;
+$footerHeight = 24;
 $headerHeight = 40;
 $navHeight = 46;
 $listItemMargin = 10;
 $listItemPadding = 20;
 $showcaseHeight = 200;
+$showcasePadding = 10;
 
 // breakpoints
 $mobileWidth = 480;
@@ -190,7 +192,22 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
     }
 
     #left, #right, #center {
-        height: "calc(100% - %spx)" % ($navHeight);
+        height: "calc(100% - %spx)" % ($navHeight + $footerHeight);
+    }
+    
+    #footer {
+        background-color: $secondaryColor;
+        border-top: ($borderHeight)px solid #000;
+        height: ($footerHeight)px;
+        line-height: ($footerHeight)px;
+        text-align: right;
+        width: 100%;
+        
+        a {
+            color: $secondaryFontColor;
+            font-size: 12px;
+            margin-right: 16px;
+        }
     }
     
     .header {
@@ -223,7 +240,7 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
 
     .container {
         background-color: $primaryColor;
-        height: "calc(100% - %spx)" % ($headerHeight - $borderHeight);
+        height: "calc(100% - %spx)" % ($headerHeight + $borderHeight);
         overflow-x: hidden;
         overflow-y: auto;
         position: relative;
