@@ -51,6 +51,7 @@ def setup():
     Feed.save(Feed('Orlando Sentinel', magic.id, 'http://feeds.feedburner.com/orlandosentinel/sports/basketball/magic'))
     Feed.save(Feed('Orlando Pinstriped Post', magic.id, 'http://feeds.feedburner.com/sportsblogs/orlandopinstripedpost'))
     Feed.save(Feed('Orlando Magic Daily', magic.id, 'http://orlandomagicdaily.com/feed/'))
+    Feed.save(Feed('Magic Basketball Online', magic.id, 'http://www.magicbasketballonline.com/feed/'))
 
     warriors = Team.getByName('warriors')
     Feed.save(Feed('NBA.com', warriors.id, 'http://www.nba.com/warriors/rss.xml'))
