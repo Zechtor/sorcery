@@ -32,7 +32,7 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
  * Nav: 30
  */
 
-#layout {
+.layout {
     height: 100%;
     width: 100%;
 
@@ -74,13 +74,12 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
             border-radius: 3px;
             background-color: #f1f1f1;
             height: ($navHeight - 14)px
-            margin-top 5px;
+            margin: 5px 0px 0px 14px;
             padding: 2px
         }
 
         span {
             display: inline-block;
-            padding-right: 14px;
             vertical-align: top;
         }
 
@@ -198,8 +197,11 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
     #footer {
         background-color: $secondaryColor;
         border-top: ($borderHeight)px solid #000;
+        bottom: 0;
         height: ($footerHeight)px;
+        left: 0;
         line-height: ($footerHeight)px;
+        position: absolute;
         text-align: right;
         width: 100%;
         
@@ -245,6 +247,19 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
         overflow-y: auto;
         position: relative;
         width: 100%;
+        
+        &.full {
+            height: "calc(100% - %spx)" % ($navHeight + $footerHeight); 
+            top: ($navHeight)px;
+        }
+        
+        .content {
+            background-color: #fff;
+            border: $borderStyle;
+            border-radius: 4px;
+            padding: ($listItemPadding)px;
+            margin: ($listItemMargin)px;
+        }
     }
 
     .list {

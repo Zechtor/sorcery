@@ -46,8 +46,8 @@ var App = React.createClass({
     render : function() {
         return (
             <div>
-                <div id="layout">
-                    <Nav abbr={this.state.abbr} />
+                <div className="layout">
+                    <Nav abbr={this.state.abbr} title="TeamWatcher " toggles={true} />
                     <section id="left">
                         <Schedule schedule={this.state.schedule} />
                     </section>
