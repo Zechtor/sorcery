@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, asc, or_, and_
+from sqlalchemy import Column, Boolean, Integer, String, DateTime, ForeignKey, asc, or_, and_
 from sqlalchemy.orm import backref
 
 from models import Base, session
@@ -8,6 +8,7 @@ from models.team import Team
 class Game(Base):
     __tablename__ = 'game'
     id = Column(Integer, primary_key=True)
+    active = Column(Boolean, nullable=False)
     createDate = Column(DateTime, nullable=False)
     externalId = Column(String(50), unique=True, nullable=False)
     # Foreign Key needed
@@ -21,6 +22,7 @@ class Game(Base):
     visitorTeamScore = Column(Integer)
 
     def __init__(self, data):
+        self.active = True
         self.externalId = data['GAME_ID']
         self.createDate = datetime.now()
         self.homeTeamId = data['HOME_TEAM_ID']
@@ -63,7 +65,7 @@ class Game(Base):
 
     @classmethod
     def getList(class_, teamId):
-        result = session.query(class_).filter(or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId)).order_by(asc(class_.startTime)).all()
+        result = session.query(class_).filter(and_(or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId), class_.active == True)).order_by(asc(class_.startTime)).all()
         session.close()
 
         return result
@@ -75,16 +77,16 @@ class Game(Base):
 
         result = None
         if teamId is None:
-            result = session.query(class_).filter(and_(class_.startTime <= now, class_.startTime >= threshhold, or_(class_.status != 'Final', class_.status == None))).order_by(asc(class_.startTime)).first()
+            result = session.query(class_).filter(and_(class_.startTime <= now, class_.startTime >= threshhold, or_(class_.status != 'Final', class_.status == None), class_.active == True)).order_by(asc(class_.startTime)).first()
         else:
-            result = session.query(class_).filter(and_(class_.startTime <= now, class_.startTime >= threshhold, or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId), or_(class_.status != 'Final', class_.status == None))).order_by(asc(class_.startTime)).first()
+            result = session.query(class_).filter(and_(class_.startTime <= now, class_.startTime >= threshhold, or_(class_.homeTeamId == teamId, class_.visitorTeamId == teamId), or_(class_.status != 'Final', class_.status == None), class_.active == True)).order_by(asc(class_.startTime)).first()
         session.close()
 
         return result
 
     @classmethod
     def getNext(class_):
-        result = session.query(class_).filter(class_.startTime > datetime.utcnow()).order_by(asc(class_.startTime)).first()
+        result = session.query(class_).filter(and_(class_.startTime > datetime.utcnow(), class_.active == True)).order_by(asc(class_.startTime)).first()
         session.close()
 
         return result
