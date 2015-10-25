@@ -56,7 +56,7 @@ def setup():
     Feed.save(Feed('NBA.com', warriors.id, 'http://www.nba.com/warriors/rss.xml'))
 
 def indexSchedule():
-    ScheduleIndexer().index('10/2/2015', 23)
+    ScheduleIndexer().index('10/27/2015', 200)
 
 
 class NewsScheduler():
