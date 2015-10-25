@@ -2,6 +2,7 @@ var React = require("react");
 var Loader = require("./loader");
 var q = require("q");
 
+var Footer = require("./footer");
 var Nav = require("./nav");
 var News = require("./news");
 var Schedule = require("./schedule");
@@ -57,6 +58,7 @@ var App = React.createClass({
                     <section id="right">
                         <Tweets tweets={this.state.tweets} />
                     </section>
+                    <Footer />
                 </div>
                 <Loader fullScreen={true} loading={this.state.loading} />
             </div>
