@@ -17,7 +17,10 @@ var Teams = React.createClass({
                         <a href="/magic">
                             <img src="http://stats.nba.com/media/img/teams/logos/ORL_logo.svg" />
                         </a>
-                        <p>Additional teams coming soon..</p>
+                        <p>
+                            Want to see your team on this list?<br/>
+                            Let us know at <a href="mailto:feedback@teamwatcher.com">feedback@teamwatcher.com</a>
+                        </p>
                     </div>
                 </Container>
                 <Footer />
