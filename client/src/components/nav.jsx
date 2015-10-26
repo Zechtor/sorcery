@@ -49,20 +49,20 @@ var Nav = React.createClass({
 
         return (
             <section id="nav">
-                <a href="/">
-                    { this.props.toggles &&
-                        <button id="leftToggle" className="navToggle" onClick={this.toggleShelf} />
-                    }
-                    <div>
+                { this.props.toggles &&
+                    <button id="leftToggle" className="navToggle" onClick={this.toggleShelf} />
+                }
+                <div>
+                    <a href="/">
                         <span>{this.props.title}</span>
                         { this.state.abbr && 
                             <img src={logoUrl} />
                         }
-                    </div>
-                    { this.props.toggles &&
-                        <button id="rightToggle" className="navToggle" onClick={this.toggleShelf} />
-                    }
-                </a>
+                    </a>
+                </div>
+                { this.props.toggles &&
+                    <button id="rightToggle" className="navToggle" onClick={this.toggleShelf} />
+                }
             </section>
         );
     }
