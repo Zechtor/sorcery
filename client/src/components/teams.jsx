@@ -11,10 +11,13 @@ var Teams = React.createClass({
                 <Container full={true}>
                     <div className="content">
                         <h2>Teams</h2>
+                        <p>
+                            Select a team below for the latest scores, news and tweets.
+                        </p>
                         <a href="/magic">
                             <img src="http://stats.nba.com/media/img/teams/logos/ORL_logo.svg" />
                         </a>
-                        <span>more coming soon ...</span>
+                        <p>Additional teams coming soon..</p>
                     </div>
                 </Container>
                 <Footer />
