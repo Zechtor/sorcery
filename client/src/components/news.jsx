@@ -26,20 +26,43 @@ var News = React.createClass({
 
     componentDidMount: function() {
         var self = this;
+
         // Attach scroll listener
-        $("#news .container").scroll(function() {
+        /*$("#news .container").scroll(function() {
             self.scroll();
+        });*/
+
+        $("#center").scroll(function() {
+            console.log('weee');
+            self.scroll();
+        });
+
+        $("#center").scroll(function() {
+            if ($("#center").scrollTop() >= 210) {
+                $("#center .header").addClass("fixed");
+            }
+            else {
+                $("#center .header").removeClass("fixed");
+            }
         });
     },
 
     scroll: function() {
         // determine the height of 10 articles, this will become our scroll buffer
         var heightBuffer = 0;
-        $("#news .article:lt(10)").each(function() {
+        /*$("#news .article:lt(10)").each(function() {
             heightBuffer += $(this).height();
         });
 
         if ($("#news .container").scrollTop() >= $("#news .list").height() - $("#news .container").height() - heightBuffer) { 
+            this.load(NewsService.page + 1, true);
+        }*/
+
+        $("#news .article:lt(10)").each(function() {
+            heightBuffer += $(this).height();
+        });
+
+        if ($("#center").scrollTop() >= $("#news .list").height() - $("#center").height() - heightBuffer) { 
             this.load(NewsService.page + 1, true);
         }
     },
@@ -73,7 +96,8 @@ var News = React.createClass({
             });
 
             if (!partialLoad) {
-                $("#news .container").scrollTop(0);
+                $("#center").scrollTop(210);
+                //$("#news .container").scrollTop(0);
             }
         });
     },
