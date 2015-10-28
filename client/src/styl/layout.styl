@@ -116,6 +116,7 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
     #center {
         height: "calc(100% - %spx)" % ($navHeight + $footerHeight);
         margin: 0px ($colWidth)px;
+        overflow-y: auto;
         padding-top: ($navHeight)px;
         z-index: 0;
 
@@ -130,9 +131,6 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
         @media screen and (max-width: $twoColumnMin) {
             margin: 0px;
         }
-        
-        overflow-y: auto;
-        
     }
 
     #left {
@@ -275,7 +273,9 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
         width: 100%;
         
         &.full {
-            height: "calc(100% - %spx)" % ($navHeight + $footerHeight); 
+            height: "calc(100% - %spx)" % ($navHeight + $footerHeight);
+            overflow-x: hidden;
+            overflow-y: auto;
             top: ($navHeight)px;
         }
         
