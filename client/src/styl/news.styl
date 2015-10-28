@@ -6,9 +6,11 @@ $newsPadding = 10;
 
     .article {
         display: flex;
+        display: -webkit-flex;
         flex-direction: row;
         justify-content: flex-start;
-        
+        -webkit-justify-content: flex-start;
+
         &:hover {
             cursor: pointer;
             
@@ -20,8 +22,9 @@ $newsPadding = 10;
         img {
             border-radius: 3px;
             background-color: $primaryColor;
-            flex: 0 0 100px;
-            height: 80px;
+            flex: 0 0 80px;
+            -webkit-flex: 0 0 80px;
+            height: 60px;
             margin-right: ($newsPadding)px;
             object-fit: cover;
         }
