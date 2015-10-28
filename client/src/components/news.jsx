@@ -10,9 +10,7 @@ var Util = require("./util");
 var NewsService = require("../services/newsService");
 
 var scrollAnchor = "#center";
-//var scrollAnchor = "#news .container";
 var scrollThreshold = 210;
-
 
 var News = React.createClass({
 
@@ -32,11 +30,6 @@ var News = React.createClass({
     componentDidMount: function() {
         var self = this;
 
-        // Attach scroll listener
-        /*$("#news .container").scroll(function() {
-            self.scroll();
-        });*/
-        console.log(scrollAnchor);
         $(scrollAnchor).scroll(function() {
             self.scroll(scrollAnchor);
         });
@@ -54,13 +47,6 @@ var News = React.createClass({
     scroll: function(scrollAnchor) {
         // determine the height of 10 articles, this will become our scroll buffer
         var heightBuffer = 0;
-        /*$("#news .article:lt(10)").each(function() {
-            heightBuffer += $(this).height();
-        });
-
-        if ($("#news .container").scrollTop() >= $("#news .list").height() - $("#news .container").height() - heightBuffer) { 
-            this.load(NewsService.page + 1, true);
-        }*/
 
         $("#news .article:lt(10)").each(function() {
             heightBuffer += $(this).height();
