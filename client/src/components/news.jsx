@@ -9,6 +9,9 @@ var Util = require("./util");
 
 var NewsService = require("../services/newsService");
 
+var scrollAnchor = "#center";
+var scrollThreshold = 210;
+
 var News = React.createClass({
 
     getInitialState: function() {
@@ -26,20 +29,30 @@ var News = React.createClass({
 
     componentDidMount: function() {
         var self = this;
-        // Attach scroll listener
-        $("#news .container").scroll(function() {
-            self.scroll();
+
+        $(scrollAnchor).scroll(function() {
+            self.scroll(scrollAnchor);
+        });
+
+        $(scrollAnchor).scroll(function() {
+            if ($(scrollAnchor).scrollTop() >= scrollThreshold) {
+                $(scrollAnchor + " .header").addClass("fixed");
+            }
+            else {
+                $(scrollAnchor + " .header").removeClass("fixed");
+            }
         });
     },
 
-    scroll: function() {
+    scroll: function(scrollAnchor) {
         // determine the height of 10 articles, this will become our scroll buffer
         var heightBuffer = 0;
+
         $("#news .article:lt(10)").each(function() {
             heightBuffer += $(this).height();
         });
 
-        if ($("#news .container").scrollTop() >= $("#news .list").height() - $("#news .container").height() - heightBuffer) { 
+        if ($(scrollAnchor).scrollTop() >= $("#news .list").height() - $(scrollAnchor).height() - heightBuffer) { 
             this.load(NewsService.page + 1, true);
         }
     },
@@ -71,11 +84,12 @@ var News = React.createClass({
                 loading: false,
                 partialLoading: false
             });
-
-            if (!partialLoad) {
-                $("#news .container").scrollTop(0);
-            }
         });
+
+        if (!partialLoad) {
+            var duration = $(scrollAnchor).scrollTop() < scrollThreshold ? 250 : 0;
+            $(scrollAnchor).animate({ scrollTop: scrollThreshold }, duration);
+        }
     },
 
     refresh: function() {

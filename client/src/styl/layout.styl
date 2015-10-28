@@ -34,6 +34,7 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
 
 .layout {
     height: 100%;
+    position: relative;
     width: 100%;
 
     // layout sections
@@ -114,7 +115,10 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
     }
 
     #center {
+        height: "calc(100% - %spx)" % ($navHeight + $footerHeight);
         margin: 0px ($colWidth)px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         padding-top: ($navHeight)px;
         z-index: 0;
 
@@ -183,20 +187,23 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
     }
 
     #left, #right {
+        height: "calc(100% - %spx)" % ($navHeight + $footerHeight + $borderHeight);
         position: absolute;
         top: ($navHeight)px;
         transition: 0.5s ease-in-out
         width: ($colWidth)px;
+        
+        .container {
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
 
         @media screen and (max-width: $twoColumnMin) {
             width: 100%;
         }
     }
 
-    #left, #right, #center {
-        height: "calc(100% - %spx)" % ($navHeight + $footerHeight);
-    }
-    
     #footer {
         background-color: $secondaryColor;
         border-top: ($borderHeight)px solid #000;
@@ -221,38 +228,58 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
         box-shadow: 0px 1px 5px #666;
         height: ($headerHeight)px;
         line-height: ($headerHeight)px;
-        position: relative;
+        position: absolute
+        top: 0;
+        left: 0;
         text-align:center;
         width: 100%;
+        -webkit-transform: translate3d(0, 0, 0);
 
         .refresh {
             background-image: url("images/iconRefresh.png");
             right: $buttonPadding;
             
             &.loading {
-                animation:spin 4s linear infinite;
+                animation: spin 4s linear infinite;
                 background-image: url("images/iconRefreshSelected.png");
             }
             
             @keyframes spin { 
                 100% {
-                    transform:rotate(360deg);
-                    -webkit-transform: rotate(360deg);
+                    transform: rotate(360deg);
                 }
+            }
+        }
+        
+        &.fixed {
+            left: $colWidth;
+            position: fixed;
+            top: $navHeight;
+            width: "calc(100% - %spx)" % (2 * $colWidth);
+          
+            @media screen and (max-width: $threeColumnMin) {
+                left: 0;
+                width: "calc(100% - %spx)" % ($colWidth);
+            }
+
+            @media screen and (max-width: $twoColumnMin) {
+                left: 0;
+                width: 100%;
             }
         }
     }
 
     .container {
         background-color: $primaryColor;
-        height: "calc(100% - %spx)" % ($headerHeight + $borderHeight);
-        overflow-x: hidden;
-        overflow-y: auto;
+        height: 100%
         position: relative;
         width: 100%;
         
         &.full {
-            height: "calc(100% - %spx)" % ($navHeight + $footerHeight); 
+            height: "calc(100% - %spx)" % ($navHeight + $footerHeight);
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             top: ($navHeight)px;
         }
         
@@ -267,7 +294,8 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
 
     .list {
         list-style-type: none;
-        
+        padding-top ($headerHeight)px;
+
         .item {
             background-color: #fff;
             border: $borderStyle;
