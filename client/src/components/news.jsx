@@ -9,6 +9,11 @@ var Util = require("./util");
 
 var NewsService = require("../services/newsService");
 
+var scrollAnchor = "#center";
+//var scrollAnchor = "#news .container";
+var scrollThreshold = 210;
+
+
 var News = React.createClass({
 
     getInitialState: function() {
@@ -31,23 +36,22 @@ var News = React.createClass({
         /*$("#news .container").scroll(function() {
             self.scroll();
         });*/
-
-        $("#center").scroll(function() {
-            console.log('weee');
-            self.scroll();
+        console.log(scrollAnchor);
+        $(scrollAnchor).scroll(function() {
+            self.scroll(scrollAnchor);
         });
 
-        $("#center").scroll(function() {
-            if ($("#center").scrollTop() >= 210) {
-                $("#center .header").addClass("fixed");
+        $(scrollAnchor).scroll(function() {
+            if ($(scrollAnchor).scrollTop() >= scrollThreshold) {
+                $(scrollAnchor + " .header").addClass("fixed");
             }
             else {
-                $("#center .header").removeClass("fixed");
+                $(scrollAnchor + " .header").removeClass("fixed");
             }
         });
     },
 
-    scroll: function() {
+    scroll: function(scrollAnchor) {
         // determine the height of 10 articles, this will become our scroll buffer
         var heightBuffer = 0;
         /*$("#news .article:lt(10)").each(function() {
@@ -62,7 +66,7 @@ var News = React.createClass({
             heightBuffer += $(this).height();
         });
 
-        if ($("#center").scrollTop() >= $("#news .list").height() - $("#center").height() - heightBuffer) { 
+        if ($(scrollAnchor).scrollTop() >= $("#news .list").height() - $(scrollAnchor).height() - heightBuffer) { 
             this.load(NewsService.page + 1, true);
         }
     },
@@ -94,12 +98,12 @@ var News = React.createClass({
                 loading: false,
                 partialLoading: false
             });
-
-            if (!partialLoad) {
-                $("#center").scrollTop(210);
-                //$("#news .container").scrollTop(0);
-            }
         });
+
+        if (!partialLoad) {
+            var duration = $(scrollAnchor).scrollTop() < scrollThreshold ? 250 : 0;
+            $(scrollAnchor).animate({ scrollTop: scrollThreshold }, duration);
+        }
     },
 
     refresh: function() {

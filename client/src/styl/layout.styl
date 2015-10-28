@@ -190,6 +190,11 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
         top: ($navHeight)px;
         transition: 0.5s ease-in-out
         width: ($colWidth)px;
+        
+        .container {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
 
         @media screen and (max-width: $twoColumnMin) {
             width: 100%;
@@ -256,9 +261,7 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
 
     .container {
         background-color: $primaryColor;
-        height: "calc(100% - %spx)" % ($headerHeight + $borderHeight);
-        //overflow-x: hidden;
-        //overflow-y: auto;
+        height: 100%
         position: relative;
         width: 100%;
         
