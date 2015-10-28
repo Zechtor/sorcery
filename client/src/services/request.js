@@ -8,7 +8,7 @@ var config = require("config");
 
 // to help us with testing
 /* eslint no-console:0 */
-var delay = 3000;
+var delay = 0;
 $.fn.extend( {
 
     delayedGet: function(path, params) {
