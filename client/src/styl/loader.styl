@@ -34,6 +34,7 @@ $fadeOutDuration = 0.15s
         left: 50%;
         position: absolute;
         transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
         top: 50%;
 
         li {
@@ -44,6 +45,7 @@ $fadeOutDuration = 0.15s
             left: 0;
             position: absolute;
             transform: transformZ(0);
+            -webkit-transform: transformZ(0);
             top: 50%;
             width: 6px;
 
@@ -69,13 +71,16 @@ $fadeOutDuration = 0.15s
     0% { 
         background: $primaryColor;
         transform: scale(0.5);
+        -webkit-transform: scale(0.5);
     }
     50% { 
         background:$accentColor;
         transform: scale(1);
+        -webkit-transform: scale(1);
     }
     100% { 
         background: $primaryCOlor;
         transform: scale(0.5);
+        -webkit-transform: scale(0.5);
     }
 }
