@@ -34,6 +34,7 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
 
 .layout {
     height: 100%;
+    position: relative;
     width: 100%;
 
     // layout sections
@@ -117,6 +118,7 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
         height: "calc(100% - %spx)" % ($navHeight + $footerHeight);
         margin: 0px ($colWidth)px;
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         padding-top: ($navHeight)px;
         z-index: 0;
 
@@ -194,6 +196,7 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
         .container {
             overflow-x: hidden;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         @media screen and (max-width: $twoColumnMin) {
@@ -230,20 +233,20 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
         left: 0;
         text-align:center;
         width: 100%;
+        -webkit-transform: translate3d(0, 0, 0);
 
         .refresh {
             background-image: url("images/iconRefresh.png");
             right: $buttonPadding;
             
             &.loading {
-                animation:spin 4s linear infinite;
+                animation: spin 4s linear infinite;
                 background-image: url("images/iconRefreshSelected.png");
             }
             
             @keyframes spin { 
                 100% {
-                    transform:rotate(360deg);
-                    -webkit-transform: rotate(360deg);
+                    transform: rotate(360deg);
                 }
             }
         }
@@ -276,6 +279,7 @@ $threeColumnMin = ($mobileWidth + (2 * $colWidth))px
             height: "calc(100% - %spx)" % ($navHeight + $footerHeight);
             overflow-x: hidden;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             top: ($navHeight)px;
         }
         
