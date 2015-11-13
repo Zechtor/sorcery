@@ -23,13 +23,12 @@ var Showcase = React.createClass({
     },
 
     autoUpdate: function() {
-        self = this;
         var interval = 30 * 1000;
 
         if (ScheduleService.isLive()) {
             // if there is a live game, get data and renew in 30 seconds
-            LiveService.get().then(function(data) {
-                self.setState({
+            LiveService.get().then((data) => {
+                this.setState({
                     showcase: data
                 });
             });
@@ -38,8 +37,8 @@ var Showcase = React.createClass({
             interval = ScheduleService.timeUntilNextGame();
         }
 
-        setTimeout(function() {
-            self.autoUpdate();
+        setTimeout(() => {
+            this.autoUpdate();
         }, interval);
     },
 

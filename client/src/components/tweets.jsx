@@ -13,7 +13,7 @@ var Tweets = React.createClass({
     
     getInitialState: function() {
         return {
-            tweets: TweetsService.tweets
+            tweets: TweetsService.tweets,
         };
     },
 
@@ -25,10 +25,9 @@ var Tweets = React.createClass({
     },
 
     componentDidMount: function() {
-        var self = this;
         // Attach scroll listener
-        $("#tweets .container").scroll(function() {
-            self.scroll();
+        $("#tweets .container").scroll(() => {
+            this.scroll();
         });
     },
 
@@ -45,10 +44,8 @@ var Tweets = React.createClass({
     },
 
     load: function(page, partialLoad) {
-        var self = this;
-
         // do not trigger a load if one is already occuring
-        if (self.state.loading || self.state.partialLoading) {
+        if (this.state.loading || this.state.partialLoading) {
             return;
         }
 
@@ -59,14 +56,14 @@ var Tweets = React.createClass({
         
         // set loading state
         if (partialLoad) {
-            self.setState({partialLoading: true});
+            this.setState({partialLoading: true});
         } else {
-            self.setState({loading: true});
+            this.setState({loading: true});
         }
 
         // get data
-        TweetsService.get(page).then(function() {
-            self.setState({
+        TweetsService.get(page).then(() => {
+            this.setState({
                 tweets: TweetsService.tweets,
                 loading: false,
                 partialLoading: false
