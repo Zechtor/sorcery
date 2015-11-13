@@ -25,7 +25,7 @@ module.exports = {
     module: {
         loaders: [{
             test: /\.jsx?$/,
-            loaders: ["react-hot", "babel"],
+            loaders: ["babel"],
             include: path.join(__dirname, "src")
         },
         { 
@@ -38,6 +38,10 @@ module.exports = {
                 "file?hash=sha512&digest=hex&name=[hash].[ext]",
                 "image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false"
             ]
+        },
+        {
+            test: /\.js$/,
+            loader: "uglify"
         }]
     },
     externals: {
