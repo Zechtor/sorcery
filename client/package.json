@@ -31,6 +31,7 @@
     "style-loader": "0.12.3",
     "stylus": "0.52.0",
     "stylus-loader": "1.2.1",
+    "uglify-loader": "^1.2.0",
     "webpack": "1.9.11",
     "webpack-dev-server": "1.8.2"
   },
