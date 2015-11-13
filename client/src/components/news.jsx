@@ -21,6 +21,7 @@ var News = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
+        console.log('weee');
         this.setState({
             news: nextProps.articles,
             loading: false
@@ -28,13 +29,11 @@ var News = React.createClass({
     },
 
     componentDidMount: function() {
-        var self = this;
-
-        $(scrollAnchor).scroll(function() {
-            self.scroll(scrollAnchor);
+        $(scrollAnchor).scroll(() => {
+            this.scroll(scrollAnchor);
         });
 
-        $(scrollAnchor).scroll(function() {
+        $(scrollAnchor).scroll(() => {
             if ($(scrollAnchor).scrollTop() >= scrollThreshold) {
                 $(scrollAnchor + " .header").addClass("fixed");
             }
@@ -58,10 +57,8 @@ var News = React.createClass({
     },
 
     load: function(page, partialLoad) {
-        var self = this;
-
         // do not trigger a load if one is already occuring or if you have reached the end
-        if (self.state.loading || self.state.partialLoading) {
+        if (this.state.loading || this.state.partialLoading) {
             return;
         }
 
@@ -72,14 +69,14 @@ var News = React.createClass({
         
         // set loading state
         if (partialLoad) {
-            self.setState({partialLoading: true});
+            this.setState({partialLoading: true});
         } else {
-            self.setState({loading: true});
+            this.setState({loading: true});
         }
 
         // get data
-        NewsService.get(page).then(function() {
-            self.setState({
+        NewsService.get(page).then(() => {
+            this.setState({
                 news: NewsService.articles,
                 loading: false,
                 partialLoading: false

@@ -1,0 +1,36 @@
+#admin {
+
+    .team {
+        margin: 10px;
+    }
+    
+    .feed {
+        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        
+        input {
+            width: 300px;
+        }
+        
+        button {
+            margin-left: 20px;
+            width: 100px;
+            color: white;
+            border: 0px;
+            cursor:pointer;
+            
+            &.add {
+                background-color: green;
+            }
+
+            &.delete {
+                background-color: red;
+            }
+            
+            &.save {
+                background-color: blue;
+            }
+        }
+    }
+}

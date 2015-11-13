@@ -21,9 +21,32 @@ class Feed(Base):
         self.teamId = teamId
         self.url = url
 
+    # serialize
+    def serialize(self):
+        return {
+            'id': self.id,
+            'source': self.source,
+            'url': self.url
+        }
+
+    @classmethod
+    def delete(class_, feed):
+        try:
+            session.delete(feed)
+            session.commit()
+        finally:
+            session.close()
+
     @classmethod
     def getAll(class_):
         result = session.query(class_).all()
+        session.close()
+
+        return result
+
+    @classmethod
+    def getById(class_, id):
+        result = session.query(class_).filter(class_.id == id).first()
         session.close()
 
         return result
