@@ -28,7 +28,7 @@ def admin():
 @adminAPI.route('/admin/feed', methods=['POST'])
 @crossdomain(origin='*')
 def upsertFeed():
-    data =  request.form
+    data = request.form
     feed = None
     if not data['id']:
         feed = Feed(data['source'], data['teamId'], data['url'])
@@ -41,3 +41,13 @@ def upsertFeed():
 def deleteFeed(feedId):
     Feed.delete(Feed.getById(feedId))
     return jsonify(feed=None)
+
+@adminAPI.route('/admin/team/activate', methods=['POST'])
+@crossdomain(origin='*')
+def activateTeam():
+    data = request.form
+    team = Team.getById(data['teamId'])
+    team.active = data['active'] == 'true'
+    Team.save(team)
+
+    return jsonify(team=None)

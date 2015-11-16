@@ -2,7 +2,28 @@ var Container = require("./container");
 var Footer = require("./footer");
 var Nav = require("./nav");
 
+var TeamsService = require("../services/teamsService");
+
 var Teams = React.createClass({
+
+    getInitialState: function() {
+        return {
+            teams: []
+        };
+    },
+
+    componentDidMount: function() {
+        this.load();
+    },
+
+    load: function() {
+        // on startup, the application makes all of the initial data requests
+        TeamsService.get("").then(() => {
+            this.setState({
+                teams: TeamsService.teams
+            })
+        });
+    },
 
     render: function() {
         return (
@@ -14,9 +35,11 @@ var Teams = React.createClass({
                         <p>
                             Select a team below for the latest scores, news and tweets.
                         </p>
-                        <a href="/magic">
-                            <img src="http://stats.nba.com/media/img/teams/logos/ORL_logo.svg" />
-                        </a>
+                        <div className="grid"> 
+                            { this.state.teams.map(function(team) { 
+                                return <Team team={team}/>;
+                            })}
+                        </div>
                         <p>
                             Want to see your team on this list?<br/>
                             Let us know at <a href="mailto:feedback@teamwatcher.com">feedback@teamwatcher.com</a>
@@ -28,5 +51,20 @@ var Teams = React.createClass({
         );
     }
 });
+
+var Team = React.createClass({
+
+    render: function() {
+        var href = "/" + this.props.team.name
+        var src = "http://stats.nba.com/media/img/teams/logos/" + this.props.team.abbreviation + "_logo.svg"
+
+        return (
+            <a href={href}>
+                <img src={src} />
+            </a>
+        );
+    }
+
+})
 
 module.exports = Teams;
