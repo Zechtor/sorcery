@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, Boolean, String, DateTime, ForeignKey
 from sqlalchemy.orm import backref
 
 from models import Base, session
@@ -8,6 +8,7 @@ from models.league import League
 class Team(Base):
     __tablename__ = 'team'
     id = Column(Integer, primary_key=True)
+    active = Column(Boolean, nullable=False)
     externalId = Column(String(50), unique=True, nullable=False)
     name = Column(String(100), unique=True, nullable=False)
     city = Column(String(200), nullable=False)
@@ -17,6 +18,7 @@ class Team(Base):
     leagueId = Column(Integer, ForeignKey('league.id'))
 
     def __init__(self, data):
+        self.active = False
         self.name = data['name']
         self.city = data['city']
         self.createDate = datetime.now() 
@@ -30,6 +32,7 @@ class Team(Base):
     def serialize(self, data):
         team = {
             'id': self.id,
+            'active': self.active,
             'name': self.name,
             'city': self.city,
             'imageUrl': self.imageUrl,
@@ -44,6 +47,13 @@ class Team(Base):
     @classmethod
     def getAll(class_):
         result = session.query(class_).all()
+        session.close()
+
+        return result
+
+    @classmethod
+    def getAllActive(class_):
+        result = session.query(class_).filter(class_.active == True).all()
         session.close()
 
         return result
@@ -71,16 +81,13 @@ class Team(Base):
 
     @classmethod
     def save(class_, team):
-        existingTeam = Team.getByExternalId(team.externalId)
-        if existingTeam is None:
-            session.add(team)
-
         result = team
-        try:
-            session.commit()
-        except:
-            result = None
-        finally:
-            session.close()
+        #try:
+        session.add(team)
+        session.commit()
+        #except:
+        #    result = None
+        #finally:
+        #    session.close()
 
-        return result
+        #return result

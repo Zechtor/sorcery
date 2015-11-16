@@ -100,7 +100,6 @@ class Game(Base):
         except:
             result = None
         finally:
-            'NOOOOO'
-            #session.close()
+            session.close()
 
         return result

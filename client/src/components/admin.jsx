@@ -115,6 +115,16 @@ var Feed = React.createClass({
 
 var Team = React.createClass({
 
+    activate: function(team, event) {
+        console.log('wee');
+        Request.post("/admin/team/activate", {
+            teamId: team.id,
+            active: event.target.checked
+        }).then(() => {
+            window.location.reload();
+        });
+    },
+
     render: function() {
         let team = this.props.data;
         let hasFeeds = team.feeds.length > 0;
@@ -124,6 +134,9 @@ var Team = React.createClass({
                     <h2>
                         {team.city} {team.name} ({team.feeds.length})
                     </h2>
+                    <div>
+                        Active <input type="checkbox" data-id={team.id} checked={team.active} onChange={this.activate.bind(this, team)} />
+                    </div>
                     { hasFeeds &&
                         <div> 
                             { team.feeds.map(function(feed) { 
