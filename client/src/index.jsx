@@ -23,7 +23,6 @@ React.render((
         <Redirect from="/" to="/teams" />
         <Route path="/about" component={About}></Route>
         <Route path="/teams" component={Teams}></Route>
-        <Route path="/admin" component={Admin}></Route>
         <Route path="/:teamName" component={App}></Route>
     </Router>
 ), document.getElementById("root"));

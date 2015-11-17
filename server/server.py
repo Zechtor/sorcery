@@ -21,7 +21,7 @@ app.register_blueprint(scheduleAPI)
 app.register_blueprint(tweetsAPI)
 app.register_blueprint(liveAPI)
 app.register_blueprint(teamsAPI)
-app.register_blueprint(adminAPI)
+#app.register_blueprint(adminAPI)
 
 if __name__ == '__main__':
     models.init_db()
