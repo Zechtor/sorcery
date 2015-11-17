@@ -42,6 +42,58 @@ var Admin = React.createClass({
 
 });
 
+var Team = React.createClass({
+
+    activate: function(team, event) {
+        Request.post("/admin/team/activate", {
+            teamId: team.id,
+            active: event.target.checked
+        }).then(() => {
+            window.location.reload();
+        });
+    },
+
+    render: function() {
+        let team = this.props.data;
+        return (
+            <li className="team">
+                <div>
+                    <h2>
+                        {team.city} {team.name} ({team.feeds.length})
+                    </h2>
+                    <div>
+                        Active: <input type="checkbox" data-id={team.id} checked={team.active} onChange={this.activate.bind(this, team)}/>
+                    </div>
+                    <Tweeters team={team} tweeters={team.tweeters}/>
+                    <Feeds feeds={team.feeds} team={team}/>
+                </div>
+            </li>
+        );
+    }
+
+});
+
+/* Feeds */
+var Feeds = React.createClass({
+
+    render: function() {
+        let hasFeeds = this.props.feeds.length > 0;
+        return (
+            <div>
+                { hasFeeds &&
+                    <div> 
+                        Feeds:
+                        { this.props.feeds.map((feed) => { 
+                            return <Feed feed={feed} team={this.props.team}/>;
+                        })}
+                    </div>
+                }
+                <Feed new={true} team={this.props.team}/>
+            </div>
+        )
+    }
+});
+
 var Feed = React.createClass({
 
     save: function(e) {
@@ -110,46 +162,72 @@ var Feed = React.createClass({
             </div>
         );
     }
-
 });
 
-var Team = React.createClass({
+/* Twitter */
+var Tweeters = React.createClass({
 
-    activate: function(team, event) {
-        console.log('wee');
-        Request.post("/admin/team/activate", {
-            teamId: team.id,
-            active: event.target.checked
-        }).then(() => {
+    render: function() {
+        return (
+            <div>
+                Tweeters: <br/>
+                { this.props.tweeters.map((tweeter) => {
+                    return <Tweeter teamId={this.props.team.id} tweeter={tweeter}/> 
+                })}
+                <Tweeter new={true} teamId={this.props.team.id}/> 
+            </div>
+        );
+    }
+});
+
+var Tweeter = React.createClass({
+
+    delete: function(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const indexId = form.querySelector('[name="indexId"]').value;
+
+        Request.delete("/admin/index/" + indexId).then(() => {
+            window.location.reload();
+        });
+    },
+
+    save: function(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const teamId = form.querySelector('[name="teamId"]').value;
+        const value = form.querySelector('[name="value"]').value;
+        const index = {
+            teamId: teamId,
+            value: value,
+        };
+
+        Request.post("/admin/index", index).then(() => {
             window.location.reload();
         });
     },
 
     render: function() {
-        let team = this.props.data;
-        let hasFeeds = team.feeds.length > 0;
+        const submit = this.props.new ?
+            <input type="submit" className="Save" value="Save"/> :
+            <input type="submit" className="Delete" value="Delete"/>
+
+        const action = this.props.new ?
+            this.save :
+            this.delete
+
+        const tweeter = this.props.tweeter ? this.props.tweeter : {};
         return (
-            <li className="team">
-                <div>
-                    <h2>
-                        {team.city} {team.name} ({team.feeds.length})
-                    </h2>
-                    <div>
-                        Active <input type="checkbox" data-id={team.id} checked={team.active} onChange={this.activate.bind(this, team)} />
-                    </div>
-                    { hasFeeds &&
-                        <div> 
-                            { team.feeds.map(function(feed) { 
-                                return <Feed feed={feed} team={team}/>;
-                            })}
-                        </div>
-                    }
-                    <Feed new={true} team={team}/>
-                </div>
-            </li>
+            <form onSubmit={action}>
+                <input type="hidden" name="indexId" value={tweeter.id}/>
+                <input type="hidden" name="teamId" value={this.props.teamId}/>
+                <input type="text" name="value" value={tweeter.name}/>
+                {submit}
+            </form>
         );
     }
-
 });
 
 module.exports = Admin;
