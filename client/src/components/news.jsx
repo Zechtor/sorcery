@@ -21,7 +21,6 @@ var News = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        console.log('weee');
         this.setState({
             news: nextProps.articles,
             loading: false
@@ -125,13 +124,14 @@ var NewsArticle = React.createClass({
     },
 
     render : function() {
-        var formattedDate = Util.DateTools.timeAgo(this.props.data.postDate);
+        var formattedDate = Util.DateTools.shortTimeAgo(this.props.data.postDate);
         return (
             <li className="article item" onClick={this.openArticle}>
                 <img src={this.props.data.imageUrl} />
                 <div>
                     <h3>{this.props.data.title}</h3>
-                    <span className="source">{this.props.data.source} - {formattedDate}</span>
+                    <span className="source">{this.props.data.source}</span>
+                    <span className="date">{formattedDate}</span>
                 </div>
             </li>
         );
