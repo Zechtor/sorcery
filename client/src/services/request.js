@@ -11,6 +11,22 @@ var config = require("config");
 var delay = 0;
 $.fn.extend( {
 
+    delayedDelete: function(path) {
+        var deferred = q.defer();
+
+        setTimeout (function() {
+            $.ajax({
+                url: path,
+                type: "DELETE",
+                success: function(data) {
+                    deferred.resolve(data);
+                }
+            });
+        }, delay);
+
+        return deferred.promise;
+    },
+
     delayedGet: function(path, params) {
         var deferred = q.defer();
 
@@ -37,6 +53,17 @@ $.fn.extend( {
 });
 
 var Request = {
+
+    delete: function(path) {
+        var deferred = q.defer();
+
+        $.fn.delayedDelete(config.serverUrl + path).then(function(data){
+            console.log("DELETE " + path, data);
+            deferred.resolve(data);
+        });
+
+        return deferred.promise;
+    },
     
     get: function(path, params) {
         var deferred = q.defer();
@@ -53,7 +80,7 @@ var Request = {
         var deferred = q.defer();
 
         $.fn.delayedPost(config.serverUrl + path, data).then(function(data) {
-            console.log("POST" + path, data);
+            console.log("POST " + path, data);
             deferred.resolve(data);
         });
 

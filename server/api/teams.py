@@ -8,7 +8,7 @@ teamsAPI = Blueprint('teamsAPI', __name__)
 @teamsAPI.route('/teams')
 @crossdomain(origin='*')
 def teams():
-    teamsList = Team.getAll()
+    teamsList = Team.getAllActive()
     serializedList = [t.serialize(None) for t in teamsList]
 
     return jsonify(teams=serializedList)
