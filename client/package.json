@@ -4,7 +4,7 @@
   "description": "A Hud for Orlando Magic news and information",
   "scripts": {
     "start": "node server.js",
-    "production": "forever start server-production.js",
+    "production": "webpack -p --config webpack.production.config.js",
     "production-reload": "npm run production-stop; npm run production",
     "production-stop": "forever stopall",
     "lint": "eslint --quiet src/**"
