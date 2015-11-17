@@ -7,12 +7,11 @@ from models.team import Team
 from models.index import Index
 
 class TweetIndexer():
-    team = Team.getByName('magic')
 
     # base method, entry point for the indexer
     def index(self, team):
         print '\nIndexing: Tweets\n'
-
+        self.team = team
         indexes = Index.getByTeamId(team.id)
         print indexes
         if len(indexes) is 0:
