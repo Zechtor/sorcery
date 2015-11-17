@@ -12,8 +12,8 @@ class TweetIndexer():
     def index(self, team):
         print '\nIndexing: Tweets\n'
         self.team = team
+
         indexes = Index.getByTeamId(team.id)
-        print indexes
         if len(indexes) is 0:
             return
 
@@ -77,6 +77,9 @@ class TweetIndexer():
 
         response = requests.get(url, headers=headers)
         results = response.json()
+
+        if 'statuses' not in results:
+            return [], None
 
         tweetData = results['statuses']
         nextQuery = None
