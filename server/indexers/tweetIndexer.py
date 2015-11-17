@@ -27,32 +27,6 @@ class TweetIndexer():
     def getQuery(self, indexes):
         hashtags = []
         users = [i.value for i in indexes]
-        '''users = [
-            'JoshuaBRobbins',
-            'd_dedmon3',
-            'EvanFourmizz',
-            'nicholaf44',
-            'tobias31',
-            'VicOladipo',
-            'OrlandoMagic',
-            'Double0AG',
-            'elfrid',
-            'FOXSportsMagic',
-            'DevMarble',
-            'Quietstorm_32',
-            'ShabazzNapier',
-            'Channing_Frye',
-            'JasonSmith014',
-            'YoungTRaaw',
-            'gregstiemsma',
-            'STUFFMagic',
-            'Magic_Radio',
-            'Magic_PRDish',
-            'CommunityLeak',
-            'JohnDenton555',
-            'adamosgp'
-        ]'''
-        print users
 
         query = '?lang=en&count=100'
         mostRecentTweet = Tweet.getMostRecent(self.team.id)
