@@ -133,7 +133,9 @@ class TweetScheduler():
         return 15 * 60
 
     def schedule(self):
-        TweetIndexer().index()
+        teams = Team.getAllActive()
+        for team in teams:
+            TweetIndexer().index(team)
         self.s.enter(self.interval, 1, self.schedule, ())
 
     def run(self):

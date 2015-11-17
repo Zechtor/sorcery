@@ -4,48 +4,29 @@ from urllib import quote
 
 from models.tweet import Tweet
 from models.team import Team
+from models.index import Index
 
 class TweetIndexer():
     team = Team.getByName('magic')
 
     # base method, entry point for the indexer
-    def index(self):
+    def index(self, team):
         print '\nIndexing: Tweets\n'
+
+        indexes = Index.getByTeamId(team.id)
+        print indexes
+        if len(indexes) is 0:
+            return
 
         tweetData = []
         accessToken = self.requestBearerToken()
 
-        tweetData = self.search(accessToken)
+        tweetData = self.search(accessToken, indexes)
         self.process(tweetData)
 
-    @property
-    def getQuery(self):
+    def getQuery(self, indexes):
         hashtags = []
-        users = [
-            'JoshuaBRobbins',
-            'd_dedmon3',
-            'EvanFourmizz',
-            'nicholaf44',
-            'tobias31',
-            'VicOladipo',
-            'OrlandoMagic',
-            'Double0AG',
-            'elfrid',
-            'FOXSportsMagic',
-            'DevMarble',
-            'Quietstorm_32',
-            'ShabazzNapier',
-            'Channing_Frye',
-            'JasonSmith014',
-            'YoungTRaaw',
-            'gregstiemsma',
-            'STUFFMagic',
-            'Magic_Radio',
-            'Magic_PRDish',
-            'CommunityLeak',
-            'JohnDenton555',
-            'adamosgp'
-        ]   
+        users = [i.value for i in indexes]
 
         query = '?lang=en&count=100'
         mostRecentTweet = Tweet.getMostRecent(self.team.id)
@@ -70,11 +51,11 @@ class TweetIndexer():
         print query + '\n'
         return query
 
-    def search(self, accessToken):
+    def search(self, accessToken, indexes):
         page = 1
         maxPage = 20
         tweetData = []
-        query = self.getQuery
+        query = self.getQuery(indexes)
 
         # accumulate a list of tweet data from the twitter's search api
         while page <= maxPage:

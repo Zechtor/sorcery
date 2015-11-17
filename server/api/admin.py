@@ -3,6 +3,7 @@ from api import crossdomain
 
 from models.team import Team
 from models.feed import Feed
+from models.index import Index
 
 adminAPI = Blueprint('adminAPI', __name__)
 
@@ -12,12 +13,15 @@ def admin():
     feeds = Feed.getAll()
     teams = Team.getAll()
 
-    serializedTeams = [t.serialize(None) for t in teams]
-
+    serializedTeams = []
     teamHash = {}
-    for team in serializedTeams:
-    	team['feeds'] = []
-    	teamHash[team['id']] = team
+
+    for team in teams:
+        serializedTeam = team.serialize(None)
+        serializedTeam['tweeters'] = [{'id': i.id,'name': i.value} for i in Index.getByTeamId(team.id)]
+    	serializedTeam['feeds'] = []
+    	teamHash[serializedTeam['id']] = serializedTeam
+        serializedTeams.append(serializedTeam)
 
     for feed in feeds:
     	team = teamHash[feed.teamId]
@@ -51,3 +55,20 @@ def activateTeam():
     Team.save(team)
 
     return jsonify(team=None)
+
+@adminAPI.route('/admin/index', methods=['POST'])
+@crossdomain(origin='*')
+def addIndex():
+    data = request.form
+    index = Index(int(data['teamId']), data['value'])
+    Index.save(index)
+
+    return jsonify(index=None)
+
+@adminAPI.route('/admin/index/<int:indexId>', methods=['DELETE', 'OPTIONS'])
+@crossdomain(origin='*')
+def deleteIndex(indexId):
+    index = Index.getById(indexId)
+    Index.delete(index)
+
+    return jsonify(index=None)
