@@ -8,6 +8,7 @@ $newsPadding = 10;
         display: -webkit-flex;
         flex-direction: row;
         justify-content: flex-start;
+        position:relative;
         -webkit-justify-content: flex-start;
 
         &:hover {
@@ -36,6 +37,14 @@ $newsPadding = 10;
         
         .source {
             color: #666;    
+        }
+        
+        .date {
+            bottom: 20;
+            color: #666;
+            font-size: 13px;
+            position: absolute;
+            right 20;
         }
     }
 }

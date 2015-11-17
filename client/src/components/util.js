@@ -135,6 +135,22 @@ var DateTools = {
                 }
             }
         }
+    },
+
+    shortTimeAgo: function(time) {
+        var date = new Date(time);
+        var now = new Date();
+        var diff = now.getTime() - date.getTime();
+        diff = (diff / 1000 / 60);
+        if (diff < 60) {
+            return Math.round(diff) + "m";
+        } else {
+            if (Math.round(diff / 60 < 24)) {
+                return Math.round(diff / 60) + "h";
+            } else {
+                return Math.round(diff / 60 / 24) + "d";
+            }
+        }
     }
 };
 
