@@ -5,6 +5,7 @@ var Container = require("./container");
 var Header = require("./header");
 var List = require("./list");
 var Loader = require("./loader");
+var Tappable = require("react-tappable");
 var Util = require("./util");
 
 var NewsService = require("../services/newsService");
@@ -126,14 +127,16 @@ var NewsArticle = React.createClass({
     render : function() {
         var formattedDate = Util.DateTools.shortTimeAgo(this.props.data.postDate);
         return (
-            <li className="article item" onClick={this.openArticle}>
-                <img src={this.props.data.imageUrl} />
-                <div>
-                    <h3>{this.props.data.title}</h3>
-                    <span className="source">{this.props.data.source}</span>
-                    <span className="date">{formattedDate}</span>
-                </div>
-            </li>
+            <Tappable onTap={this.openArticle}> 
+                <li className="article item" onClick={this.openArticle}>
+                    <img src={this.props.data.imageUrl} />
+                    <div>
+                        <h3>{this.props.data.title}</h3>
+                        <span className="source">{this.props.data.source}</span>
+                        <span className="date">{formattedDate}</span>
+                    </div>
+                </li>
+            </Tappable>
         );
     }
 });
