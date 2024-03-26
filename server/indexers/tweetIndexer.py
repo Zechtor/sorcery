@@ -116,8 +116,8 @@ class TweetIndexer():
     # Oauth
     def requestBearerToken(self):
         # create token credentials using the consumer key and secret
-        consumerKey = 'rUh9w3a3Id4Hv0yPkjGCqgFXl'
-        consumerSecret = 'm8lxatiid7toWXclpskkfGT4Xk9buTv4ONdMK0z6jlFyTJ49Zi'
+        consumerKey = ''
+        consumerSecret = ''
         tokenCredentials = consumerKey + ':' + consumerSecret
 
         # base64 encode the token credentials
